@@ -124,3 +124,11 @@ export async function queryNotices(params = {}) {
 export async function getFakeCaptcha(mobile) {
   return request(`/api/captcha?mobile=${mobile}`);
 }
+
+// ******************请求************8  可以对request进行封装  包括请求头 请求体 //
+export async function getTableData(params) {
+  return request('/api/getTableData', {
+    method: 'POST',
+    body: params,
+  });
+}

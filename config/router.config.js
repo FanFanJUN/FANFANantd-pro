@@ -166,6 +166,32 @@ export default [
           },
         ],
       },
+      // 图表
+      {
+        path: '/charts',
+        name: 'charts',
+        icon: 'area-chart',
+        routes: [
+          {
+            path: '/charts/orgtree',
+            name: 'orgtree',
+            component: './Charts/orgtree',
+          },
+        ],
+      },
+      // 自定义
+      {
+        path: '/DIYcompoment',
+        name: 'DIY',
+        icon: 'appstore',
+        routes: [
+          {
+            path: '/DIYcompoment/table',
+            name: 'divtable',
+            component: './DIYcompoment/table',
+          },
+        ],
+      },
       {
         name: 'result',
         icon: 'check-circle-o',

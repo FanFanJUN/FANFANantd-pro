@@ -12,6 +12,8 @@ import Context from './MenuContext';
 import SiderMenu from '@/components/SiderMenu';
 import getPageTitle from '@/utils/getPageTitle';
 import styles from './BasicLayout.less';
+import SiderDemo from '@/components/SiderLayout';
+import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -44,6 +46,12 @@ const query = {
 };
 
 class BasicLayout extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      error: false,
+    };
+  }
   componentDidMount() {
     const {
       dispatch,
@@ -59,6 +67,7 @@ class BasicLayout extends React.Component {
       type: 'menu/getMenuData',
       payload: { routes, path, authority },
     });
+    this.countTimer();
   }
 
   getContext() {
@@ -67,6 +76,17 @@ class BasicLayout extends React.Component {
       location,
       breadcrumbNameMap,
     };
+  }
+
+  countTimer = () => {
+    if (document.getElementById('clock')) {
+      const currTime = new Date()
+        .toLocaleString()
+        .replace(new RegExp('上午', 'g'), 'AM')
+        .replace(/下午/g, 'PM');
+      document.getElementById('clock').innerHTML = currTime;
+      setTimeout(this.countTimer, 1000);
+    }
   }
 
   getLayoutStyle = () => {
@@ -86,6 +106,11 @@ class BasicLayout extends React.Component {
       payload: collapsed,
     });
   };
+
+  // 全局错误捕捉
+  componentDidCatch() {
+    this.setState({ error: true });
+  }
 
   renderSettingDrawer = () => {
     // Do not render SettingDrawer in production
@@ -110,38 +135,54 @@ class BasicLayout extends React.Component {
       menuData,
       breadcrumbNameMap,
       fixedHeader,
+      collapsed,
     } = this.props;
+
+    const { error } = this.state;
 
     const isTop = PropsLayout === 'topmenu';
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
     const layout = (
       <Layout>
-        {isTop && !isMobile ? null : (
-          <SiderMenu
-            logo={logo}
-            theme={navTheme}
-            onCollapse={this.handleMenuCollapse}
-            menuData={menuData}
-            isMobile={isMobile}
-            {...this.props}
-          />
-        )}
+        <SiderDemo
+          onCollapse={this.handleMenuCollapse}
+          collapsed={collapsed}
+        />
+        <SiderMenu
+          logo={logo}
+          // theme={navTheme}
+          onCollapse={this.handleMenuCollapse}
+          collapsed={collapsed}
+          menuData={menuData}
+          isMobile={isMobile}
+          {...this.props}
+        />
         <Layout
           style={{
             ...this.getLayoutStyle(),
             minHeight: '100vh',
           }}
         >
-          <Header
+          {/* <Header
             menuData={menuData}
             handleMenuCollapse={this.handleMenuCollapse}
             logo={logo}
             isMobile={isMobile}
             {...this.props}
-          />
-          <Content className={styles.content} style={contentStyle}>
-            {children}
-          </Content>
+          /> */}
+          <div>
+            <PageHeaderWrapper />
+            <div
+              id="clock"
+              style={{ float: 'right' }}
+            />
+          </div>
+          {!error ?
+            <Content className={styles.content} style={contentStyle}>
+              {children}
+            </Content>
+            :
+            <div style={{ textAlign: 'center', minHeight: '450px', height: '450px', lineHeight: '600px', color: 'red', fontSize: 23, fontWeight: 200 }}>系统错误！请联系管理员</div>}
           <Footer />
         </Layout>
       </Layout>
@@ -157,7 +198,7 @@ class BasicLayout extends React.Component {
             )}
           </ContainerQuery>
         </DocumentTitle>
-        <Suspense fallback={null}>{this.renderSettingDrawer()}</Suspense>
+        {/* <Suspense fallback={null}>{this.renderSettingDrawer()}</Suspense> */}
       </React.Fragment>
     );
   }

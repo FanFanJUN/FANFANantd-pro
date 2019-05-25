@@ -1,7 +1,9 @@
+/* eslint-disable no-bitwise */
 import moment from 'moment';
 import React from 'react';
 import nzh from 'nzh/cn';
 import { parse, stringify } from 'qs';
+import { Modal } from 'antd';
 
 export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
@@ -192,3 +194,187 @@ export const importCDN = (url, name) =>
     };
     document.head.appendChild(dom);
   });
+
+//* ****************************工具类 ***********************//
+
+/**
+ * @description 为页面生成routeid
+ * @author LC@1981824361
+ * @date 2019-05-24
+ * @export
+ * @returns routeid
+ */
+
+export function guid() {
+  return 'xxxx-xxxx-xxxx-xxxx-xxxx'.replace(/[xy]/g, (c) => {
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  });
+}
+
+export function createRouteid() {
+  return guid();
+}
+
+// 错误处理
+
+/**
+ * @description 对返回数据的处理
+ * @author LC@1981824361
+ * @date 2019-05-24
+ * @export
+ * @param {*} response
+ * @returns {boolean}
+ */
+export function isRespSucc(response) {
+  if (!response || response.fault.faultCode !== 'AAAAAAA') {
+    return false;
+  }
+  return true;
+}
+
+/**
+ * @description 错误信息||错误码
+ * @author LC@1981824361
+ * @date 2019-05-24
+ * @export
+ * @param {*} response
+ * @returns
+ */
+export function showErrorMsg(response) {
+  if (response == null) {
+    return;
+  }
+  Modal.error({
+    title: <div>错误提示</div>,
+    content: (
+      <div style={{ marginTop: 16 }}>
+      错误码:
+        <span style={{ color: 'red' }}>{response.fault.faultCode}</span>
+        <br />
+      错误信息:
+        <span style={{ color: 'red' }}>{response.fault.faultString}</span>
+      </div>
+    ),
+  });
+}
+/**
+ * @description
+ * @author LC@1981824361
+ * @date 2019-05-22
+ * @export
+ * @param {number} [pageSize=10]
+ * @param {*} pageNum
+ * @param {*} pageRange
+ * @returns 分页细信息
+ */
+export function showPaginationMessage(pageSize = 10, pageNum, pageRange) {
+  const totalPage = Math.ceil(pageNum / pageSize);
+  const currPage = Math.ceil(pageRange[0] / pageSize);
+  // return `总共${pageNum}条记录`,第${currPage}/${totalPage}页;
+  // 对原生AntD Pro分页信息位置处理
+  return <div style={{ position: 'absolute', left: '6px', display: 'inline-block' }}>总共{pageNum}条记录,第{currPage}/{totalPage}页</div>;
+}
+
+/**
+ * @description
+    // pagination参数
+    // current: 1
+    // pageSize: 10
+    // total: 46
+ * @author LC@1981824361
+ * @date 2019-05-22
+ * @export
+ * @param {*} pagination
+ * @returns pag
+ */
+export function getTablepag(pagination) {
+  if (!pagination) {
+    // eslint-disable-next-line no-throw-literal
+    throw '请传入分页信息';
+  }
+  const pag = {
+    total: pagination.total,
+    pageSize: pagination.pageSize,
+    current: pagination.current,
+    showTotal: showPaginationMessage.bind(null, pagination.pageSize),
+    showQuickJumper: true,
+  };
+  return pag;
+}
+
+/**
+ * @description 空值判断
+ * @author LC@1981824361
+ * @date 2019-05-22
+ * @export
+ * @param {*} value
+ * @returns
+ */
+export function checkNull(value) {
+  if (!value || value == null || typeof value === 'undefined' || value === '') {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * @description 空对象{}判断
+ * @author LC@1981824361
+ * @date 2019-05-22
+ * @export
+ * @param {*} object
+ * @returns {boolean}
+ */
+export function isEmptyObject(object) {
+  if (checkNull(object)) {
+    return true;
+  }
+  // Object.prototype.toString.call(o) === '[object Object]'
+  if (Object.prototype.toString.call(object).slice(8, -1) === 'Object' && Object.keys(object).length === 0) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * @description 空数组[]判断
+ * @author LC@1981824361
+ * @date 2019-05-22
+ * @export
+ * @param {*} array
+ * @returns {boolean}
+ */
+export function isEmptyArray(array) {
+  if (checkNull(array)) {
+    return true;
+  }
+  // Object.prototype.toString.call(o) === '[object Array]'
+  if (Object.prototype.toString.call(array).slice(8, -1) === 'Array' && array.length === 0) {
+    return true;
+  }
+  return false;
+}
+
+/**
+  * @description antd form表单搜索去掉空字符串 undefined值 保留有效参数值F
+  * @author LC@1981824361
+  * @date 2019-05-23
+  * @export
+  * @param {*} filedsValue
+  * @returns serchObj
+  */
+export function filterEmptyFileds(filedsValue) {
+  if (!filedsValue) {
+    throw new Error('请传入表单数据！');
+  } else {
+    const serchObj = {};
+    Object.keys(filedsValue).forEach(key => {
+      if (key && filedsValue[key]) {
+        serchObj[key] = filedsValue[key];
+      }
+    });
+    return serchObj;
+  }
+}

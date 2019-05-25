@@ -1,6 +1,34 @@
 @import '~antd/lib/style/themes/default.less';
 
+.backTop {
+  right: 50px;
+
+  :global {
+    .ant-back-top-content {
+      background: @primary-color;
+      opacity: 0.3;
+      transition: all 0.3s;
+      box-shadow: 0 0 15px 1px rgba(69, 65, 78, 0.1);
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
 .content {
-  margin: 24px;
+  // margin: 24px;
+  margin: 0px;
+  margin-bottom: 0px;
   padding-top: @layout-header-height;
+}
+
+.footer {
+  background: #fff;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  min-height: 10px;
 }

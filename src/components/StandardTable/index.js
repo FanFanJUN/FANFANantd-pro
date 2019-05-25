@@ -1,6 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
 import { Table, Alert } from 'antd';
 import styles from './index.less';
+import { getTablepag } from '@/utils/utils';
 
 function initTotalList(columns) {
   const totalList = [];
@@ -75,15 +76,15 @@ class StandardTable extends PureComponent {
     const rowSelection = {
       selectedRowKeys,
       onChange: this.handleRowSelectChange,
-      getCheckboxProps: record => ({
-        disabled: record.disabled,
-      }),
+      // getCheckboxProps: record => ({
+      //   disabled: record.disabled,
+      // }),
     };
 
     return (
       <div className={styles.standardTable}>
         <div className={styles.tableAlert}>
-          <Alert
+          {/* <Alert
             message={
               <Fragment>
                 已选择 <a style={{ fontWeight: 600 }}>{selectedRowKeys.length}</a> 项&nbsp;&nbsp;
@@ -103,13 +104,14 @@ class StandardTable extends PureComponent {
             }
             type="info"
             showIcon
-          />
+          /> */}
         </div>
         <Table
           rowKey={rowKey || 'key'}
           rowSelection={rowSelection}
           dataSource={list}
-          pagination={paginationProps}
+          // pagination={paginationProps}
+          pagination={getTablepag(pagination)}
           onChange={this.handleTableChange}
           {...rest}
         />

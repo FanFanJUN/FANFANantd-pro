@@ -1,5 +1,5 @@
 import React, { PureComponent, Suspense } from 'react';
-import { Layout } from 'antd';
+import { Layout, Switch } from 'antd';
 import classNames from 'classnames';
 import Link from 'umi/link';
 import styles from './index.less';
@@ -17,6 +17,7 @@ export default class SiderMenu extends PureComponent {
     super(props);
     this.state = {
       openKeys: getDefaultCollapsedSubMenus(props),
+      themeFlag: true, // 样式切换标志
     };
   }
 
@@ -46,6 +47,11 @@ export default class SiderMenu extends PureComponent {
     });
   };
 
+  // 改变主题
+  changeTheme = (flag) => {
+    this.setState({ themeFlag: !flag });
+  }
+
   handleOpenChange = openKeys => {
     const moreThanOne = openKeys.filter(openKey => this.isMainMenu(openKey)).length > 1;
     this.setState({
@@ -54,10 +60,11 @@ export default class SiderMenu extends PureComponent {
   };
 
   render() {
-    const { logo, collapsed, onCollapse, fixSiderbar, theme, isMobile } = this.props;
-    const { openKeys } = this.state;
+    const { logo, collapsed, onCollapse, fixSiderbar, isMobile } = this.props;
+    const { openKeys, themeFlag } = this.state;
     const defaultProps = collapsed ? {} : { openKeys };
 
+    const theme = themeFlag ? 'light' : 'dark';
     const siderClassName = classNames(styles.sider, {
       [styles.fixSiderBar]: fixSiderbar,
       [styles.light]: theme === 'light',
@@ -74,6 +81,7 @@ export default class SiderMenu extends PureComponent {
           }
         }}
         width={256}
+        collapsedWidth={0} // 收缩宽度
         theme={theme}
         className={siderClassName}
       >
@@ -91,8 +99,12 @@ export default class SiderMenu extends PureComponent {
             onOpenChange={this.handleOpenChange}
             style={{ padding: '16px 0', width: '100%' }}
             {...defaultProps}
+            theme={theme}
           />
         </Suspense>
+        <div style={{ textAlign: 'center', position: 'relative', bottom: '0px', height: '50px' }}>
+          <Switch checkedChildren="light" unCheckedChildren="dark" defaultChecked onChange={() => this.changeTheme(themeFlag)} />
+        </div>
       </Sider>
     );
   }
