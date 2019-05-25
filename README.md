@@ -8,7 +8,7 @@
 
 #### 页面常用工具方法封装
 详细会在博客(lcccc.com.cn)
-
+<a href="http://lcccc.com.cn/">博客地址</a>
 #### 使用
 
 ```
