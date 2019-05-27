@@ -715,7 +715,7 @@
 .ant-btn-danger:active,
 .ant-btn-danger.active {
   color: #fff;
-  background: linear-gradient(#e5584f, #c04744 70%, #c94b47)
+  background: linear-gradient(#e5584f, #c04744 70%, #c94b47);
   border-color: none;
 }
 

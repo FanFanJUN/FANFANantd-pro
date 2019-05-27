@@ -60,6 +60,10 @@ class SiderDemo extends PureComponent {
       document.webkitExitFullscreen();
     }
   }
+
+  openPage=()=>{
+    window.open('https://github.com/FanFanJUN');
+  }
   @Debounce(600)
   triggerResizeEvent = () => {
     const event = document.createEvent('HTMLEvents');
@@ -129,6 +133,9 @@ class SiderDemo extends PureComponent {
               <img src="/iconfont/exitfullscreen.svg" style={{ width: 30 }} alt="logo" onClick={() => this.toggleFullScreen(true)} />
             </div>
       }
+      <div className={styles.button}>
+            <img src="/iconfont/github.svg" style={{ width: 30 }} alt="logo" onClick={this.openPage} />
+          </div>
         </div>
         <div className={styles.d1}>
           <Tooltip placement="right" title={textLoginout}>

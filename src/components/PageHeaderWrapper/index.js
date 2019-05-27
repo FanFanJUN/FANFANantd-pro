@@ -63,20 +63,20 @@ const PageHeaderWrapper = ({
                 })}
               >
                 <PageHeader
-                  title={
-                    <>
-                      {logo && <span className={styles.logo}>{logo}</span>}
-                      <Title
-                        level={4}
-                        style={{
-                          marginBottom: 0,
-                          display: 'inline-block',
-                        }}
-                      >
-                        {title}
-                      </Title>
-                    </>
-                  }
+                  // title={
+                  //   <>
+                  //     {logo && <span className={styles.logo}>{logo}</span>}
+                  //     <Title
+                  //       level={4}
+                  //       style={{
+                  //         marginBottom: 0,
+                  //         display: 'inline-block',
+                  //       }}
+                  //     >
+                  //       {title}
+                  //     </Title>
+                  //   </>
+                  // }
                   key="pageheader"
                   {...restProps}
                   breadcrumb={
