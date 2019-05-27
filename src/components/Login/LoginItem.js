@@ -4,6 +4,7 @@ import omit from 'omit.js';
 import styles from './index.less';
 import ItemMap from './map';
 import LoginContext from './loginContext';
+import { CcInput } from '@/cc-comp/basic';
 
 const FormItem = Form.Item;
 
@@ -101,7 +102,7 @@ class WrapFormItem extends Component {
         <FormItem>
           <Row gutter={8}>
             <Col span={16}>
-              {getFieldDecorator(name, options)(<Input {...customprops} {...inputProps} />)}
+              {getFieldDecorator(name, options)(<CcInput {...customprops} {...inputProps} />)}
             </Col>
             <Col span={8}>
               <Button
@@ -119,7 +120,7 @@ class WrapFormItem extends Component {
     }
     return (
       <FormItem>
-        {getFieldDecorator(name, options)(<Input {...customprops} {...otherProps} />)}
+        {getFieldDecorator(name, options)(<CcInput {...customprops} {...otherProps} />)}
       </FormItem>
     );
   }

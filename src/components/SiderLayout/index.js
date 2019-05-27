@@ -5,6 +5,7 @@ import router from 'umi/router';
 import { connect } from 'dva';
 import styles from './index.less';
 import NoticeIcon from '@/components/NoticeIcon';
+import { getSessionStorage } from '@/utils/storage';
 
 const { Sider } = Layout;
 
@@ -21,8 +22,13 @@ class SiderDemo extends PureComponent {
     this.triggerResizeEvent();
   }
 
-  onMenuClick = () => {
-    router.push('/user');
+  handleLoginout = () => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'login/logout',
+      payload: {},
+    });
+    // router.push('/user');
   }
 
   returnHome = () => {
@@ -61,7 +67,7 @@ class SiderDemo extends PureComponent {
     }
   }
 
-  openPage=()=>{
+  openPage=() => {
     window.open('https://github.com/FanFanJUN');
   }
   @Debounce(600)
@@ -72,12 +78,16 @@ class SiderDemo extends PureComponent {
   }
 
   render() {
-    const textUser = '用户信息';
-    const textLoginout = '登出';
+    // const textUser = '用户信息';
+    // const textLoginout = '登出';
+    const text = {
+      textUser: '用户信息',
+      textGitHub: 'FanFanJUN的GitHub',
+      textLoginout: '登出',
+    };
     const content = (
       <div>
-        <p>Content</p>
-        <p>Content</p>
+        <span><strong>当前登陆用户:{getSessionStorage('currentUser')}</strong></span>
       </div>
     );
     const { fullFlag } = this.state;
@@ -89,7 +99,7 @@ class SiderDemo extends PureComponent {
         <div>
           <Popover
             placement="rightTop"
-            title={textUser}
+            title={text.textUser}
             content={content}
             trigger="hover"
           >
@@ -133,14 +143,16 @@ class SiderDemo extends PureComponent {
               <img src="/iconfont/exitfullscreen.svg" style={{ width: 30 }} alt="logo" onClick={() => this.toggleFullScreen(true)} />
             </div>
       }
-      <div className={styles.button}>
-            <img src="/iconfont/github.svg" style={{ width: 30 }} alt="logo" onClick={this.openPage} />
+          <div className={styles.button}>
+            <Tooltip placement="right" title={text.textGitHub}>
+              <img src="/iconfont/github.svg" style={{ width: 30 }} alt="logo" onClick={this.openPage} />
+            </Tooltip>
           </div>
         </div>
         <div className={styles.d1}>
-          <Tooltip placement="right" title={textLoginout}>
+          <Tooltip placement="right" title={text.textLoginout}>
             <div className={styles.button}>
-              <img src="/iconfont/logout.svg" style={{ width: 30 }} alt="logo" onClick={this.onMenuClick} />
+              <img src="/iconfont/logout.svg" style={{ width: 30 }} alt="logo" onClick={this.handleLoginout} />
             </div>
           </Tooltip>
         </div>

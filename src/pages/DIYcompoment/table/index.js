@@ -1,8 +1,9 @@
 import React from 'react';
-import { Table, Card } from 'antd';
+import { Table, Card, Button } from 'antd';
 import { connect } from 'dva';
 import { createRouteid, getTablepag } from '@/utils/utils';
 import moment from 'moment';
+import { router } from '_umi@2.6.17@umi';
 
 class DiyTable extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class DiyTable extends React.Component {
       type: 'table/create',
       routeid,
     });
+    const params = { pageSize: 10, pageNum: 1 };
     dispatch({
       type: 'table/getTableData',
       routeid,
@@ -42,6 +44,38 @@ class DiyTable extends React.Component {
     dispatch({
       type: 'table/clear',
     });
+  }
+  // 分页操作代码
+  handleTablepage=(page, sorter, filters) => {
+    const { dispatch } = this.props;
+    const { routeid } = this.state;
+    const params = {
+      pageSize: page.pageSize,
+      pageNum: page.pageNum,
+    };
+    dispatch({
+      type: 'able/getTableData',
+      routeid,
+      payload: params,
+    }).then(() => {
+      const { tableData } = this.props;
+      if (tableData[routeid] == null) {
+        return;
+      }
+      const { dataSource, pagination } = tableData[routeid];
+      this.setState({
+        dataSource,
+        pagination,
+      });
+    });
+  }
+
+  // handleTurnPage=()=>{
+  //   router.push('/');
+  // }
+
+  renderButton() {
+    return <Button type="primary" onClick={this.handleTurnPage} style={{ marginBottom: '18px' }}>详情</Button>;
   }
 
   render() {
@@ -102,13 +136,15 @@ class DiyTable extends React.Component {
     ];
     return (
       <Card
-        title="table测试对model的封装"
+        title="table常用场景"
       >
+        {this.renderButton()}
         <Table
           dataSource={dataSource}
           loading={tableLoading}
           columns={columns}
           pagination={getTablepag(pagination)}
+          onChange={this.handleTablepage}
         />
       </Card>
     );

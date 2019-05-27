@@ -4,6 +4,7 @@ import { fakeAccountLogin, getFakeCaptcha } from '@/services/api';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
 import { reloadAuthorized } from '@/utils/Authorized';
+import { setSessionStorage, clearAllSessionStorage } from '@/utils/storage';
 
 export default {
   namespace: 'login',
@@ -20,8 +21,10 @@ export default {
         payload: response,
       });
       // Login successfully
-      if (response.status === 'ok') {
+      if (response.status === 'success') {
         reloadAuthorized();
+        // 把用户信息存入sessionstorage
+        setSessionStorage('currentUser', response.currentUser);
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
@@ -53,6 +56,8 @@ export default {
         },
       });
       reloadAuthorized();
+      // 清除sessionstorage中所有信息
+      clearAllSessionStorage();
       const { redirect } = getPageQuery();
       // redirect
       if (window.location.pathname !== '/user/login' && !redirect) {

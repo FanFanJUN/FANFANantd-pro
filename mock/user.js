@@ -72,20 +72,23 @@ export default {
       address: 'Sidney No. 1 Lake Park',
     },
   ],
+  // 模拟登陆
   'POST /api/login/account': (req, res) => {
     const { password, userName, type } = req.body;
-    if (password === 'ant.design' && userName === 'admin') {
+    if (password === '123456' && userName === 'admin') {
       res.send({
-        status: 'ok',
+        status: 'success',
         type,
+        currentUser: userName,
         currentAuthority: 'admin',
       });
       return;
     }
-    if (password === 'ant.design' && userName === 'user') {
+    if (password === '123456' && userName === 'user') {
       res.send({
-        status: 'ok',
+        status: 'success',
         type,
+        currentUser: userName,
         currentAuthority: 'user',
       });
       return;

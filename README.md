@@ -17,4 +17,24 @@
 - $ npm install
 - $ npm start
 ```
+#### 201905271833
+- 登陆用户存入sessionstorage（storage工具）
+- 登录界面样式修改
+- 删除pacage.json提交前校验
+
+```
+"husky": {
+    "hooks": {
+      "pre-commit": "npm run lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.less": "stylelint --syntax less",
+    "**/*.{js,jsx}": "npm run lint-staged:js",
+    "**/*.{js,ts,tsx,json,jsx,less}": [
+      "node ./scripts/lint-prettier.js",
+      "git add"
+    ]
+  },
+```
 # 正完善。。。。待续。。。
