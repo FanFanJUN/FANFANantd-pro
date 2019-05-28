@@ -3,7 +3,6 @@ import { Table, Card, Button } from 'antd';
 import { connect } from 'dva';
 import { createRouteid, getTablepag } from '@/utils/utils';
 import moment from 'moment';
-import { router } from '_umi@2.6.17@umi';
 
 class DiyTable extends React.Component {
   constructor(props) {
@@ -26,7 +25,7 @@ class DiyTable extends React.Component {
     dispatch({
       type: 'table/getTableData',
       routeid,
-      payload: {},
+      payload: { params },
     }).then(() => {
       const { tableData } = this.props;
       if (tableData[routeid] == null) {

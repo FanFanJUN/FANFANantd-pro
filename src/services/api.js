@@ -129,6 +129,6 @@ export async function getFakeCaptcha(mobile) {
 export async function getTableData(params) {
   return request('/api/getTableData', {
     method: 'POST',
-    body: params,
+    data: params,
   });
 }
