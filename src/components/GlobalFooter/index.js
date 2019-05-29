@@ -20,7 +20,7 @@ const GlobalFooter = ({ className, links, copyright }) => {
           ))}
         </div>
       )}
-      {copyright && <div className={styles.copyright}>{copyright}</div>}
+      {copyright && <div className={clsString}>{copyright}</div>}
     </footer>
   );
 };

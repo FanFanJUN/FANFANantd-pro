@@ -169,8 +169,8 @@ export default [
       // 图表
       {
         path: '/charts',
-        name: 'charts',
-        icon: 'area-chart',
+        name: 'charts', // 生成菜单项的文本
+        icon: 'area-chart', // 生成菜单项的图标
         routes: [
           {
             path: '/charts/orgtree',

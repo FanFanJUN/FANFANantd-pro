@@ -5,7 +5,7 @@ import { connect } from 'dva';
 import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
 import Media from 'react-media';
-import logo from '../assets/logo.svg';
+import logo from '../assets/LOGO.svg';
 import Footer from './Footer';
 import Header from './Header';
 import Context from './MenuContext';
@@ -14,6 +14,7 @@ import getPageTitle from '@/utils/getPageTitle';
 import styles from './BasicLayout.less';
 import SiderDemo from '@/components/SiderLayout';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+import { getSessionStorage } from '@/utils/storage';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -63,13 +64,27 @@ class BasicLayout extends React.Component {
     dispatch({
       type: 'setting/getSetting',
     });
+    // 获取菜单数据
     dispatch({
       type: 'menu/getMenuData',
       payload: { routes, path, authority },
     });
+    // 时间函数
     this.countTimer();
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (!getSessionStorage('currentUser')) {
+      // eslint-disable-next-line react/destructuring-assignment
+      this.props.history.replace('/user/login');
+      // eslint-disable-next-line react/destructuring-assignment
+      if (nextProps.location.pathname !== this.props.location.pathname && this.state.error) {
+        this.setState({
+          error: false,
+        });
+      }
+    }
+  }
   getContext() {
     const { location, breadcrumbNameMap } = this.props;
     return {

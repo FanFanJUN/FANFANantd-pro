@@ -94,7 +94,7 @@ export default class SiderMenu extends PureComponent {
         <Suspense fallback={<PageLoading />}>
           <BaseMenu
             {...this.props}
-            mode="inline"
+            mode="inline" // MenuMode = 'vertical' | 'vertical-left' | 'vertical-right' | 'horizontal' | 'inline';
             handleOpenChange={this.handleOpenChange}
             onOpenChange={this.handleOpenChange}
             style={{ padding: '16px 0', width: '100%' }}

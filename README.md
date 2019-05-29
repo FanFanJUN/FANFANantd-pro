@@ -1,14 +1,18 @@
 ## 对AntdPro UI一些方面的封装
 
+#### 登陆页面
+![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1559133673/indexPage.png)
 #### 侧边栏工具栏
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1558786486/QQ20190525-201354.png)
 #### 全屏界面
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1558787213/3.png)
 #### 工具类util.js
 
+
 #### 页面常用工具方法封装
-详细会在博客(lcccc.com.cn)
-<a href="http://lcccc.com.cn/">博客地址</a>
+[详细会在博客](lcccc.com.cn)
+
+
 #### 使用
 
 ```
@@ -21,7 +25,9 @@
 - 登陆用户存入sessionstorage（storage工具）
 - 登录界面样式修改
 - 删除pacage.json提交前校验
-
+#### 201905292042
+- 登录界面
+- 未登录跳转至首页
 ```
 "husky": {
     "hooks": {
@@ -37,4 +43,5 @@
     ]
   },
 ```
+
 # 正完善。。。。待续。。。
