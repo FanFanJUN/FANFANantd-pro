@@ -1,7 +1,7 @@
 ## 对AntdPro UI一些方面的封装
 
 #### 登陆页面
-![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1559133673/indexPage.png)
+![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1559133673/antd/indexPage.png)
 #### 侧边栏工具栏
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1558786486/QQ20190525-201354.png)
 #### 全屏界面
