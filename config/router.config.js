@@ -190,6 +190,11 @@ export default [
             name: 'divtable',
             component: './DIYcompoment/table',
           },
+          {
+            path: '/DIYcompoment/commoncomponent',
+            name: 'commoncomponent',
+            component: './DIYcompoment/commoncomponent',
+          },
         ],
       },
       {

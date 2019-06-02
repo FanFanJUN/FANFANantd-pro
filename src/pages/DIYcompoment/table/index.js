@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Card, Button } from 'antd';
 import { connect } from 'dva';
-import { createRouteid, getTablepag } from '@/utils/utils';
+import { createRouteid, getTablepag, getDicOptions } from '@/utils/utils';
 import moment from 'moment';
 
 class DiyTable extends React.Component {
@@ -11,6 +11,7 @@ class DiyTable extends React.Component {
       routeid: createRouteid(),
       dataSource: [],
       pagination: {},
+      optionsData: {},
     };
   }
 
@@ -22,6 +23,12 @@ class DiyTable extends React.Component {
       routeid,
     });
     const params = { pageSize: 10, pageNum: 1 };
+    const dicparams = [
+      { dictionaryCategoryNo: 'CERTFCT_TYPE' },
+    ];
+    getDicOptions(dicparams).then((response) => {
+      this.setState({ optionsData: response || {} });
+    });
     dispatch({
       type: 'table/getTableData',
       routeid,
@@ -78,7 +85,7 @@ class DiyTable extends React.Component {
   }
 
   render() {
-    const { dataSource, pagination } = this.state;
+    const { dataSource, pagination, optionsData } = this.state;
     const { tableLoading } = this.props;
     // key: i,
     // href: 'https://ant.design',

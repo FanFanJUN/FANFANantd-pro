@@ -25,9 +25,10 @@ import {
 import StandardTable from '@/components/StandardTable';
 import { getFormItemLayout } from '@/utils/layout';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-import { getTablepag, isEmptyArray, filterEmptyFileds } from '@/utils/utils';
+import { getTablepag, isEmptyArray, filterEmptyFileds, getDicOptions } from '@/utils/utils';
 import { CcMessege, CcInput } from '@/cc-comp/basic';
 import styles from './TableList.less';
+import { CcLoanSelect } from '@/cc-comp/biz';
 
 const FormItem = Form.Item;
 const { Step } = Steps;
@@ -296,10 +297,19 @@ class TableList extends PureComponent {
     selectedRows: [],
     formValues: {},
     stepFormValues: {},
+    optionsData: {},
   };
 
   componentDidMount() {
     const { dispatch } = this.props;
+    const dictionaryCategoryNos = [{
+      dictionaryCategoryNo: 'CERTFCT_TYPE',
+    }];
+    getDicOptions(dictionaryCategoryNos).then(result => {
+      this.setState({
+        optionsData: result || {},
+      });
+    });
     dispatch({
       type: 'rule/fetch',
     });
@@ -514,10 +524,12 @@ class TableList extends PureComponent {
 
   renderAdvancedForm() {
     const {
+      form,
       form: { getFieldDecorator },
     } = this.props;
     const formItemLayout = getFormItemLayout(1);
     const colLayout = getFormItemLayout(3);
+    const { optionsData } = this.state;
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
         <Row>
@@ -570,6 +582,21 @@ class TableList extends PureComponent {
               )}
             </FormItem>
           </Col>
+        </Row>
+        <Row>
+          <CcLoanSelect
+            columnLayout={3}
+            columnIndex={1}
+            form={form}
+            label="证件类型"
+            placeholder="请输入证件类型"
+            dicCode="CERTFCT_TYPE"
+            field="xx"
+            options={optionsData.CERTFCT_TYPE}
+            valueProp="dictionaryNo"
+            titleProp="dictionaryNm"
+            ChooseFlag
+          />
         </Row>
         <div style={{ overflow: 'hidden' }}>
           <div style={{ marginBottom: 24, float: 'right' }}>

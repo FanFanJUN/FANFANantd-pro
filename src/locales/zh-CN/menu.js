@@ -29,6 +29,7 @@ export default {
   'menu.charts.orgtree': '组织结构图',
   'menu.DIY': '组件',
   'menu.DIY.divtable': '表格',
+  'menu.DIY.commoncomponent': '通用组件',
   'menu.result': '结果页',
   'menu.result.success': '成功页',
   'menu.result.fail': '失败页',

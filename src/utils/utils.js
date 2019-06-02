@@ -1,9 +1,11 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-bitwise */
 import moment from 'moment';
 import React from 'react';
 import nzh from 'nzh/cn';
 import { parse, stringify } from 'qs';
 import { Modal } from 'antd';
+import request from 'umi-request';
 
 export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
@@ -250,10 +252,10 @@ export function showErrorMsg(response) {
     title: <div>错误提示</div>,
     content: (
       <div style={{ marginTop: 16 }}>
-      错误码:
+        错误码:
         <span style={{ color: 'red' }}>{response.fault.faultCode}</span>
         <br />
-      错误信息:
+        错误信息:
         <span style={{ color: 'red' }}>{response.fault.faultString}</span>
       </div>
     ),
@@ -377,4 +379,54 @@ export function filterEmptyFileds(filedsValue) {
     });
     return serchObj;
   }
+}
+
+/**
+ * @description 数据字典
+ * @author LC@1981824361
+ * @date 2019-06-01
+ * @export
+ * @param {*} dicCategoryNos
+ * @returns
+ */
+export function getDicOptions(dicCategoryNos) {
+  if (!dicCategoryNos.length) {
+    return;
+  }
+  const params = { cachebatchOne: dicCategoryNos };
+  return request('/api/com/cachebatchone', {
+    method: 'POST',
+    data: params,
+  }).then((response) => {
+    if (!isRespSucc(response)) {
+      // eslint-disable-next-line no-throw-literal
+      throw '数据字典获取异常';
+    }
+    const options = response.ResponseBody.retCacheList;
+    const obj = {};
+    for (let i = 0; i < dicCategoryNos.length; i++) {
+      for (let j = 0; j < options.length; j++) {
+        if (options[j].dictionaryCategoryNo === dicCategoryNos[i].dictionaryCategoryNo) {
+          if (dicCategoryNos[i].NotInArr) {
+            obj[options[j].dictionaryCategoryNo] = options[j].dictionaryCategoryNo.filter((itemTmp) => {
+              return dicCategoryNos[i].NotInArr.every(
+                item => item.dictionaryNo !== itemTmp.dictionaryNo
+              );
+            });
+          } else {
+            obj[options[j].dictionaryCategoryNo] = options[j].dictionaries;
+          }
+          if (dicCategoryNos[i].ChooseFlag) {
+            obj[options[j].dictionaryCategoryNo].unshift({
+              dictionaryCategoryNm: '请选择',
+              dictionaryCategoryNo: '请选择',
+              dictionaryNm: '--请选择--',
+              dictionaryNo: '',
+            });
+          }
+        }
+      }
+    }
+    return obj;
+  });
 }
