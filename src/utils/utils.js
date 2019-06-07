@@ -360,6 +360,22 @@ export function isEmptyArray(array) {
 }
 
 /**
+ * @description 判断数据类型
+ * @author LC@1981824361
+ * @date 2019-06-05
+ * @export
+ * @param {*} target 传入的数据
+ * @param {*} type 传入的数据的数据类型
+ * @returns {boolean}
+ */
+export function isType(target, type) {
+  if (Object.prototype.toString.call(target) === `[object ${type}]`) {
+    return true;
+  }
+  return false;
+}
+
+/**
   * @description antd form表单搜索去掉空字符串 undefined值 保留有效参数值F
   * @author LC@1981824361
   * @date 2019-05-23
@@ -430,3 +446,43 @@ export function getDicOptions(dicCategoryNos) {
     return obj;
   });
 }
+/*
+ * @description 数据字典
+ * @author LC@1981824361
+ * @date 2019-06-07
+ * @export
+ * @param {*} key 码值
+ * @param {*} dicName 翻译的数据字典码类型
+ * @param {*} optionsData 数据 字典
+ * @returns
+*/
+export const getDicNameByKey = (key, dicName, optionsData) => {
+  if (!key) {
+    return;
+  }
+  if (optionsData[dicName] && optionsData[dicName] instanceof Array) {
+    const isKeyArr = key.indexOf(',') !== -1;
+    if (isKeyArr) {
+      let codeName = '';
+      const keyArr = key.split(',');
+      keyArr.forEach((code) => {
+        const regItem = optionsData[dicName].filter((item) => {
+          return item.dictionaryNo === code;
+        });
+
+        if (regItem.length > 0) {
+          codeName += `${regItem[0].dictionaryNm || ''},`;
+        }
+      });
+      codeName = codeName.substring(0, codeName.length - 1);
+      return codeName;
+    } else {
+      const realationArr = optionsData[dicName].filter(item => item.dictionaryNo === key);
+      if (realationArr.length > 0) {
+        return realationArr[0].dictionaryNm || '';
+      }
+    }
+  } else {
+    return '';
+  }
+};

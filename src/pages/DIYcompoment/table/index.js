@@ -1,9 +1,10 @@
 import React from 'react';
-import { Table, Card, Button } from 'antd';
+import { Table, Card, Button, Radio } from 'antd';
 import { connect } from 'dva';
-import { createRouteid, getTablepag, getDicOptions } from '@/utils/utils';
+import { createRouteid, getTablepag, getDicOptions, checkNull, getDicNameByKey } from '@/utils/utils';
 import moment from 'moment';
 
+const RadioGroup = Radio.Group;
 class DiyTable extends React.Component {
   constructor(props) {
     super(props);
@@ -12,6 +13,7 @@ class DiyTable extends React.Component {
       dataSource: [],
       pagination: {},
       optionsData: {},
+      radiovalue: {},
     };
   }
 
@@ -22,13 +24,33 @@ class DiyTable extends React.Component {
       type: 'table/create',
       routeid,
     });
-    const params = { pageSize: 10, pageNum: 1 };
+
     const dicparams = [
       { dictionaryCategoryNo: 'CERTFCT_TYPE' },
     ];
+
+    /* 获取数据字典 */
     getDicOptions(dicparams).then((response) => {
       this.setState({ optionsData: response || {} });
     });
+
+    this.initQuery();
+  }
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'table/clear',
+    });
+  }
+
+  initQuery=() => {
+    const { dispatch } = this.props;
+    const { routeid } = this.state;
+    dispatch({
+      type: 'table/create',
+      routeid,
+    });
+    const params = { pageSize: 10, pageNum: 1 };
     dispatch({
       type: 'table/getTableData',
       routeid,
@@ -43,12 +65,6 @@ class DiyTable extends React.Component {
         dataSource,
         pagination,
       });
-    });
-  }
-  componentWillUnmount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'table/clear',
     });
   }
   // 分页操作代码
@@ -76,16 +92,22 @@ class DiyTable extends React.Component {
     });
   }
 
-  // handleTurnPage=()=>{
-  //   router.push('/');
-  // }
+  onChange=(e) => {
+    this.setState({ radiovalue: e.target.value });
+  }
 
+  /* 选中一行 */
+  onRowClick=(record) => {
+    this.setState({
+      radiovalue: record,
+    });
+  }
   renderButton() {
     return <Button type="primary" onClick={this.handleTurnPage} style={{ marginBottom: '18px' }}>详情</Button>;
   }
 
   render() {
-    const { dataSource, pagination, optionsData } = this.state;
+    const { dataSource, pagination, optionsData, radiovalue } = this.state;
     const { tableLoading } = this.props;
     // key: i,
     // href: 'https://ant.design',
@@ -99,6 +121,19 @@ class DiyTable extends React.Component {
     // progress: Math.ceil(Math.random() * 100),
     const columns = [
       {
+        title: '选择',
+        dataIndex: 'action',
+        // align: 'center',
+        // width: '5%',
+        render: (text, record) => {
+          return (
+            <RadioGroup onChange={this.onChange} value={radiovalue}>
+              <Radio value={record} />
+            </RadioGroup>
+          );
+        },
+      },
+      {
         title: '主键',
         dataIndex: 'key',
         align: 'center',
@@ -107,6 +142,18 @@ class DiyTable extends React.Component {
         title: '连接',
         dataIndex: 'href',
         align: 'center',
+      },
+      {
+        title: '证件类型',
+        dataIndex: 'certfctType',
+        align: 'center',
+        render: (certfctType) => {
+          if (checkNull(certfctType)) {
+            return;
+          }
+          // eslint-disable-next-line consistent-return
+          return getDicNameByKey(certfctType, 'CERTFCT_TYPE', optionsData);
+        },
       },
       {
         title: '名字',
@@ -151,6 +198,13 @@ class DiyTable extends React.Component {
           columns={columns}
           pagination={getTablepag(pagination)}
           onChange={this.handleTablepage}
+          onRow={(record) => {
+            return {
+              onClick: () => {
+                this.onRowClick(record);
+              },
+            };
+          }}
         />
       </Card>
     );

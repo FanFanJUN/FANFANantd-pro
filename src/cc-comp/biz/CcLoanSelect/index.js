@@ -86,6 +86,7 @@ class CcLoanSelect extends React.Component {
       viewFlag,
       onChange,
       cascade,
+      ChooseFlag,
       ...rest
     } = this.props;
     const changeHandler = typeof onChange === 'function' ? onchange : function f() {};
@@ -117,7 +118,7 @@ class CcLoanSelect extends React.Component {
                   valueProp={valueProp}
                   style={{ width: styleWidth }}
                   placeholder={label}
-                  ChooseFlag
+                  ChooseFlag={ChooseFlag}
                   disabled={inputDisabled}
                   mode={selectMode}
                   options={options}

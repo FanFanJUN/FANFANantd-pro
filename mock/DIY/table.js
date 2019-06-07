@@ -12,6 +12,7 @@ for (let i = 0; i < 99; i++) {
     updatedAt: new Date(),
     createdAt: new Date(),
     progress: Math.ceil(Math.random() * 100),
+    certfctType: ['1', '2', '3', '4'][i % 4],
   });
 }
 // 返回数据格式

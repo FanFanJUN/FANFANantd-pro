@@ -44,7 +44,7 @@ class Commoncomponent extends React.Component {
         // required
         // disabled
         // initialValue="2"
-        notoptions={[{ dictionaryNm: '身份证', dictionaryNo: '1' }]}
+        // notoptions={[{ dictionaryNm: '身份证', dictionaryNo: '1' }]}
       />
     );
   }
