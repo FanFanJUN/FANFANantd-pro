@@ -1,10 +1,11 @@
 import React from 'react';
-import { Collapse, Form, Icon } from 'antd';
+import { Collapse, Form, Icon, Card } from 'antd';
 import { getDicOptions } from '@/utils/utils';
 import { CcLoanSelect } from '@/cc-comp/biz';
+import DescriptionList from '@/components/DescriptionList';
 
 const { Panel } = Collapse;
-
+const { Description } = DescriptionList;
 class Commoncomponent extends React.Component {
   constructor() {
     super();
@@ -22,6 +23,31 @@ class Commoncomponent extends React.Component {
         optionsData: result || {},
       });
     });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  renderDetail() {
+    return (
+      <Card
+        title="详情页"
+      >
+        <DescriptionList>
+          <Description term="测试1">测试</Description>
+          <Description term="测试2">测试1</Description>
+          <Description term="测试3">测试2</Description>
+        </DescriptionList>
+        <DescriptionList>
+          <Description term="姓名">李彩</Description>
+          <Description term="年龄">23</Description>
+          <Description term="性别">男</Description>
+        </DescriptionList>
+        <DescriptionList>
+          <Description term="描述1">对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。</Description>
+          <Description term="描述2">第一个用途，基本的字符串格式化。将表达式嵌入字符串中进行拼接。用${}来界定。</Description>
+          <Description>&nbsp;</Description>
+        </DescriptionList>
+      </Card>
+    );
   }
 
   renderForm() {
@@ -48,6 +74,7 @@ class Commoncomponent extends React.Component {
       />
     );
   }
+
   render() {
     const customPanelStyle = {
       background: '#f7f7f7',
@@ -59,14 +86,15 @@ class Commoncomponent extends React.Component {
     return (
       <Collapse
         bordered={false}
-        defaultActiveKey={['1']}
+        defaultActiveKey={['1', '2']}
+        de
         expandIcon={({ isActive }) => <Icon type="caret-right" rotate={isActive ? 90 : 0} />}
       >
         <Panel header="数据字典组件" key="1" style={customPanelStyle}>
           {this.renderForm()}
         </Panel>
-        <Panel header="This is panel header 2" key="2" style={customPanelStyle}>
-          <p>test</p>
+        <Panel header="详情页-底层样式修改" key="2" style={customPanelStyle}>
+          {this.renderDetail()}
         </Panel>
         <Panel header="This is panel header 3" key="3" style={customPanelStyle}>
           <p>test</p>
