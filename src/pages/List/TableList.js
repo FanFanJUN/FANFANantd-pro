@@ -707,8 +707,8 @@ class TableList extends PureComponent {
         render: (text, record) => (
           <Fragment>
             <a onClick={() => this.handleUpdateModalVisible(true, record)}>配置</a>
-            <Divider type="vertical" />
-            <a href="">订阅警报</a>
+            {/* <Divider type="vertical" />
+            <a href="">订阅警报</a> */}
           </Fragment>
         ),
       },

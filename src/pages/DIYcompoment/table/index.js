@@ -205,6 +205,9 @@ class DiyTable extends React.Component {
               },
             };
           }}
+          rowClassName={() => {
+            return 'bounce';
+          }}
         />
       </Card>
     );

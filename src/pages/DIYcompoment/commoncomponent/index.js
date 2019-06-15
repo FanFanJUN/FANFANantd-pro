@@ -3,6 +3,7 @@ import { Collapse, Form, Icon, Card } from 'antd';
 import { getDicOptions } from '@/utils/utils';
 import { CcLoanSelect } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
+import Tencent from '../map/Tencent';
 
 const { Panel } = Collapse;
 const { Description } = DescriptionList;
@@ -96,8 +97,8 @@ class Commoncomponent extends React.Component {
         <Panel header="详情页-底层样式修改" key="2" style={customPanelStyle}>
           {this.renderDetail()}
         </Panel>
-        <Panel header="This is panel header 3" key="3" style={customPanelStyle}>
-          <p>test</p>
+        <Panel header="地图" key="3" style={customPanelStyle}>
+          <Tencent />
         </Panel>
       </Collapse>
     );

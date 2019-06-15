@@ -3,9 +3,9 @@
 #### 登陆页面
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1559133673/antd/indexPage.png)
 #### 侧边栏工具栏
-![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1558786486/QQ20190525-201354.png)
+![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560587440/antd/%E4%BE%A7%E8%BE%B9%E6%A0%8F.png)
 #### 全屏界面
-![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1558787213/3.png)
+![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560587495/antd/%E5%85%A8%E5%B1%8F.png)
 #### 工具类util.js
 
 
@@ -13,14 +13,74 @@
 [详细会在博客](lcccc.com.cn)
 
 
-#### 使用
+### 安装运行
+##### 1.下载或克隆项目源码
+##### 2.yarn 或者 npm安装相关包文件(使用yarn或者[淘宝镜像源](https://npm.taobao.org/)）
+
+```js
+// 首推荐使用yarn装包
+yarn or npm or cnpm istall
+```
+##### 3.启动项目
+```js
+yarn start or npm start
+```
+##### 4.打包项目
+```js
+yarn build or npm run build
+```
+#### 官方antd组件版本更新日志
+
+[更新日志](https://ant.design/changelog-cn)
+
+#### npm常用命令
 
 ```
-- $ git clone https://github.com/FanFanJUN/FANFANantd-pro.git --depth=1 FanFanantd-Pro
-- $ cd FanFanantd-Pro
-- $ npm install
-- $ npm start
+npm -v
+查看npm当前版本
+
+node -v
+查看node当前版本
+
+where node/npm
+查看node或者npm位置
+
+npm show 包名 versions
+查看指定包的所有版本
+
+npm ls 包名
+查看当前项目中应用的包版本
+
+npm install 包名 -s 或者 --save
+下载包至本地并写入dependencies
+
+npm install 包名 -g
+全局安装
+
+npm install -d 或者--save-dev
+下载包至本地并写入devDependencies
+
+npm install 包名@latest -g
+下载最新版本的包
+
+npm uninstall <package>
+删除 node_modules 目录下面的包（package）
+
+npm uninstall --save <package>
+如需从 package.json 文件中删除依赖，需要在命令后添加参数 --save
+
 ```
+#### node
+
+```
+ sudo npm install -g n
+ 安装 n 工具，这个工具是专门用来管理node.js版本的，别怀疑这个工具的名字，是他是他就是他，他的名字就是 "n"
+ 
+ sudo n stable
+安装最新版本的node.js
+
+```
+
 #### 201905271833
 - 登陆用户存入sessionstorage（storage工具）
 - 登录界面样式修改
@@ -49,4 +109,44 @@
 - 数据字典bug fixed，新增工具方法数据字典码值=>数据字典名称(数据字典翻译)
 #### 201906112002
 - 详情页使用DescriptionList组件样式修改
+- 更新antd组件至"antd": "^3.19.3"
+#### 201906151625
+```
+全屏||退出全屏 纯js代码
+toggleFullScreen = (flag) => {
+    this.setState({ fullFlag: flag });
+    if (
+      !document.fullscreenElement &&
+      !document.mozFullScreenElement &&
+      !document.webkitFullscreenElement &&
+      !document.msFullscreenElement
+    ) {
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else if (document.documentElement.msRequestFullscreen) {
+        document.documentElement.msRequestFullscreen();
+      } else if (document.documentElement.mozRequestFullScreen) {
+        document.documentElement.mozRequestFullScreen();
+      } else if (document.documentElement.webkitRequestFullscreen) {
+        document.documentElement.webkitRequestFullscreen(
+          Element.ALLOW_KEYBOARD_INPUT
+        );
+      }
+    } else if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.msExitFullscreen) {
+      document.msExitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+      document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
+  
+```
+### 推荐依赖模块
+- [screenfull](https://github.com/sindresorhus/screenfull.js/)(<span style="color: rgb(243,121,52);">全屏插件</span>)
+- [react-qmap](https://github.com/yezihaohao/react-qmap)(<span style="color: rgb(243,121,52);">一个对腾讯web地图简单封装的React组件</span>)
+- [animate.css](https://github.com/daneden/animate.css)(<span style="color: rgb(243,121,52);">css动画库</span>)
+
 # 正完善。。。。待续。。。
