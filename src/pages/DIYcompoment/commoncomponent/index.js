@@ -1,5 +1,9 @@
 import React from 'react';
-import { Collapse, Form, Icon, Card } from 'antd';
+import { Collapse, Form, Icon, Card, Divider } from 'antd';
+import JsBarcode from 'jsbarcode';
+import Barcode from 'react-barcode';
+import QRCode from 'qrcode.react';
+import Canvas from 'canvas';
 import { getDicOptions } from '@/utils/utils';
 import { CcLoanSelect } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
@@ -24,8 +28,19 @@ class Commoncomponent extends React.Component {
         optionsData: result || {},
       });
     });
+    // this.getQRcode();
   }
 
+  getQRcode=() => {
+    // const canvas = new Canvas();
+    // JsBarcode(canvas, 'Hello');
+    JsBarcode(this.barcode, 'QRcode', {
+      displayValue: false,
+      width: 1.5,
+      height: 50,
+      margin: 0,
+    });
+  }
   // eslint-disable-next-line class-methods-use-this
   renderDetail() {
     return (
@@ -87,7 +102,7 @@ class Commoncomponent extends React.Component {
     return (
       <Collapse
         bordered={false}
-        defaultActiveKey={['1', '2']}
+        defaultActiveKey={['1', '2', '4']}
         de
         expandIcon={({ isActive }) => <Icon type="caret-right" rotate={isActive ? 90 : 0} />}
       >
@@ -99,6 +114,19 @@ class Commoncomponent extends React.Component {
         </Panel>
         <Panel header="地图" key="3" style={customPanelStyle}>
           <Tencent />
+        </Panel>
+        <Panel header="二维码||条形码" key="4" style={customPanelStyle}>
+          {/* <div className="barcode-box">
+            <svg
+              ref={(ref) => {
+                this.barcode = ref;
+              }}
+            />
+          </div> */}
+          <Divider>条形码</Divider>
+          <Barcode value="https://github.com/FanFanJUN" />
+          <Divider>二维码</Divider>
+          <QRCode value="https://github.com/FanFanJUN" />
         </Panel>
       </Collapse>
     );

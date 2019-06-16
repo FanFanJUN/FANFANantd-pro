@@ -6,6 +6,8 @@
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560587440/antd/%E4%BE%A7%E8%BE%B9%E6%A0%8F.png)
 #### 全屏界面
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560587495/antd/%E5%85%A8%E5%B1%8F.png)
+#### 组件（二维码||条形码）
+![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560682023/antd/0616.png)
 #### 工具类util.js
 
 
@@ -142,11 +144,17 @@ toggleFullScreen = (flag) => {
       document.webkitExitFullscreen();
     }
   }
-  
+ ```
+#### 201906161844
 ```
+新增在react中生成二维码||条形码
+```
+
 ### 推荐依赖模块
 - [screenfull](https://github.com/sindresorhus/screenfull.js/)(<span style="color: rgb(243,121,52);">全屏插件</span>)
 - [react-qmap](https://github.com/yezihaohao/react-qmap)(<span style="color: rgb(243,121,52);">一个对腾讯web地图简单封装的React组件</span>)
 - [animate.css](https://github.com/daneden/animate.css)(<span style="color: rgb(243,121,52);">css动画库</span>)
-
+- [JsBarcode](https://github.com/lindell/JsBarcode)(<span style="color: rgb(243,121,52);">前端JavaScript条形码生成解决方案</span>)
+- [react-barcode](https://github.com/kciter/react-barcode)(<span style="color: rgb(243,121,52);">在React中生成条形码</span>)
+- [qrcode.react](https://github.com/zpao/qrcode.react)(<span style="color: rgb(243,121,52);">A React component to generate QR codes</span>)
 # 正完善。。。。待续。。。
