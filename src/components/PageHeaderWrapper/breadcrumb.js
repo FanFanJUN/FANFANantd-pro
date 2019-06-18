@@ -79,9 +79,9 @@ const conversionFromLocation = (routerLocation, breadcrumbNameMap, props) => {
       const { hideInBreadcrumb } = currentBreadcrumb;
       return name && !hideInBreadcrumb
         ? {
-            path: url,
-            breadcrumbName: name,
-          }
+          path: url,
+          breadcrumbName: name,
+        }
         : null;
     })
     .filter(item => item !== null);

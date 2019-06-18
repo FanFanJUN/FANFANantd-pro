@@ -8,6 +8,10 @@
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560587495/antd/%E5%85%A8%E5%B1%8F.png)
 #### 组件（二维码||条形码）
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560682023/antd/0616.png)
+#### 地图
+![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560840107/antd/map.png)
+#### table
+![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560840106/antd/table.png)
 #### 工具类util.js
 
 
@@ -149,10 +153,17 @@ toggleFullScreen = (flag) => {
 ```
 新增在react中生成二维码||条形码
 ```
-
+#### 201906181436
+```
+新增在react中使用地图组件
+新增回到顶部backtop组件
+table样式修改
+内容区域样式修改
+```
 ### 推荐依赖模块
 - [screenfull](https://github.com/sindresorhus/screenfull.js/)(<span style="color: rgb(243,121,52);">全屏插件</span>)
 - [react-qmap](https://github.com/yezihaohao/react-qmap)(<span style="color: rgb(243,121,52);">一个对腾讯web地图简单封装的React组件</span>)
+- [react-amap](https://github.com/ElemeFE/react-amap)(<span style="color: rgb(243,121,52);">基于 React 封装的高德地图组件</span>)
 - [animate.css](https://github.com/daneden/animate.css)(<span style="color: rgb(243,121,52);">css动画库</span>)
 - [JsBarcode](https://github.com/lindell/JsBarcode)(<span style="color: rgb(243,121,52);">前端JavaScript条形码生成解决方案</span>)
 - [react-barcode](https://github.com/kciter/react-barcode)(<span style="color: rgb(243,121,52);">在React中生成条形码</span>)

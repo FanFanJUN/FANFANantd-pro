@@ -23,11 +23,11 @@ const progressColumns = [
     dataIndex: 'status',
     key: 'status',
     render: text =>
-      text === 'success' ? (
+      (text === 'success' ? (
         <Badge status="success" text="成功" />
       ) : (
         <Badge status="processing" text="进行中" />
-      ),
+      )),
   },
   {
     title: '操作员ID',
@@ -145,7 +145,7 @@ class BasicProfile extends Component {
       },
     ];
     return (
-      <PageHeaderWrapper title="基础详情页" loading={loading}>
+      <Card title="基础详情页" loading={loading}>
         <Card bordered={false}>
           <DescriptionList size="large" title="退款申请" style={{ marginBottom: 32 }}>
             <Description term="取货单号">{application.id}</Description>
@@ -180,7 +180,7 @@ class BasicProfile extends Component {
             columns={progressColumns}
           />
         </Card>
-      </PageHeaderWrapper>
+      </Card>
     );
   }
 }

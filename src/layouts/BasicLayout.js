@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { Layout } from 'antd';
+import { Layout, BackTop } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
 import { ContainerQuery } from 'react-container-query';
@@ -51,6 +51,7 @@ class BasicLayout extends React.Component {
     super();
     this.state = {
       error: false,
+      contentAreaMinHeight: 0,
     };
   }
   componentDidMount() {
@@ -69,6 +70,12 @@ class BasicLayout extends React.Component {
       type: 'menu/getMenuData',
       payload: { routes, path, authority },
     });
+    const rootDom = document.getElementById('root');
+    const contentAreaMinHeight = rootDom.offsetHeight - 32 - 32 - 37 - 1 - 1;
+    window.sessionStorage.setItem('contentMinHeight', contentAreaMinHeight);
+    this.setState({
+      contentAreaMinHeight,
+    });
     // 时间函数
     this.countTimer();
   }
@@ -77,12 +84,12 @@ class BasicLayout extends React.Component {
     if (!getSessionStorage('currentUser')) {
       // eslint-disable-next-line react/destructuring-assignment
       this.props.history.replace('/user/login');
-      // eslint-disable-next-line react/destructuring-assignment
-      if (nextProps.location.pathname !== this.props.location.pathname && this.state.error) {
-        this.setState({
-          error: false,
-        });
-      }
+    }
+    // eslint-disable-next-line react/destructuring-assignment
+    if (nextProps.location.pathname !== this.props.location.pathname && this.state.error) {
+      this.setState({
+        error: false,
+      });
     }
   }
   getContext() {
@@ -93,6 +100,16 @@ class BasicLayout extends React.Component {
     };
   }
 
+  getContentType() {
+    const { fixedHeader } = this.props;
+    const { contentAreaMinHeight } = this.state;
+    return {
+      maxHeight: contentAreaMinHeight,
+      paddingTop: fixedHeader ? 64 : 0,
+      overflowY: 'auto',
+      overflowX: 'hidden',
+    };
+  }
   countTimer = () => {
     if (document.getElementById('clock')) {
       const currTime = new Date()
@@ -186,18 +203,23 @@ class BasicLayout extends React.Component {
             {...this.props}
           /> */}
           <div>
-            <PageHeaderWrapper />
+            <PageHeaderWrapper style={{ width: '75%' }} />
             <div
               id="clock"
-              style={{ float: 'right' }}
+              style={{ textAlign: 'right', backgroundColor: '#FFFFFF', width: '100%' }}
             />
           </div>
+          <BackTop
+            className={styles.backTop}
+            target={() => document.querySelector('#contentLayout')}
+            visibilityHeight={200}
+          />
           {!error ?
-            <Content className={styles.content} style={contentStyle}>
+            <Content id="contentLayout" style={this.getContentType()}>
               {children}
             </Content>
             :
-            <div style={{ textAlign: 'center', minHeight: '450px', height: '450px', lineHeight: '600px', color: 'red', fontSize: 23, fontWeight: 200 }}>系统错误！请联系管理员</div>}
+            <div style={{ textAlign: 'center', minHeight: '600px', height: '600px', lineHeight: '600px', color: 'red', fontSize: 23, fontWeight: 200 }}>系统错误！请联系管理员</div>}
           <Footer />
         </Layout>
       </Layout>

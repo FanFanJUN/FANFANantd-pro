@@ -13,8 +13,8 @@ import {
   Popover,
 } from 'antd';
 import { connect } from 'dva';
-import FooterToolbar from '@/components/FooterToolbar';
-import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+// import FooterToolbar from '@/components/FooterToolbar';
+// import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableForm from './TableForm';
 import styles from './style.less';
 
@@ -63,7 +63,7 @@ const tableData = [
 @Form.create()
 class AdvancedForm extends PureComponent {
   state = {
-    width: '100%',
+    // width: '100%',
   };
 
   componentDidMount() {
@@ -151,13 +151,11 @@ class AdvancedForm extends PureComponent {
       form: { getFieldDecorator },
       submitting,
     } = this.props;
-    const { width } = this.state;
+    // const { width } = this.state;
 
     return (
-      <PageHeaderWrapper
+      <Card
         title="高级表单"
-        content="高级表单常见于一次性输入和提交大批量数据的场景。"
-        wrapperClassName={styles.advancedForm}
       >
         <Card title="仓库管理" className={styles.card} bordered={false}>
           <Form layout="vertical" hideRequiredMark>
@@ -309,13 +307,13 @@ class AdvancedForm extends PureComponent {
             initialValue: tableData,
           })(<TableForm />)}
         </Card>
-        <FooterToolbar style={{ width }}>
+        <div style={{ float: 'right' }}>
           {this.getErrorInfo()}
           <Button type="primary" onClick={this.validate} loading={submitting}>
             提交
           </Button>
-        </FooterToolbar>
-      </PageHeaderWrapper>
+        </div>
+      </Card>
     );
   }
 }

@@ -9,11 +9,29 @@
     />
     <title>Ant Design Pro</title>
     <link rel="icon" href="/favicon.png" type="image/x-icon" />
+    <style type="text/css">
+     html {
+       overflow: hidden;
+     }
+    </style>
   </head>
   <body>
-    <noscript>Sorry, we need js to run correctly!</noscript>
-    <div id="root">
-      <style>
+    <!-- <noscript>Sorry, we need js to run correctly!</noscript> -->
+    <div id="root"></div>
+    <script type="text/javascript">
+    function autodivheight() {
+      var winHeignt = 0;
+      if(window.innerHeight)
+       winHeignt = window.innerHeight;
+       else if((document.body)&& (document.body.clientHeight))
+       winHeignt = document.body.clientHeight;
+       if(document.documentElement && document.documentElement.clientHeight)
+       winHeignt = document.documentElement.clientHeight;
+       document.getElementById("root").style.height = winHeignt + "px";
+    }
+    window.onresize = autodivheight;
+    </script>
+      <!-- <style>
         .page-loading-warp {
           padding: 120px;
           display: flex;
@@ -162,7 +180,6 @@
             ><i class="ant-spin-dot-item"></i><i class="ant-spin-dot-item"></i
           ></span>
         </div>
-      </div>
-    </div>
+      </div> -->
   </body>
 </html>

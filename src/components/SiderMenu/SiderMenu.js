@@ -102,9 +102,9 @@ export default class SiderMenu extends PureComponent {
             theme={theme}
           />
         </Suspense>
-        <div style={{ textAlign: 'center', position: 'relative', bottom: '0px', height: '50px' }}>
+        {/* <div className={styles.switchTheme}>
           <Switch checkedChildren="light" unCheckedChildren="dark" defaultChecked onChange={() => this.changeTheme(themeFlag)} />
-        </div>
+        </div> */}
       </Sider>
     );
   }

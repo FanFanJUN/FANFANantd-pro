@@ -3,14 +3,23 @@ import { Collapse, Form, Icon, Card, Divider } from 'antd';
 import JsBarcode from 'jsbarcode';
 import Barcode from 'react-barcode';
 import QRCode from 'qrcode.react';
-import Canvas from 'canvas';
+// import Canvas from 'canvas';
 import { getDicOptions } from '@/utils/utils';
 import { CcLoanSelect } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
-import Tencent from '../map/Tencent';
 
 const { Panel } = Collapse;
 const { Description } = DescriptionList;
+/**
+ * @description 通用组件
+ * @param 数据字典
+ * @param 详情组件
+ * @param 条形码||二维码
+ * @author LC@1981824361
+ * @date 2019-06-17
+ * @class Commoncomponent
+ * @extends {React.Component}
+ */
 class Commoncomponent extends React.Component {
   constructor() {
     super();
@@ -29,6 +38,7 @@ class Commoncomponent extends React.Component {
       });
     });
     // this.getQRcode();
+    // this.initAmap();
   }
 
   getQRcode=() => {
@@ -41,6 +51,7 @@ class Commoncomponent extends React.Component {
       margin: 0,
     });
   }
+
   // eslint-disable-next-line class-methods-use-this
   renderDetail() {
     return (
@@ -111,9 +122,6 @@ class Commoncomponent extends React.Component {
         </Panel>
         <Panel header="详情页-底层样式修改" key="2" style={customPanelStyle}>
           {this.renderDetail()}
-        </Panel>
-        <Panel header="地图" key="3" style={customPanelStyle}>
-          <Tencent />
         </Panel>
         <Panel header="二维码||条形码" key="4" style={customPanelStyle}>
           {/* <div className="barcode-box">

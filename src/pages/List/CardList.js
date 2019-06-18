@@ -61,7 +61,7 @@ class CardList extends PureComponent {
     );
 
     return (
-      <PageHeaderWrapper title="卡片列表" content={content} extraContent={extraContent}>
+      <Card title="卡片列表">
         <div className={styles.cardList}>
           <List
             rowKey="id"
@@ -69,7 +69,7 @@ class CardList extends PureComponent {
             grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
             dataSource={['', ...list]}
             renderItem={item =>
-              item ? (
+              (item ? (
                 <List.Item key={item.id}>
                   <Card hoverable className={styles.card} actions={[<a>操作一</a>, <a>操作二</a>]}>
                     <Card.Meta
@@ -89,11 +89,11 @@ class CardList extends PureComponent {
                     <Icon type="plus" /> 新建产品
                   </Button>
                 </List.Item>
-              )
+              ))
             }
           />
         </div>
-      </PageHeaderWrapper>
+      </Card>
     );
   }
 }

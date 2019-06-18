@@ -253,7 +253,7 @@ class BasicList extends PureComponent {
       );
     };
     return (
-      <PageHeaderWrapper>
+      <Card title="标准列表">
         <div className={styles.standardList}>
           <Card bordered={false}>
             <Row>
@@ -332,7 +332,7 @@ class BasicList extends PureComponent {
         >
           {getModalContent()}
         </Modal>
-      </PageHeaderWrapper>
+      </Card>
     );
   }
 }

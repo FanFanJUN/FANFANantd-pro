@@ -195,6 +195,11 @@ export default [
             name: 'commoncomponent',
             component: './DIYcompoment/commoncomponent',
           },
+          {
+            path: '/DIYcompoment/map',
+            name: 'map',
+            component: './DIYcompoment/map',
+          },
         ],
       },
       {
