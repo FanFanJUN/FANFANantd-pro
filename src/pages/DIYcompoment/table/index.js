@@ -1,7 +1,7 @@
 import React from 'react';
 import { Table, Card, Button, Radio } from 'antd';
 import { connect } from 'dva';
-import { createRouteid, getTablepag, getDicOptions, checkNull, getDicNameByKey } from '@/utils/utils';
+import { createRouteid, getTablepag, getDicOptions, checkNull, getDicNameByKey, getHelloWord, isEmptyArray } from '@/utils/utils';
 import moment from 'moment';
 
 const RadioGroup = Radio.Group;
@@ -14,6 +14,7 @@ class DiyTable extends React.Component {
       pagination: {},
       optionsData: {},
       radiovalue: {},
+      data: [],
     };
   }
 
@@ -34,6 +35,9 @@ class DiyTable extends React.Component {
       this.setState({ optionsData: response || {} });
     });
 
+    getHelloWord().then((result) => {
+      this.setState({ data: result });
+    });
     this.initQuery();
   }
   componentWillUnmount() {
@@ -76,7 +80,7 @@ class DiyTable extends React.Component {
       pageNum: page.pageNum,
     };
     dispatch({
-      type: 'able/getTableData',
+      type: 'table/getTableData',
       routeid,
       payload: params,
     }).then(() => {
@@ -107,7 +111,7 @@ class DiyTable extends React.Component {
   }
 
   render() {
-    const { dataSource, pagination, optionsData, radiovalue } = this.state;
+    const { dataSource, pagination, optionsData, radiovalue, data } = this.state;
     const { tableLoading } = this.props;
     // key: i,
     // href: 'https://ant.design',
@@ -191,6 +195,7 @@ class DiyTable extends React.Component {
       <Card
         title="table常用场景"
       >
+        <h1><span>{!isEmptyArray(data) ? data[0].userName : null}</span></h1>
         {this.renderButton()}
         <Table
           dataSource={dataSource}

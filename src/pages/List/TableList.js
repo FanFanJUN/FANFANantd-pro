@@ -486,7 +486,7 @@ class TableList extends PureComponent {
     const colLayout = getFormItemLayout(2);
     return (
       <Form onSubmit={this.handleSearch} layout="inline">
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+        <Row>
           <Col {...colLayout}>
             <FormItem label="规则名称" {...formItemLayout}>
               {getFieldDecorator('name')(<Input placeholder="请输入" />)}

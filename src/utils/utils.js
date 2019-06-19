@@ -6,6 +6,7 @@ import nzh from 'nzh/cn';
 import { parse, stringify } from 'qs';
 import { Modal } from 'antd';
 import request from 'umi-request';
+import { func } from 'prop-types';
 
 export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
@@ -486,3 +487,11 @@ export const getDicNameByKey = (key, dicName, optionsData) => {
     return '';
   }
 };
+
+export function getHelloWord() {
+  return request('/api/lc/getTableData', {
+    method: 'GET',
+  }).then((response) => {
+    return response;
+  });
+}
