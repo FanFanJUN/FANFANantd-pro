@@ -5,7 +5,8 @@ import React from 'react';
 import nzh from 'nzh/cn';
 import { parse, stringify } from 'qs';
 import { Modal } from 'antd';
-import request from 'umi-request';
+// import request from 'umi-request';
+import request from '@/utils/request';
 import { func } from 'prop-types';
 
 export function fixedZero(val) {
@@ -489,7 +490,21 @@ export const getDicNameByKey = (key, dicName, optionsData) => {
 };
 
 export function getHelloWord() {
-  return request('/api/lc/getTableData', {
+  return request('/api/lc/hellospringboot', {
+    method: 'GET',
+  }).then((response) => {
+    return response;
+  });
+}
+/**
+ * @description SptingBoot查询user信息
+ * @author LC@1981824361
+ * @date 2019-06-21
+ * @export
+ * @returns userlIST
+ */
+export function getUserData() {
+  return request('/api/lc/getTabledata', {
     method: 'GET',
   }).then((response) => {
     return response;

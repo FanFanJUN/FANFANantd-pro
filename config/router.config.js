@@ -203,6 +203,18 @@ export default [
         ],
       },
       {
+        path: '/SpringBoot',
+        name: 'SpringBoot',
+        icon: 'code',
+        routes: [
+          {
+            path: '/SpringBoot/hello',
+            name: 'hellospringboot',
+            component: './SpringBoot/hello',
+          },
+        ]
+      },
+      {
         name: 'result',
         icon: 'check-circle-o',
         path: '/result',

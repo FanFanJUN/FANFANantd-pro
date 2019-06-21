@@ -35,9 +35,9 @@ class DiyTable extends React.Component {
       this.setState({ optionsData: response || {} });
     });
 
-    getHelloWord().then((result) => {
-      this.setState({ data: result });
-    });
+    // getHelloWord().then((result) => {
+    //   this.setState({ data: result });
+    // });
     this.initQuery();
   }
   componentWillUnmount() {
@@ -195,7 +195,7 @@ class DiyTable extends React.Component {
       <Card
         title="table常用场景"
       >
-        <h1><span>{!isEmptyArray(data) ? data[0].userName : null}</span></h1>
+        {/* <h1><span>{!isEmptyArray(data) ? data[0].userName : null}</span></h1> */}
         {this.renderButton()}
         <Table
           dataSource={dataSource}
