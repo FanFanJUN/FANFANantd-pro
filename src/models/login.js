@@ -15,7 +15,31 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      // const response = yield call(fakeAccountLogin, payload);
+      /* 暂时不访问mock 在这里写死 */
+      const { password, userName, type } = payload;
+      let response = {};
+      if (password === '123456' && userName === 'admin') {
+        response = {
+          status: 'success',
+          type,
+          currentUser: userName,
+          currentAuthority: 'admin',
+        };
+      } else if (password === '123456' && userName === 'user') {
+        response = {
+          status: 'success',
+          type,
+          currentUser: userName,
+          currentAuthority: 'user',
+        };
+      } else {
+        response = {
+          status: 'error',
+          type,
+          currentAuthority: 'guest',
+        };
+      }
       yield put({
         type: 'changeLoginStatus',
         payload: response,
@@ -64,9 +88,9 @@ export default {
         yield put(
           routerRedux.replace({
             pathname: '/user/login',
-            search: stringify({
-              redirect: window.location.href,
-            }),
+            // search: stringify({
+            //   redirect: window.location.href,
+            // }),
           })
         );
       }

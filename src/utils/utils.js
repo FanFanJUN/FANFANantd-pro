@@ -503,9 +503,10 @@ export function getHelloWord() {
  * @export
  * @returns userlIST
  */
-export function getUserData() {
+export function getUserData(params) {
   return request('/api/lc/getTabledata', {
     method: 'GET',
+    data: params,
   }).then((response) => {
     return response;
   });

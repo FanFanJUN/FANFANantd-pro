@@ -9,6 +9,7 @@ class Hello extends React.Component {
     this.state = {
       hello: '',
       userData: [],
+      loading: true,
     };
   }
 
@@ -18,8 +19,10 @@ class Hello extends React.Component {
         hello: response || '',
       });
     });
-    getUserData().then((response) => {
+    const params = { request: true };
+    getUserData(params).then((response) => {
       this.setState({ userData: response || [] });
+      this.setState({ loading: false });
     });
   }
 
@@ -71,6 +74,7 @@ class Hello extends React.Component {
       <Table
         dataSource={userData}
         columns={columns}
+        loading={this.state.loading}
       />
     );
   }

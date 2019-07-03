@@ -111,32 +111,34 @@ class Commoncomponent extends React.Component {
       overflow: 'hidden',
     };
     return (
-      <Collapse
-        bordered={false}
-        defaultActiveKey={['1', '2', '4']}
-        de
-        expandIcon={({ isActive }) => <Icon type="caret-right" rotate={isActive ? 90 : 0} />}
-      >
-        <Panel header="数据字典组件" key="1" style={customPanelStyle}>
-          {this.renderForm()}
-        </Panel>
-        <Panel header="详情页-底层样式修改" key="2" style={customPanelStyle}>
-          {this.renderDetail()}
-        </Panel>
-        <Panel header="二维码||条形码" key="4" style={customPanelStyle}>
-          {/* <div className="barcode-box">
+      <Card>
+        <Collapse
+          bordered={false}
+          defaultActiveKey={['1', '2', '4']}
+          de
+          expandIcon={({ isActive }) => <Icon type="caret-right" rotate={isActive ? 90 : 0} />}
+        >
+          <Panel header="数据字典组件" key="1" style={customPanelStyle}>
+            {this.renderForm()}
+          </Panel>
+          <Panel header="详情页-底层样式修改" key="2" style={customPanelStyle}>
+            {this.renderDetail()}
+          </Panel>
+          <Panel header="二维码||条形码" key="4" style={customPanelStyle}>
+            {/* <div className="barcode-box">
             <svg
               ref={(ref) => {
                 this.barcode = ref;
               }}
             />
           </div> */}
-          <Divider>条形码</Divider>
-          <Barcode value="https://github.com/FanFanJUN" />
-          <Divider>二维码</Divider>
-          <QRCode value="https://github.com/FanFanJUN" />
-        </Panel>
-      </Collapse>
+            <Divider>条形码</Divider>
+            <Barcode value="https://github.com/FanFanJUN" />
+            <Divider>二维码</Divider>
+            <QRCode value="https://github.com/FanFanJUN" />
+          </Panel>
+        </Collapse>
+      </Card>
     );
   }
 }

@@ -135,7 +135,7 @@ export async function getTableData(params) {
 
 export async function getMenuData(params) {
   return request('/api/getMenuData', {
-    method: 'POST',
+    method: 'GET',
     data: params,
   });
 }

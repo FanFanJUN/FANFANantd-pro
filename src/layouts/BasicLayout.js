@@ -108,6 +108,7 @@ class BasicLayout extends React.Component {
       paddingTop: fixedHeader ? 64 : 0,
       overflowY: 'auto',
       overflowX: 'hidden',
+      background: '#FFFFFF',
     };
   }
   countTimer = () => {
@@ -219,7 +220,8 @@ class BasicLayout extends React.Component {
               {children}
             </Content>
             :
-            <div style={{ textAlign: 'center', minHeight: '600px', height: '600px', lineHeight: '600px', color: 'red', fontSize: 23, fontWeight: 200 }}>系统错误！请联系管理员</div>}
+            <div style={{ textAlign: 'center', minHeight: '600px', height: '600px', lineHeight: '600px', color: 'red', fontSize: 23, fontWeight: 200 }}>系统错误！请联系管理员</div>
+          }
           <Footer />
         </Layout>
       </Layout>

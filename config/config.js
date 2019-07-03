@@ -120,7 +120,7 @@ export default {
 
   "proxy": {
     "/api/lc": {
-      "target": "http://localhost:8888",
+      "target": "http://129.28.167.200:20080",
       "changeOrigin": true,
       // "pathRewrite": { "^/api" : "" }
     }
