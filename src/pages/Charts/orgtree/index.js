@@ -4,29 +4,89 @@ import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/tree';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
+import { toThousands } from '@/utils/utils';
 
+const sendData = [
+  {
+    value: ['100', '200', '300', '400'],
+    name: '测试',
+    children: [
+      { value: ['1008777', '200', '300', '400'],
+        name: '测试1',
+        children: [
+          { value: ['100', '200', '3004444', '400'],
+            name: '测试11' },
+          { value: ['1004444', '200', '300555', '400'],
+            name: '测试12' },
+          { value: ['100', '200', '300', '400333'],
+            name: '测试13' },
+          { value: ['100', '2004433', '300', '400'],
+            name: '测试14' },
+        ] },
+      { value: ['100', '2002222', '300', '400'],
+        name: '测试2' },
+    ],
+  },
+];
 class OrgTree extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      // dataLoading: true,
+      // dataSource: [],
     };
   }
 
   componentDidMount() {
-    this.inittree();
+    // getTreeData().then((result) => {
+    //   if (isEmptyArray(result)) {
+    //     return;
+    //   }
+    // this.setState({ dataSource: result, dataLoading: false });
+    this.inittree(sendData);
+    // });
   }
 
-  inittree = () => {
+  inittree = (data) => {
     const myChart = echarts.init(document.getElementById('main'), 'macarons');
-    const option = this.getOption();
-    myChart.setOption(option);
+    const option = this.getOption(data);
+    if (option && typeof option === 'object') {
+      myChart.setOption(option);
+    }
   }
-  getOption = () => {
+  getOption = (data) => {
+    const curve = '---------------------------------------';
     const option = {
       title: {
         text: '手机品牌',
         // subtext: '线、节点样式',
+        show: false,
+      },
+      tooltip: {
+        show: true,
+        trigger: 'item',
+        triggerOn: 'mousemove',
+        formatter: (obj) => {
+          const { value } = obj;
+          const showData =
+          `已有金额: ${toThousands(value[0])}元<br>
+          已用金额: ${toThousands(value[1])}元<br>
+          `;
+          return `<div
+          style="border-bottom: 1px solid rgba(255,255,255,.3);
+          font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">
+          ${obj.name}:${toThousands(value[2])}元
+          </div>
+          ${showData}`;
+        },
+      },
+      toolbox: {
+        show: false,
+        feature: {
+          dataView: { show: true, readOnly: false },
+          restore: { show: false },
+          saveAsImage: { show: true },
+        },
       },
       series: [
         {
@@ -35,169 +95,51 @@ class OrgTree extends React.Component {
           orient: 'vertical', // vertical horizontal
           rootLocation: { x: 'center', y: '60%' }, // 根节点位置  {x: 'center',y: 10}
           nodePadding: 20,
-          symbol: 'circle',
-          symbolSize: 40,
+          symbol: ['circle', 'arrow'],
+          symbolSize: [140, 120],
           itemStyle: {
-            normal: {
-              label: {
-                show: true,
-                position: 'inside',
-                textStyle: {
-                  color: '#cc9999',
-                  fontSize: 15,
-                  fontWeight: 'bolder',
-                },
-              },
-              lineStyle: {
-                color: '#000',
-                width: 1,
-                type: 'broken', // 'curve'|'broken'|'solid'|'dotted'|'dashed'
-              },
+            color: '#F2EEED',
+          },
+          label: {
+            show: true,
+            position: 'insideLeft',
+            color: '#333333',
+            fontSize: 10,
+            fontWeight: 'bolder',
+            formatter: (obj) => {
+              const { value } = obj;
+              const showData = [
+                `已有金额:\n{a|${toThousands(value[0])}}元`,
+                `已用金额:\n{a|${toThousands(value[1])}}元`,
+              ].join(`\n${curve}\n`);
+              return `${obj.name}:\n{a|${value[2]}}元\n${curve}\n${showData}`;
             },
-            emphasis: {
-              label: {
-                show: true,
+            // textStyle: {
+            //   color: '#cc9999',
+            //   fontSize: 15,
+            //   fontWeight: 'bolder',
+            // },
+            rich: {
+              a: {
+                color: 'red',
               },
             },
           },
-          data: [
-            {
-              name: '手机',
-              value: 6,
-              symbolSize: [90, 70],
-              symbol: 'image://http://www.iconpng.com/png/ecommerce-business/iphone.png',
-              itemStyle: {
-                normal: {
-                  label: {
-                    show: false,
-                  },
-                },
-              },
-              children: [
-                {
-                  name: '小米',
-                  value: 4,
-                  symbol: 'image://http://pic.58pic.com/58pic/12/36/51/66d58PICMUV.jpg',
-                  itemStyle: {
-                    normal: {
-                      label: {
-                        show: false,
-                      },
-                    },
-                  },
-                  symbolSize: [60, 60],
-                  children: [
-                    {
-                      name: '小米1',
-                      symbol: 'circle',
-                      symbolSize: 20,
-                      value: 4,
-                      itemStyle: {
-                        normal: {
-                          color: '#fa6900',
-                          label: {
-                            show: true,
-                            position: 'right',
-                          },
-
-                        },
-                        emphasis: {
-                          label: {
-                            show: false,
-                          },
-                          borderWidth: 0,
-                        },
-                      },
-                    },
-                    {
-                      name: '小米2',
-                      value: 4,
-                      symbol: 'circle',
-                      symbolSize: 20,
-                      itemStyle: {
-                        normal: {
-                          label: {
-                            show: true,
-                            position: 'right',
-                            formatter: '{b}',
-                          },
-                          color: '#fa6900',
-                          borderWidth: 2,
-                          borderColor: '#cc66ff',
-
-                        },
-                        emphasis: {
-                          borderWidth: 0,
-                        },
-                      },
-                    },
-                    {
-                      name: '小米3',
-                      value: 2,
-                      symbol: 'circle',
-                      symbolSize: 20,
-                      itemStyle: {
-                        normal: {
-                          label: {
-                            position: 'right',
-                          },
-                          color: '#fa6900',
-                          brushType: 'stroke',
-                          borderWidth: 1,
-                          borderColor: '#999966',
-                        },
-                        emphasis: {
-                          borderWidth: 0,
-                        },
-                      },
-                    },
-                  ],
-                },
-                {
-                  name: '苹果',
-                  symbol: 'image://http://www.viastreaming.com/images/apple_logo2.png',
-                  symbolSize: [60, 60],
-                  itemStyle: {
-                    normal: {
-                      label: {
-                        show: false,
-                      },
-
-                    },
-                  },
-                  value: 4,
-                },
-                {
-                  name: '华为',
-                  symbol: 'image://http://market.huawei.com/hwgg/logo_cn/download/logo.jpg',
-                  symbolSize: [60, 60],
-                  itemStyle: {
-                    normal: {
-                      label: {
-                        show: false,
-                      },
-
-                    },
-                  },
-                  value: 2,
-                },
-                {
-                  name: '联想',
-                  symbol: 'image://http://www.lenovo.com.cn/HomeUpload/Home001/6d94ee9a20140714.jpg',
-                  symbolSize: [100, 40],
-                  itemStyle: {
-                    normal: {
-                      label: {
-                        show: false,
-                      },
-
-                    },
-                  },
-                  value: 2,
-                },
-              ],
-            },
-          ],
+          lineStyle: {
+            color: 'blue',
+            width: 2,
+            type: 'broken', // 'curve'|'broken'|'solid'|'dotted'|'dashed'
+            curveness: '0.8',
+          },
+          // emphasis: {
+          //   label: {
+          //     show: true,
+          //   },
+          // },
+          data,
+          initialTreeDepth: 10,
+          animationDuration: '550',
+          animationDurationUpdate: 750,
         },
       ],
     };
@@ -210,7 +152,7 @@ class OrgTree extends React.Component {
         bordered
       >
         <div style={{ width: '100%', height: '100%' }}>
-          <div id="main" style={{ width: '100%', height: '600px' }} />
+          <div id="main" style={{ width: '100%', height: '600px', position: 'relative' }} />
         </div>
       </Card>
     );

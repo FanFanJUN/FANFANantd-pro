@@ -7,7 +7,6 @@ import { parse, stringify } from 'qs';
 import { Modal } from 'antd';
 // import request from 'umi-request';
 import request from '@/utils/request';
-import { func } from 'prop-types';
 
 export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
@@ -400,6 +399,18 @@ export function filterEmptyFileds(filedsValue) {
 }
 
 /**
+ * @description 金钱格式化||千分位
+ * @author LC@1981824361
+ * @date 2019-07-16
+ * @export
+ * @param {*} value
+ * @returns
+ */
+export function toThousands(value) {
+  if (!value) { return value; }
+  return `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+/**
  * @description 数据字典
  * @author LC@1981824361
  * @date 2019-06-01
@@ -510,4 +521,26 @@ export function getUserData(params) {
   }).then((response) => {
     return response;
   });
+}
+
+/**
+ * @description 树形数据
+ * @author LC@1981824361
+ * @date 2019-07-16
+ * @export
+ */
+export function getTreeData() {
+  const sendData = [
+    {
+      value: ['100', '200', '300', '400'],
+      name: '测试',
+      children: [
+        { value: ['100', '200', '300', '400'],
+          name: '测试1' },
+        { value: ['100', '200', '300', '400'],
+          name: '测试2' },
+      ],
+    },
+  ];
+  return sendData;
 }

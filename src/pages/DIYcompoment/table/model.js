@@ -31,7 +31,6 @@ export default {
         return;
       }
       const { ResponseBody: { dataSource, pagination } } = response;
-      console.log(response);
       yield put({
         type: 'saveState',
         routeid,

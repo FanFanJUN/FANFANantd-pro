@@ -344,6 +344,7 @@ class TableList extends PureComponent {
   handleFormReset = () => {
     const { form, dispatch } = this.props;
     form.resetFields();
+    // 查询表单  表单值会有一个状态 一定要清除掉
     this.setState({
       formValues: {},
     });
