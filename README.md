@@ -170,7 +170,7 @@ SpringBoot与AntDPro整合,初步实现前后端分离
 ```
 #### 201907170900
 ```
-SpringBoot与AntDPro整合,初步实现前后端分离
+全屏bug fixed  echarts树图
 ```
 [Spring-Boot整合AntD-Pro](https://github.com/FanFanJUN/Spring-Boot)
 ### 推荐依赖模块
