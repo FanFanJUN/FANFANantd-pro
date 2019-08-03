@@ -4,7 +4,7 @@ import JsBarcode from 'jsbarcode';
 import Barcode from 'react-barcode';
 import QRCode from 'qrcode.react';
 // import Canvas from 'canvas';
-import { getDicOptions } from '@/utils/utils';
+import { getDicOptions, getEllipsis } from '@/utils/utils';
 import { CcLoanSelect } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
 
@@ -70,7 +70,7 @@ class Commoncomponent extends React.Component {
         </DescriptionList>
         <DescriptionList>
           <Description term="描述1">对象的解构与数组有一个重要的不同。数组的元素是按次序排列的，变量的取值由它的位置决定；而对象的属性没有次序，变量必须与属性同名，才能取到正确的值。</Description>
-          <Description term="描述2">第一个用途，基本的字符串格式化。将表达式嵌入字符串中进行拼接。用${}来界定。</Description>
+          <Description term="描述2">{getEllipsis('第一个用途，基本的字符串格式化。将表达式嵌入字符串中进行拼接。用${}来界定', 13)}</Description>
           <Description>&nbsp;</Description>
         </DescriptionList>
       </Card>

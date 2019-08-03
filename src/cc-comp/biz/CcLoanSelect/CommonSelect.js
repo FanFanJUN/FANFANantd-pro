@@ -1,6 +1,7 @@
 import React from 'react';
 import { CcSelect } from '@/cc-comp/basic';
-import { isEmptyArray } from '@/utils/utils';
+import { isEmptyArray, getEllipsis } from '@/utils/utils';
+import Ellipsis from '@/components/Ellipsis';
 
 
 const { Option } = CcSelect;
@@ -10,7 +11,8 @@ const { Option } = CcSelect;
  * @description
  * @author LC@1981824361
  * @date 2019-06-01
- * @param
+ * @param valueProp 取值用属性名
+ * @param titleProp 显示用属性名
  * @class CommonSelect
  * @extends {React.Component}
  */
@@ -113,8 +115,8 @@ class CommonSelect extends React.Component {
     if (newoptions && newoptions.length > 0) {
       Options = newoptions.map((dicItem, index) => {
         return (
-          <Option key={index} value={dicItem[valueProp]}>
-            {dicItem[titleProp]}
+          <Option key={index} value={dicItem[valueProp]} title={dicItem[titleProp]}>
+            {getEllipsis(dicItem[titleProp])}
           </Option>
         );
       });
@@ -140,6 +142,7 @@ class CommonSelect extends React.Component {
         style={style}
         placeholder={placeholder}
         disabled={disabled}
+        optionLabelProp="title"
         mode={mode}
         showArrow
         {...rest}

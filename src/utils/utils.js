@@ -5,8 +5,10 @@ import React from 'react';
 import nzh from 'nzh/cn';
 import { parse, stringify } from 'qs';
 import { Modal } from 'antd';
+
 // import request from 'umi-request';
 import request from '@/utils/request';
+import Ellipsis from '@/components/Ellipsis';
 
 export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
@@ -543,4 +545,38 @@ export function getTreeData() {
     },
   ];
   return sendData;
+}
+
+/**
+ * @description 简单的文字提示 https://v2-pro.ant.design/components/ellipsis-cn
+ * @author LC@1981824361
+ * @date 2019-08-03
+ * @export
+ * @param {*} mes
+ * @param {*} length
+ * @returns
+ */
+export function getEllipsis(mes, length) {
+  if (!mes) return;
+  let lengthTmp = length;
+  if (lengthTmp) {
+    if (lengthTmp > 15) {
+      lengthTmp = 15;
+    }
+    if (mes.length <= lengthTmp) {
+      return mes;
+    }
+    return (
+      <Ellipsis tooltip length={lengthTmp}>
+        {`${mes}`}
+      </Ellipsis>
+    );
+  }
+  return (
+    <div style={{ width: '100%' }}>
+      <Ellipsis tooltip lines={1} fullWidthRecognition>
+        {mes}
+      </Ellipsis>
+    </div>
+  );
 }

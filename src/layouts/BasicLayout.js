@@ -204,13 +204,11 @@ class BasicLayout extends React.Component {
             isMobile={isMobile}
             {...this.props}
           /> */}
-          <div>
-            <PageHeaderWrapper style={{ width: '75%' }} />
-            <div
-              id="clock"
-              style={{ textAlign: 'right', backgroundColor: '#FFFFFF', width: '100%' }}
-            />
-          </div>
+          <PageHeaderWrapper style={{ width: '75%' }} />
+          <span
+            id="clock"
+            style={{ textAlign: 'right', backgroundColor: '#FFFFFF', width: '100%' }}
+          />
           <BackTop
             className={styles.backTop}
             target={() => document.querySelector('#contentLayout')}

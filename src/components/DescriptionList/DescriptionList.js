@@ -23,8 +23,7 @@ const DescriptionList = ({
       {title ? <div className={styles.title}>{title}</div> : null}
       <Row gutter={gutter}>
         {React.Children.map(children, child =>
-          child ? React.cloneElement(child, { column }) : child
-        )}
+          (child ? React.cloneElement(child, { column }) : child))}
       </Row>
     </div>
   );

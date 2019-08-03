@@ -2,6 +2,7 @@ export default [
   // user
   {
     path: '/user',
+    // 全局的用户登录layout
     component: '../layouts/UserLayout',
     routes: [
       { path: '/user', redirect: '/user/login' },
