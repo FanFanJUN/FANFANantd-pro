@@ -1,0 +1,8 @@
+.g6-minimap{
+      width: 50px;
+      height: 50px;
+      background: blue;
+      position: absolute;
+      right: 0px;
+      bottom: 0px;
+  }

@@ -1,5 +1,6 @@
 ## [前台访问地址NGINX](http://129.28.167.200:9999)
 ## [前台访问地址dockerNGINX](http://129.28.167.200:8888)
+## [知识日志](https://github.com/FanFanJUN/STUDY-DAY-BY-DAY)
 ## 对AntdPro UI一些方面的封装
 
 #### 登陆页面
@@ -171,6 +172,10 @@ SpringBoot与AntDPro整合,初步实现前后端分离
 #### 201907170900
 ```
 全屏bug fixed  echarts树图
+```
+#### 201908171520
+```
+antv-g6的使用
 ```
 [Spring-Boot整合AntD-Pro](https://github.com/FanFanJUN/Spring-Boot)
 ### 推荐依赖模块

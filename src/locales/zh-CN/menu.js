@@ -27,6 +27,7 @@ export default {
   'menu.profile.advanced': '高级详情页',
   'menu.charts': '图表',
   'menu.charts.orgtree': '组织结构图',
+  'menu.charts.map': '地图',
   'menu.DIY': '组件',
   'menu.DIY.divtable': '表格',
   'menu.DIY.commoncomponent': '通用组件',

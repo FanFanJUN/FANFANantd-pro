@@ -178,6 +178,16 @@ export default [
             name: 'orgtree',
             component: './Charts/orgtree',
           },
+          {
+            path: '/charts/map',
+            name: 'map',
+            component: './Charts/map',
+          },
+          {
+            path: '/charts/G6',
+            name: 'G6',
+            component: './Charts/aliG6charts',
+          },
         ],
       },
       // 自定义
@@ -201,6 +211,11 @@ export default [
             name: 'map',
             component: './DIYcompoment/map',
           },
+          // {
+          //   path: '/DIYcompoment/particles',
+          //   name: 'particles',
+          //   component: './DIYcompoment/particles',
+          // }
         ],
       },
       {

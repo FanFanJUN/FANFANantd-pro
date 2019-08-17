@@ -82,7 +82,7 @@ class OrgTree extends React.Component {
       },
       toolbox: {
         show: true,
-        left: '10px',
+        right: '10px',
         feature: {
           dataView: { show: true, readOnly: false },
           restore: { show: false },
@@ -138,7 +138,7 @@ class OrgTree extends React.Component {
                 `已有金额:\n{a|${toThousands(value[0])}}元`,
                 `已用金额:\n{a|${toThousands(value[1])}}元`,
               ].join(`\n${curve}\n`);
-              return `${obj.name}:\n{a|${value[2]}}元\n${curve}\n${showData}`;
+              return `${obj.name}:\n{a|${toThousands(value[2])}}元\n${curve}\n${showData}`;
             },
             // textStyle: {
             //   color: '#cc9999',
@@ -154,7 +154,7 @@ class OrgTree extends React.Component {
           lineStyle: {
             color: 'blue',
             width: 2,
-            type: 'broken', // 'curve'|'broken'|'solid'|'dotted'|'dashed'
+            type: 'dashed', // 'curve'|'broken'|'solid'|'dotted'|'dashed'
             curveness: '0.8',
           },
           // emphasis: {

@@ -115,7 +115,8 @@ class CommonSelect extends React.Component {
     if (newoptions && newoptions.length > 0) {
       Options = newoptions.map((dicItem, index) => {
         return (
-          <Option key={index} value={dicItem[valueProp]} title={dicItem[titleProp]}>
+          // title={dicItem[titleProp]} 去除鼠标悬停提示说明文字 去掉  title  属性
+          <Option key={index} value={dicItem[valueProp]}>
             {getEllipsis(dicItem[titleProp])}
           </Option>
         );
