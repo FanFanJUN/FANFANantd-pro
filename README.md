@@ -17,6 +17,8 @@
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560840106/antd/table.png)
 #### [echarts](https://echarts.baidu.com/index.html)
 ![组织结构图](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1563325301/antd/echarts.jpg)
+#### [React中使用AntV-G6](https://www.yuque.com/antv/g6/intro)
+![G6](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1566027291/antd/G6.jpg)
 #### 工具类util.js
 
 
