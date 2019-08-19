@@ -218,7 +218,8 @@ class G6Charts extends React.PureComponent {
            * click-select 点击选中节点
            * tooltip 节点文本提示
            *  */
-          default: ['drag-canvas', 'zoom-canvas', 'click-select',
+          default: ['drag-canvas',
+            { type: 'selectNode' },
             {
               type: 'tooltip',
               formatText: (model) => { // formatText(model) 格式化函数，可以返回文本或者 html
@@ -316,6 +317,7 @@ class G6Charts extends React.PureComponent {
               textAlign: 'left',
               textBaseline: 'middle',
               fill: '#FFFFFF',
+              cursor: 'pointer', // 鼠标样式
             },
           });
           const bbox = text.getBBox();
@@ -323,12 +325,12 @@ class G6Charts extends React.PureComponent {
           if (hasChildren) {
             group.addShape('marker', {
               attrs: {
-                x: bbox.maxX + 6,
+                x: bbox.maxX + 14,
                 y: bbox.minX + bbox.height / 2 - 6,
-                r: 6,
+                r: 4, // 半径
                 symbol: COLLAPSE_ICON,
                 stroke: 'red',
-                lineWidth: 2,
+                lineWidth: 1,
               },
               className: 'collapse-icon',
             });
@@ -348,7 +350,7 @@ class G6Charts extends React.PureComponent {
           const shape = group.addShape('path', {
             attrs: {
               stroke: 'rgb(76,122,187)',
-              lineWidth: 2,
+              lineWidth: 1,
               path: [
                 ['M', startPoint.x, startPoint.y],
                 ['L', endPoint.x / 3 + 2 / 3 * startPoint.x, startPoint.y],
@@ -360,15 +362,43 @@ class G6Charts extends React.PureComponent {
               //   d: 10,
               // },
               endArrow: {
-                path: 'M 10,0 L -10,-10 L -10,10 Z',
-                d: 10,
+                path: 'M 5,0 L -5,-5 L -5,5 Z',
+                d: 5,
               },
             },
           });
           return shape;
         },
       });
-      // 选中时的样式
+      // 自定义行为
+      G6.registerBehavior('selectNode', {
+        // 定义事件及处理事件的方法
+        getEvents() {
+          return {
+            // 'node:click': 'onNodeClick',
+            // 'edge:click': 'onEdgeClick',
+            'node:mouseover': 'onMouseMove',
+          };
+        },
+        onMouseMove(evt) {
+          // TODO
+          console.log(evt);
+          // eslint-disable-next-line no-underscore-dangle
+          const nodeId = evt.item._cfg.id;
+          // 此时会完全替换掉 style
+          // graph.update(nodeId, {
+          //   style: {
+          //     fill: 'red',
+          //     stroke: 'blue',
+          //   },
+          // });
+          // 通过ID查询节点实例
+          // const item = graph.findById(nodeId);
+          // graph.findById(nodeId).get('model').style = { fill: 'red', stroke: 'blue' };
+          // graph.refreshItem(nodeId);
+        },
+      });
+      // 全局选中时的样式
       G6.Global.nodeStateStyle.selected = {
         stroke: '#d9d9d9',
         fill: '#5394ef',

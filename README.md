@@ -19,7 +19,7 @@
 ![组织结构图](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1563325301/antd/echarts.jpg)
 #### [React中使用AntV-G6](https://www.yuque.com/antv/g6/intro)
 ![G6](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1566027291/antd/G6.jpg)
-![G6update](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1566206227/antd/G62.jpg)
+![G6update](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1566217462/antd/G6up.jpg)
 
 #### 工具类util.js
 
