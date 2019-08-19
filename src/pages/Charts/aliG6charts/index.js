@@ -1,9 +1,10 @@
 import React from 'react';
 import G6 from '@antv/g6';
-import { Minimap } from '@antv/g6/plugins';
-// import '@antv/g6/build/minimap.js';
+import { Minimap, dagre } from '@antv/g6/plugins';
+// import '@antv/g6/build/minimap';
 import { Card } from 'antd';
 import Hierarchy from '@antv/hierarchy';
+import { toThousands } from '@/utils/utils';
 import './index.css';
 // 2. 引入数据源
 // 引入数据源是需要声明节点和边，分别用数组表示
@@ -11,13 +12,14 @@ import './index.css';
 // 边上 source 和 target 是必须的，是指向节点的 id。
 // const Minimap = require('@antv/g6/build/minimap');
 
+// 测试数据
 const custData = {
   id: 'Modeling Methods',
   children: [
     {
       id: 'Classification',
       children: [
-        { id: 'Logistic regression' },
+        { id: 'Logistic regression阿里世界排名' },
         { id: 'Linear discriminant analysis' },
         { id: 'Rules' },
         { id: 'Decision trees' },
@@ -70,7 +72,28 @@ const custData = {
     },
   ],
 };
-
+// 测试数据2
+const sendData =
+  {
+    value: ['100', '200', '300', '400'],
+    id: '测试',
+    children: [
+      { value: ['1008777', '200', '300', '400'],
+        id: '测试1',
+        children: [
+          { value: ['100', '200', '3004444', '400'],
+            id: '测试11' },
+          { value: ['1004444', '200', '300555', '400'],
+            id: '测试12' },
+          { value: ['100', '200', '300', '400333'],
+            id: '测试13' },
+          { value: ['100', '2004433', '300', '400'],
+            id: '测试14' },
+        ] },
+      { value: ['100', '2002222', '300', '400'],
+        id: '测试2' },
+    ],
+  };
 // 基础的节点
 // {
 //     x: 300,
@@ -137,7 +160,7 @@ const minimap = new Minimap({
   size: [200, 150],
   type: 'delegate',
   delegateStyle: { fill: '#fff', stroke: '#666' },
-  position: 'relative',
+  // position: 'relative',
   className: 'g6-minimap',
 });
 const COLLAPSE_ICON = (x, y, r) => {
@@ -160,41 +183,98 @@ const EXPAND_ICON = (x, y, r) => {
     ['L', x + r, y + r - 2],
   ];
 };
+const { Util } = G6;
+/**
+ * @description AntV-G6 https://antv.alipay.com/zh-cn/g6/3.x/index.html
+ * @author LC@1981824361
+ * @date 2019-08-19
+ * @class G6Charts
+ * @extends {React.PureComponent}
+ */
 class G6Charts extends React.PureComponent {
   componentDidMount() {
-    this.initCharts(custData);
+    this.initCharts(sendData);
   }
 
     initCharts=(data) => {
       // 3. 创建关系图
       const graph = new G6.TreeGraph({
-        container: 'mountNode',
+        container: 'mountNode', // DOM容器
         // width: window.innerWidth,
         // height: window.innerHeight,
         // width: window.innerWidth,
         // height: window.innerHeight,
-        width: 800,
-        height: 600,
+        width: 1000,
+        height: 500,
+        // renderer: 'svg', // 渲染引擎，支持canvas(默认)和svg。
+        // fitViewPadding: [20, 40, 50, 20],
         plugins: [minimap],
+        // Mode指当前图的事件模式，一个Mode可能包含多个behavior
         modes: {
-          default: [{
-            type: 'collapse-expand',
-            onChange(item, collapsed) {
-              const icon = item.get('group').findByClassName('collapse-icon');
-              if (collapsed) {
-                icon.attr('symbol', EXPAND_ICON);
-              } else {
-                icon.attr('symbol', COLLAPSE_ICON);
-              }
+          /** 内置Behavior https://www.yuque.com/antv/g6/mode-behavior
+           * drag-canvas 拖拽画布
+           * zoom-canvas 滚轮缩放画布
+           * drag-node 拖拽节点
+           * click-select 点击选中节点
+           * tooltip 节点文本提示
+           *  */
+          default: ['drag-canvas', 'zoom-canvas', 'click-select',
+            {
+              type: 'tooltip',
+              formatText: (model) => { // formatText(model) 格式化函数，可以返回文本或者 html
+                const { id, value } = model;
+                // return id;
+                const showData =
+          `已有金额: ${toThousands(value[0])}元<br>
+           已用金额: ${toThousands(value[1])}元<br>
+          `;
+                return `<div
+                style="border: 1px solid red;border-radius: 4px;color: #545454;
+                background-color: rgba(255, 255, 255, 0.9);
+                padding: 10px 8px;
+                box-shadow: rgb(174, 174, 174) 0px 0px 10px;
+                font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">
+                ${id}<br/>
+                ${showData}
+                </div>`;
+              },
+              shouldUpdate: e => {
+              // 如果移动到节点文本上显示，不是文本上不显示
+                if (e.target.type !== 'text') {
+                  return false;
+                }
+                return true;
+              },
             },
-          }, 'drag-canvas', 'zoom-canvas'],
+            {
+              type: 'collapse-expand',
+              onChange(item, collapsed) {
+                const icon = item.get('group').findByClassName('collapse-icon');
+                if (collapsed) {
+                  icon.attr('symbol', EXPAND_ICON);
+                } else {
+                  icon.attr('symbol', COLLAPSE_ICON);
+                }
+              },
+            }],
         },
+        // 节点
         defaultNode: {
           shape: 'tree-node',
           anchorPoints: [[0, 0.5], [1, 0.5]],
         },
+        // 边
+        /** 内置边：line：直线，不支持控制点；
+            polyline：折线，支持多个控制点；
+            spline：直线；
+            quadratic：二阶贝塞尔曲线；
+            cubic：三阶贝塞尔曲线；
+            cubic-vertical：垂直方向的三阶贝塞尔曲线，不考虑用户从外部传入的控制点；
+            cubic-horizontal；水平方向的三阶贝塞尔曲线，不考虑用户从外部传入的控制点；
+            loop：自环。 */
         defaultEdge: {
-          shape: 'cubic-horizontal',
+          // shape: 'cubic-horizontal',
+          shape: 'hvh',
         },
         edgeStyle: {
           default: {
@@ -203,7 +283,7 @@ class G6Charts extends React.PureComponent {
         },
         layout: () => {
           return Hierarchy.compactBox(data, {
-            direction: 'LR',
+            direction: 'LR', // 自左至右布局，可选的有 H / V / LR / RL / TB / BT
             getId(d) { return d.id; },
             getHeight() { return 16; },
             getWidth() { return 16; },
@@ -212,12 +292,22 @@ class G6Charts extends React.PureComponent {
           });
         },
       });
+      // 自定义节点
       G6.registerNode('tree-node', {
+        // cssSize: true, // 不使用内部 size 作为节点尺寸
         drawShape(cfg, group) {
+          const { id, value } = cfg;
+          // cfg 节点信息
           const rect = group.addShape('rect', {
-            attrs: { fill: '#fff', stroke: '#666' },
+            attrs: { fill: 'rgb(76,122,187)', stroke: '#666' },
           });
+          // 节点显示内容
           const content = cfg.id.replace(/(.{19})/g, '$1\n');
+          // const showData =
+          // `已有金额: ${toThousands(value[0])}元<br>
+          // 已用金额: ${toThousands(value[1])}元<br>
+          // `;
+          // const content = `${id}:toThousands(1000000)元<br/>${showData}`;
           const text = group.addShape('text', {
             attrs: {
               text: content,
@@ -225,7 +315,7 @@ class G6Charts extends React.PureComponent {
               y: 0,
               textAlign: 'left',
               textBaseline: 'middle',
-              fill: '#666',
+              fill: '#FFFFFF',
             },
           });
           const bbox = text.getBBox();
@@ -237,7 +327,7 @@ class G6Charts extends React.PureComponent {
                 y: bbox.minX + bbox.height / 2 - 6,
                 r: 6,
                 symbol: COLLAPSE_ICON,
-                stroke: '#666',
+                stroke: 'red',
                 lineWidth: 2,
               },
               className: 'collapse-icon',
@@ -251,9 +341,41 @@ class G6Charts extends React.PureComponent {
           return rect;
         },
       }, 'single-shape');
-      //   graph.read(TreeData);
-      graph.data(data);
-      graph.render();
+      // 自定义边 直角连线
+      G6.registerEdge('hvh', {
+        draw(cfg, group) {
+          const { startPoint, endPoint } = cfg;
+          const shape = group.addShape('path', {
+            attrs: {
+              stroke: 'rgb(76,122,187)',
+              lineWidth: 2,
+              path: [
+                ['M', startPoint.x, startPoint.y],
+                ['L', endPoint.x / 3 + 2 / 3 * startPoint.x, startPoint.y],
+                ['L', endPoint.x / 3 + 2 / 3 * startPoint.x, endPoint.y],
+                ['L', endPoint.x, endPoint.y],
+              ],
+              // startArrow: {
+              //   path: 'M 10,0 L -10,-10 L -10,10 Z',
+              //   d: 10,
+              // },
+              endArrow: {
+                path: 'M 10,0 L -10,-10 L -10,10 Z',
+                d: 10,
+              },
+            },
+          });
+          return shape;
+        },
+      });
+      // 选中时的样式
+      G6.Global.nodeStateStyle.selected = {
+        stroke: '#d9d9d9',
+        fill: '#5394ef',
+      };
+      graph.read(data); // 接收数据，并进行渲染，read方法的功能相当于data和render方法的结合。 data =》object
+      // graph.data(data);
+      // graph.render();
       graph.refresh();
       graph.fitView();
     }

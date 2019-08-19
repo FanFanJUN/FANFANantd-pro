@@ -73,7 +73,7 @@ class OrgTree extends React.Component {
           已用金额: ${toThousands(value[1])}元<br>
           `;
           return `<div
-          style="border-bottom: 1px solid rgba(255,255,255,.3);
+          style="border-bottom: 1px solid red;
           font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">
           ${obj.name}:${toThousands(value[2])}元
           </div>
