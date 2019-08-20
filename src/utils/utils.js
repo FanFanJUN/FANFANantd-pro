@@ -279,7 +279,7 @@ export function showPaginationMessage(pageSize = 10, pageNum, pageRange) {
   const currPage = Math.ceil(pageRange[0] / pageSize);
   // return `总共${pageNum}条记录`,第${currPage}/${totalPage}页;
   // 对原生AntD Pro分页信息位置处理
-  return <div style={{ position: 'absolute', left: '6px', display: 'inline-block' }}>总共{pageNum}条记录,第{currPage}/{totalPage}页</div>;
+  return `总共${pageNum}条记录,第${currPage}/${totalPage}页`;
 }
 
 /**

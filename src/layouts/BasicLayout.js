@@ -205,10 +205,10 @@ class BasicLayout extends React.Component {
             {...this.props}
           /> */}
           <PageHeaderWrapper style={{ width: '75%' }} />
-          <span
+          {/* <span
             id="clock"
             style={{ textAlign: 'right', backgroundColor: '#FFFFFF', width: '100%' }}
-          />
+          /> */}
           <BackTop
             className={styles.backTop}
             target={() => document.querySelector('#contentLayout')}

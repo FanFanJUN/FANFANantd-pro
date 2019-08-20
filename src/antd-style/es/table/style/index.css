@@ -22,7 +22,7 @@
   /* font-size: 14px; */
   font-size: 12px;
   /* font-variant: tabular-nums; */
-  line-height: 1.5;
+  line-height: 2.0;
   list-style: none;
   -webkit-font-feature-settings: 'tnum';
           font-feature-settings: 'tnum';
@@ -370,7 +370,7 @@
 }
 .ant-table-pagination.ant-pagination {
   float: right;
-  margin: 16px 0;
+  margin: 0px 0px;
   /* margin: 0px 0px; */
 }
 .ant-table-filter-dropdown {

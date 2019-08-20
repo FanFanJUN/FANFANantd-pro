@@ -44,6 +44,10 @@ yarn start or npm start
 ```js
 yarn build or npm run build
 ```
+##### 5.样式替换
+```
+src/antd-style 目录下替换node_modules/antd/es/style
+```
 #### 官方antd组件版本更新日志
 
 [更新日志](https://ant.design/changelog-cn)
@@ -181,6 +185,12 @@ SpringBoot与AntDPro整合,初步实现前后端分离
 ```
 antv-g6的使用
 ```
+#### 201908201427
+```
+antd Card&&pagination 样式重构
+```
+![style](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1566283612/antd/cardpag.jpg)
+
 [Spring-Boot整合AntD-Pro](https://github.com/FanFanJUN/Spring-Boot)
 ### 推荐依赖模块
 - [screenfull](https://github.com/sindresorhus/screenfull.js/)(<span style="color: rgb(243,121,52);">全屏插件</span>)
