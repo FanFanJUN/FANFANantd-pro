@@ -68,16 +68,33 @@ class OrgTree extends React.Component {
         triggerOn: 'mousemove',
         formatter: (obj) => {
           const { value } = obj;
-          const showData =
-          `已有金额: ${toThousands(value[0])}元<br>
-          已用金额: ${toThousands(value[1])}元<br>
-          `;
+          const showData = [
+            `已有金额: ${toThousands(value[0])}元<br>`,
+            `已用金额: ${toThousands(value[1])}元<br>`,
+          ];
+          const showHtml = showData.map((item) => {
+            return (
+              `<div style="
+              min-width: 10px;
+            height: 10px;
+            background: red;
+            box-sizing: border-box;
+            color: white;
+            font-size: 10px;
+            text-align: center;
+            line-height: 20px;
+            padding: 0 5px;
+            border-radius: 10px;
+            display: inline-block"></div>${item}`
+            );
+          });
+          const secShowHtml = showHtml.join('');
           return `<div
           style="border-bottom: 1px solid red;
           font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">
           ${obj.name}:${toThousands(value[2])}元
           </div>
-          ${showData}`;
+          ${secShowHtml}`;
         },
       },
       toolbox: {
@@ -125,6 +142,8 @@ class OrgTree extends React.Component {
           symbolSize: [140, 120],
           itemStyle: {
             color: '#F2EEED',
+            shadowColor: 'rgba(0, 0, 0, 0.5)', // 设置图形的阴影效果
+            shadowBlur: 10,
           },
           label: {
             show: true,

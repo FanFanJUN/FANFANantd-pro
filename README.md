@@ -189,7 +189,7 @@ antv-g6的使用
 ```
 antd Card&&pagination 样式重构
 ```
-![style](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1566283612/antd/cardpag.jpg)
+![样式修改](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1566283612/antd/cardpag.jpg)
 
 [Spring-Boot整合AntD-Pro](https://github.com/FanFanJUN/Spring-Boot)
 ### 推荐依赖模块
