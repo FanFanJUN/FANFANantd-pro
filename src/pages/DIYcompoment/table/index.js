@@ -5,6 +5,13 @@ import { createRouteid, getTablepag, getDicOptions, checkNull, getDicNameByKey, 
 import moment from 'moment';
 
 const RadioGroup = Radio.Group;
+/**
+ * @description 标准的列表查询
+ * @author LC@1981824361
+ * @date 2019-09-02
+ * @class DiyTable
+ * @extends {React.Component}
+ */
 class DiyTable extends React.Component {
   constructor(props) {
     super(props);
@@ -174,7 +181,7 @@ class DiyTable extends React.Component {
         dataIndex: 'createdAt',
         align: 'center',
         render: (createdAt) => {
-          return moment(createdAt).format('YYYY-MM-DD');
+          return createdAt && moment(createdAt).format('YYYY-MM-DD');
         },
       },
       {
@@ -182,7 +189,7 @@ class DiyTable extends React.Component {
         dataIndex: 'updatedAt',
         align: 'center',
         render: (updatedAt) => {
-          return moment(updatedAt).format('YYYY-MM-DD');
+          return updatedAt && moment(updatedAt).format('YYYY-MM-DD');
         },
       },
       {

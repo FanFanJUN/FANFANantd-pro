@@ -15,7 +15,7 @@ export function getFormItemLayout(columnLayout, columnIndex = 0, columnExpand) {
       labelCol: {
         xs: { span: 24 },
         sm: { span: 7 },
-        md: { span: 12 },
+        md: { span: 10 },
       },
       wrapperCol: {
         xs: { span: 24 },

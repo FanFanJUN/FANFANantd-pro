@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Collapse, Form, Icon, Card, Divider } from 'antd';
 import JsBarcode from 'jsbarcode';
 import Barcode from 'react-barcode';
@@ -7,6 +7,7 @@ import QRCode from 'qrcode.react';
 import { getDicOptions, getEllipsis } from '@/utils/utils';
 import { CcLoanSelect } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
+import CcAmtCpl from '@/cc-comp/biz/CcAmtCpl';
 
 const { Panel } = Collapse;
 const { Description } = DescriptionList;
@@ -81,24 +82,28 @@ class Commoncomponent extends React.Component {
     const { form } = this.props;
     const { optionsData } = this.state;
     return (
-      <CcLoanSelect
-        columnLayout={2}
-        columnIndex={1}
-        form={form}
-        label="证件类型"
-        placeholder="请输入证件类型"
-        dicCode="CERTFCT_TYPE"
-        field="xx"
-        options={optionsData.CERTFCT_TYPE}
-        valueProp="dictionaryNo"
-        titleProp="dictionaryNm"
-        ChooseFlag
-        // mode="multiple"
-        // required
-        // disabled
-        // initialValue="2"
-        // notoptions={[{ dictionaryNm: '身份证', dictionaryNo: '1' }]}
-      />
+      <Fragment>
+        <CcLoanSelect
+          columnLayout={2}
+          columnIndex={2}
+          form={form}
+          label="证件类型"
+          placeholder="请输入证件类型"
+          dicCode="CERTFCT_TYPE"
+          field="xx"
+          options={optionsData.CERTFCT_TYPE}
+          valueProp="dictionaryNo"
+          titleProp="dictionaryNm"
+          ChooseFlag
+        />
+        <CcAmtCpl
+          columnLayout={2}
+          columnIndex={1}
+          form={form}
+          label="金额"
+          field="money"
+        />
+      </Fragment>
     );
   }
 
@@ -118,7 +123,7 @@ class Commoncomponent extends React.Component {
           de
           expandIcon={({ isActive }) => <Icon type="caret-right" rotate={isActive ? 90 : 0} />}
         >
-          <Panel header="数据字典组件" key="1" style={customPanelStyle}>
+          <Panel header="复用组件" key="1" style={customPanelStyle}>
             {this.renderForm()}
           </Panel>
           <Panel header="详情页-底层样式修改" key="2" style={customPanelStyle}>

@@ -490,7 +490,7 @@ class TableList extends PureComponent {
         <Row>
           <Col {...colLayout}>
             <FormItem label="规则名称" {...formItemLayout}>
-              {getFieldDecorator('name')(<Input placeholder="请输入" />)}
+              {getFieldDecorator('name')(<CcInput placeholder="请输入" />)}
             </FormItem>
           </Col>
           <Col {...colLayout}>
@@ -536,7 +536,7 @@ class TableList extends PureComponent {
         <Row>
           <Col {...colLayout}>
             <FormItem label="规则名称" {...formItemLayout}>
-              {getFieldDecorator('name')(<Input placeholder="请输入" />)}
+              {getFieldDecorator('name')(<CcInput placeholder="请输入" />)}
             </FormItem>
           </Col>
           <Col {...colLayout}>

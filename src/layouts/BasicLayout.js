@@ -15,6 +15,7 @@ import styles from './BasicLayout.less';
 import SiderDemo from '@/components/SiderLayout';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { getSessionStorage } from '@/utils/storage';
+import Exception from '@/components/Exception';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -219,7 +220,11 @@ class BasicLayout extends React.Component {
               {children}
             </Content>
             :
-            <div style={{ textAlign: 'center', minHeight: '600px', height: '600px', lineHeight: '600px', color: 'red', fontSize: 23, fontWeight: 200 }}>系统错误！请联系管理员</div>
+            <Exception
+              type="500"
+              backText="返回首页"
+            />
+            // <div style={{ textAlign: 'center', minHeight: '600px', height: '600px', lineHeight: '600px', color: 'red', fontSize: 23, fontWeight: 200 }}>系统错误！请联系管理员</div>
           }
           <Footer />
         </Layout>
