@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
-import { Collapse, Form, Icon, Card, Divider } from 'antd';
+import { Collapse, Form, Icon, Card, Divider, Row } from 'antd';
 import JsBarcode from 'jsbarcode';
 import Barcode from 'react-barcode';
 import QRCode from 'qrcode.react';
+import Player from 'xgplayer';
 // import Canvas from 'canvas';
 import { getDicOptions, getEllipsis } from '@/utils/utils';
-import { CcLoanSelect } from '@/cc-comp/biz';
+import { CcLoanSelect, CcAmtCpl } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
-import CcAmtCpl from '@/cc-comp/biz/CcAmtCpl';
 
 const { Panel } = Collapse;
 const { Description } = DescriptionList;
@@ -38,10 +38,19 @@ class Commoncomponent extends React.Component {
         optionsData: result || {},
       });
     });
+    this.initPlayer();
     // this.getQRcode();
     // this.initAmap();
   }
 
+  initPlayer=() => {
+    const player = new Player({
+      id: 'mse',
+      url: 'http://s2.pstatp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4',
+      // height: window.innerHeight,
+      // width: window.innerWidth,
+    });
+  }
   getQRcode=() => {
     // const canvas = new Canvas();
     // JsBarcode(canvas, 'Hello');
@@ -83,26 +92,29 @@ class Commoncomponent extends React.Component {
     const { optionsData } = this.state;
     return (
       <Fragment>
-        <CcLoanSelect
-          columnLayout={2}
-          columnIndex={2}
-          form={form}
-          label="证件类型"
-          placeholder="请输入证件类型"
-          dicCode="CERTFCT_TYPE"
-          field="xx"
-          options={optionsData.CERTFCT_TYPE}
-          valueProp="dictionaryNo"
-          titleProp="dictionaryNm"
-          ChooseFlag
-        />
-        <CcAmtCpl
-          columnLayout={2}
-          columnIndex={1}
-          form={form}
-          label="金额"
-          field="money"
-        />
+        <Row>
+          <CcLoanSelect
+            columnLayout={2}
+            columnIndex={1}
+            form={form}
+            label="证件类型"
+            placeholder="请输入证件类型"
+            dicCode="CERTFCT_TYPE"
+            field="xx"
+            options={optionsData.CERTFCT_TYPE}
+            valueProp="dictionaryNo"
+            titleProp="dictionaryNm"
+            ChooseFlag
+          />
+          <CcAmtCpl
+            columnLayout={2}
+            columnIndex={2}
+            form={form}
+            label="金额"
+            field="money"
+            decimalsPrecision={3}
+          />
+        </Row>
       </Fragment>
     );
   }
@@ -141,6 +153,9 @@ class Commoncomponent extends React.Component {
             <Barcode value="https://github.com/FanFanJUN" />
             <Divider>二维码</Divider>
             <QRCode value="https://github.com/FanFanJUN" />
+          </Panel>
+          <Panel header="今日头条西瓜播放器" key="3" style={customPanelStyle}>
+            <div id="mse" />
           </Panel>
         </Collapse>
       </Card>

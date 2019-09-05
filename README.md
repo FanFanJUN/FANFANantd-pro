@@ -190,7 +190,11 @@ antv-g6的使用
 antd Card&&pagination 样式重构
 ```
 ![样式修改](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1566283612/antd/cardpag.jpg)
-
+#### 201909031030
+```
+金钱组件
+今日头条西瓜播放器https://github.com/bytedance/xgplayer
+```
 [Spring-Boot整合AntD-Pro](https://github.com/FanFanJUN/Spring-Boot)
 ### 推荐依赖模块
 - [screenfull](https://github.com/sindresorhus/screenfull.js/)(<span style="color: rgb(243,121,52);">全屏插件</span>)

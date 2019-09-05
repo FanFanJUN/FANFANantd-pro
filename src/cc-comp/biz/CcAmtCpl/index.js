@@ -145,7 +145,7 @@ class CcAmtCpl extends React.PureComponent {
                   disabled={inputDisabled}
                   form={form}
                   field={field}
-                  formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={value => {
                     let tmpVal = value;
                     if (value.indexOf('.') > 0) {
@@ -167,7 +167,7 @@ class CcAmtCpl extends React.PureComponent {
 
   createLayout=() => {
     const columnLayout = this.props.columnLayout == null ? 1 : this.props.columnLayout;
-    const columnIndex = this.props.children == null ? 0 : this.props.columnIndex;
+    const columnIndex = this.props.columnIndex == null ? 0 : this.props.columnIndex;
     const colLayout = getFormItemLayout(columnLayout, columnIndex);
     const C1FormItemLayout = getFormItemLayout(1);
     if (columnLayout === 1) {

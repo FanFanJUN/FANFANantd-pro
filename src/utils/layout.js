@@ -3,9 +3,9 @@
  * @author LC@1981824361
  * @date 2019-05-22
  * @export
- * @param {*} columnLayout
- * @param {number} [columnIndex=0]
- * @param {*} columnExpand
+ * @param {*} columnLayout 表单域列数
+ * @param {number} [columnIndex=0] 表单域索引树
+ * @param {*} columnExpand 合并列数
  * @returns
  */
 // eslint-disable-next-line import/prefer-default-export

@@ -134,7 +134,7 @@ class CcLoanSelect extends React.Component {
 
   createLayout=() => {
     const columnLayout = this.props.columnLayout == null ? 1 : this.props.columnLayout;
-    const columnIndex = this.props.children == null ? 0 : this.props.columnIndex;
+    const columnIndex = this.props.columnIndex == null ? 0 : this.props.columnIndex;
     const colLayout = getFormItemLayout(columnLayout, columnIndex);
     const C1FormItemLayout = getFormItemLayout(1);
     if (columnLayout === 1) {

@@ -88,7 +88,8 @@
     "umi": "^2.4.4",
     "umi-plugin-qrcode": "^0.0.5",
     "umi-plugin-react": "^1.7.2",
-    "umi-request": "^1.0.5"
+    "umi-request": "^1.0.5",
+    "xgplayer": "^2.1.13"
   },
   "devDependencies": {
     "@types/history": "^4.7.2",
