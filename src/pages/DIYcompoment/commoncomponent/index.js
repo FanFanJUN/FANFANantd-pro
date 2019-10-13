@@ -38,19 +38,19 @@ class Commoncomponent extends React.Component {
         optionsData: result || {},
       });
     });
-    this.initPlayer();
+    // this.initPlayer();
     // this.getQRcode();
     // this.initAmap();
   }
 
-  initPlayer=() => {
-    const player = new Player({
-      id: 'mse',
-      url: 'http://s2.pstatp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4',
-      // height: window.innerHeight,
-      // width: window.innerWidth,
-    });
-  }
+  // initPlayer=() => {
+  //   const player = new Player({
+  //     id: 'mse',
+  //     url: 'http://s2.pstatp.com/cdn/expire-1-M/byted-player-videos/1.0.0/xgplayer-demo.mp4',
+  //     // height: window.innerHeight,
+  //     // width: window.innerWidth,
+  //   });
+  // }
   getQRcode=() => {
     // const canvas = new Canvas();
     // JsBarcode(canvas, 'Hello');
@@ -154,9 +154,9 @@ class Commoncomponent extends React.Component {
             <Divider>二维码</Divider>
             <QRCode value="https://github.com/FanFanJUN" />
           </Panel>
-          <Panel header="今日头条西瓜播放器" key="3" style={customPanelStyle}>
+          {/* <Panel header="今日头条西瓜播放器" key="3" style={customPanelStyle}>
             <div id="mse" />
-          </Panel>
+          </Panel> */}
         </Collapse>
       </Card>
     );

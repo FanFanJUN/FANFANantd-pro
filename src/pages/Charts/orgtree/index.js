@@ -142,8 +142,8 @@ class OrgTree extends React.Component {
           symbolSize: [140, 120],
           itemStyle: {
             color: '#F2EEED',
-            shadowColor: 'rgba(0, 0, 0, 0.5)', // 设置图形的阴影效果
-            shadowBlur: 10,
+            // shadowColor: 'rgba(0, 0, 0, 0.5)', // 设置图形的阴影效果
+            // shadowBlur: 10,
           },
           label: {
             show: true,
@@ -172,8 +172,8 @@ class OrgTree extends React.Component {
           },
           lineStyle: {
             color: 'blue',
-            width: 2,
-            type: 'dashed', // 'curve'|'broken'|'solid'|'dotted'|'dashed'
+            width: 0.5,
+            type: 'solid', // 'curve'|'broken'|'solid'|'dotted'|'dashed'
             curveness: '0.8',
           },
           // emphasis: {
