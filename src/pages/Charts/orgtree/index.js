@@ -72,6 +72,9 @@ class OrgTree extends React.Component {
             `已有金额: ${toThousands(value[0])}元<br>`,
             `已用金额: ${toThousands(value[1])}元<br>`,
           ];
+          /**
+           * 为每一个显示增加红色圆点标识
+           */
           const showHtml = showData.map((item) => {
             return (
               `<div style="
@@ -89,6 +92,7 @@ class OrgTree extends React.Component {
             );
           });
           const secShowHtml = showHtml.join('');
+
           return `<div
           style="border-bottom: 1px solid red;
           font-size: 18px;padding-bottom: 7px;margin-bottom: 7px">

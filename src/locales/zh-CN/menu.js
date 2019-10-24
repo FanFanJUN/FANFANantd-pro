@@ -30,6 +30,7 @@ export default {
   'menu.charts.map': '地图',
   'menu.DIY': '组件',
   'menu.DIY.divtable': '表格',
+  'menu.DIY.edittable': '编辑表格',
   'menu.DIY.commoncomponent': '通用组件',
   'menu.DIY.map': '地图',
   'menu.springboot.hellospringboot': 'sringboot测试',

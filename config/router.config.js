@@ -202,6 +202,11 @@ export default [
             component: './DIYcompoment/table',
           },
           {
+            path: '/DIYcompoment/edittable',
+            name: 'edittable',
+            component: './DIYcompoment/edittable',
+          },
+          {
             path: '/DIYcompoment/commoncomponent',
             name: 'commoncomponent',
             component: './DIYcompoment/commoncomponent',

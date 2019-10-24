@@ -136,6 +136,7 @@ export default {
 
   chainWebpack: webpackPlugin, // 自定义webpack配置
 
+  // 服务器代理配置
   "proxy": {
     "/api/lc": {
       "target": "http://129.28.167.200:20080",

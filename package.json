@@ -49,6 +49,7 @@
     "@antv/g6": "^3.0.5-beta.7",
     "@antv/hierarchy": "^0.5.0",
     "antd": "^3.19.3",
+    "antd-edit-table": "^0.0.2",
     "bizcharts": "^3.5.3-beta.0",
     "bizcharts-plugin-slider": "^2.1.1-beta.1",
     "canvas": "^2.5.0",

@@ -14,11 +14,14 @@ class Hello extends React.Component {
   }
 
   componentDidMount() {
+    /** 查询测试文本 */
     getHelloWord().then((response) => {
       this.setState({
         hello: response || '',
       });
     });
+
+    /** 查询table表数据 */
     const params = { request: true };
     getUserData(params).then((response) => {
       this.setState({ userData: response || [] });
@@ -83,7 +86,7 @@ class Hello extends React.Component {
     return (
       <Card
         bordered
-        title="Hello!SpringBoot"
+        title="SpringBoot连接后台测试"
       >
         <h1><strong>{hello}</strong></h1>
         {this.renderTable()}
