@@ -204,7 +204,7 @@ export default [
           {
             path: '/DIYcompoment/edittable',
             name: 'edittable',
-            component: './DIYcompoment/edittable',
+            component: './DIYcompoment/etable',
           },
           {
             path: '/DIYcompoment/commoncomponent',

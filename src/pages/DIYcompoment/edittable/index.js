@@ -20,7 +20,7 @@ const EditableRow = ({ form, index, ...props }) => (
 );
 
 const EditableFormRow = Form.create()(EditableRow);
-const EditableCell = ({ ...props }) => {
+const EditableCell = (props) => {
   const {
     editing,
     dataIndex,
@@ -218,6 +218,7 @@ class EditableTable extends React.Component {
     });
 
     return (
+    // <EditableContext.Provider value={this.props.form}>
       <Table
         components={components}
         bordered
@@ -228,17 +229,14 @@ class EditableTable extends React.Component {
           onChange: this.cancel,
         }}
       />
+    // </EditableContext.Provider>
     );
   }
 
 
   render() {
     return (
-      <Card
-        title="可编辑表格"
-      >
-        {this.renderTable()}
-      </Card>
+      this.renderTable()
     );
   }
 }
