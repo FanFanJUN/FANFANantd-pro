@@ -49,13 +49,12 @@ class EditableTable extends React.Component {
             <span>
               <EditableContext.Consumer>
                 {(form) => (
-                  <button
+                  <a
                     onClick={() => this.save(form, record.key)}
                     style={{ marginRight: 8 }}
-                    type="button"
                   >
                                         保存
-                  </button>
+                  </a>
                 )}
               </EditableContext.Consumer>
               <Divider type="vertical" />
@@ -63,9 +62,9 @@ class EditableTable extends React.Component {
                 title="Sure to cancel?"
                 onConfirm={() => this.cancel(record.key)}
               >
-                <button style={{ marginRight: 8 }} type="button">
+                <a style={{ marginRight: 8 }}>
                                     取消
-                </button>
+                </a>
               </Popconfirm>
             </span>
           ) : (
@@ -74,16 +73,15 @@ class EditableTable extends React.Component {
                 title="Sure to delete?"
                 onConfirm={() => this.delete(record.key)}
               >
-                <button type="button">删除</button>
+                <a disabled={editingKey !== ''}>删除</a>
               </Popconfirm>
               <Divider type="vertical" />
-              <button
-                type="button"
+              <a
                 disabled={editingKey !== ''}
                 onClick={() => this.edit(record.key)}
               >
                             编辑
-              </button>
+              </a>
             </span>
           );
         },
@@ -134,7 +132,7 @@ class EditableTable extends React.Component {
       console.log(data);
       console.log(row);
       const newData = data;
-      newData.splice(data.length, 1, row);
+      newData.splice(data.length, 0, row);
       this.setState({ data: newData, editingKey: key });
       console.log(newData);
     };
