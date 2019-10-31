@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Collapse, Form, Icon, Card, Divider, Row } from 'antd';
+import { Collapse, Form, Icon, Card, Divider, Row, Col } from 'antd';
 import JsBarcode from 'jsbarcode';
 import Barcode from 'react-barcode';
 import QRCode from 'qrcode.react';
@@ -8,9 +8,14 @@ import Player from 'xgplayer';
 import { getDicOptions, getEllipsis } from '@/utils/utils';
 import { CcLoanSelect, CcAmtCpl } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
+import { CcInput } from '@/cc-comp/basic';
+import { getFormItemLayout } from '@/utils/layout';
 
 const { Panel } = Collapse;
 const { Description } = DescriptionList;
+const columnLayout = getFormItemLayout(2);
+const formItemLayout = getFormItemLayout(1);
+const FormItem = Form.Item;
 /**
  * @description 通用组件
  * @param 数据字典
@@ -89,6 +94,7 @@ class Commoncomponent extends React.Component {
 
   renderForm() {
     const { form } = this.props;
+    const { getFieldDecorator } = form;
     const { optionsData } = this.state;
     return (
       <Fragment>
@@ -114,6 +120,15 @@ class Commoncomponent extends React.Component {
             field="money"
             decimalsPrecision={3}
           />
+        </Row>
+        <Row>
+          <Col {...columnLayout}>
+            <FormItem label="规则名称" {...formItemLayout}>
+              {getFieldDecorator('name', {
+                initialValue: '测试按钮超长处理X禁用颜色加深XXXXXXXXXXX超DDDDDDDDD',
+              })(<CcInput placeholder="请输入" disabled />)}
+            </FormItem>
+          </Col>
         </Row>
       </Fragment>
     );

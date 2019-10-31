@@ -5,7 +5,7 @@ import { EditableContext } from './TableContext';
 import EditableCell from './EditableCell';
 
 const tabledata = [];
-for (let i = 0; i < 99; i += 1) {
+for (let i = 0; i < 9; i += 1) {
   tabledata.push({
     key: i.toString(),
     name: `Edrward ${i}`,

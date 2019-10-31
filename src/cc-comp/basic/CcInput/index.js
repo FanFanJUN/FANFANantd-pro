@@ -10,9 +10,9 @@ import { Input } from 'antd';
  */
 class CcInput extends Input {
   render() {
-    const { autoComplete, ...rest } = this.props;
+    const { autoComplete, value, ...rest } = this.props;
     return (
-      <Input autoComplete={autoComplete || 'off'} {...rest} />
+      <Input autoComplete={autoComplete || 'off'} {...rest} title={value} value={value} />
     );
   }
 }
