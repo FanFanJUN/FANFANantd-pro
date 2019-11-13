@@ -232,13 +232,18 @@ export function createRouteid() {
  * @param {*} response
  * @returns {boolean}
  */
+// export function isRespSucc(response) {
+//   if (!response || response.fault.faultCode !== 'AAAAAAA') {
+//     return false;
+//   }
+//   return true;
+// }
 export function isRespSucc(response) {
-  if (!response || response.fault.faultCode !== 'AAAAAAA') {
+  if (!response || response.code !== 200) {
     return false;
   }
   return true;
 }
-
 /**
  * @description 错误信息||错误码
  * @author LC@1981824361
@@ -256,14 +261,31 @@ export function showErrorMsg(response) {
     content: (
       <div style={{ marginTop: 16 }}>
         错误码:
-        <span style={{ color: 'red' }}>{response.fault.faultCode}</span>
+        <span style={{ color: 'red' }}>{response.code}</span>
         <br />
         错误信息:
-        <span style={{ color: 'red' }}>{response.fault.faultString}</span>
+        <span style={{ color: 'red' }}>{response.message}</span>
       </div>
     ),
   });
 }
+// export function showErrorMsg(response) {
+//   if (response == null) {
+//     return;
+//   }
+//   Modal.error({
+//     title: <div>错误提示</div>,
+//     content: (
+//       <div style={{ marginTop: 16 }}>
+//         错误码:
+//         <span style={{ color: 'red' }}>{response.fault.faultCode}</span>
+//         <br />
+//         错误信息:
+//         <span style={{ color: 'red' }}>{response.fault.faultString}</span>
+//       </div>
+//     ),
+//   });
+// }
 /**
  * @description
  * @author LC@1981824361
@@ -517,11 +539,16 @@ export function getHelloWord() {
  * @returns userlIST
  */
 export function getUserData(params) {
-  return request('/api/lc/getTabledata', {
-    method: 'GET',
+  return request('/api/lc/SELECTLISTUSER', {
+    method: 'POST',
     data: params,
   }).then((response) => {
-    return response;
+    if (!isRespSucc(response)) {
+      showErrorMsg(response);
+      return;
+    }
+    const { data } = response;
+    return data;
   });
 }
 

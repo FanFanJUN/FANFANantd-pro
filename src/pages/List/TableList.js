@@ -486,7 +486,7 @@ class TableList extends PureComponent {
     const formItemLayout = getFormItemLayout(1);
     const colLayout = getFormItemLayout(2);
     return (
-      <Form onSubmit={this.handleSearch} layout="inline">
+      <Form onSubmit={this.handleSearch}>
         <Row>
           <Col {...colLayout}>
             <FormItem label="规则名称" {...formItemLayout}>
@@ -496,28 +496,28 @@ class TableList extends PureComponent {
           <Col {...colLayout}>
             <FormItem label="使用状态" {...formItemLayout}>
               {getFieldDecorator('status')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
+                <Select placeholder="请选择">
                   <Option value="0">关闭</Option>
                   <Option value="1">运行中</Option>
                 </Select>
               )}
             </FormItem>
           </Col>
-          <Row>
-            <div style={{ float: 'right' }}>
-              <span className={styles.submitButtons}>
-                <Button type="primary" htmlType="submit">
+        </Row>
+        <Row>
+          <div style={{ float: 'right' }}>
+            <span className={styles.submitButtons}>
+              <Button type="primary" htmlType="submit">
                 查询
-                </Button>
-                <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} type="primary">
+              </Button>
+              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset} type="primary">
                 重置
-                </Button>
-                <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
+              </Button>
+              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
                 展开 <Icon type="down" />
-                </a>
-              </span>
-            </div>
-          </Row>
+              </a>
+            </span>
+          </div>
         </Row>
       </Form>
     );

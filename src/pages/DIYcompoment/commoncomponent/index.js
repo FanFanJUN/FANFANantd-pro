@@ -13,7 +13,7 @@ import { getFormItemLayout } from '@/utils/layout';
 
 const { Panel } = Collapse;
 const { Description } = DescriptionList;
-const columnLayout = getFormItemLayout(2);
+const columnLayout = getFormItemLayout(3);
 const formItemLayout = getFormItemLayout(1);
 const FormItem = Form.Item;
 /**
@@ -100,7 +100,7 @@ class Commoncomponent extends React.Component {
       <Fragment>
         <Row>
           <CcLoanSelect
-            columnLayout={2}
+            columnLayout={3}
             columnIndex={1}
             form={form}
             label="证件类型"
@@ -113,15 +113,13 @@ class Commoncomponent extends React.Component {
             ChooseFlag
           />
           <CcAmtCpl
-            columnLayout={2}
+            columnLayout={3}
             columnIndex={2}
             form={form}
             label="金额"
             field="money"
             decimalsPrecision={3}
           />
-        </Row>
-        <Row>
           <Col {...columnLayout}>
             <FormItem label="规则名称" {...formItemLayout}>
               {getFieldDecorator('name', {
