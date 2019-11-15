@@ -1,4 +1,4 @@
-import { getTableData } from '@/services/api';
+import { getTableData, addleData } from '@/services/api';
 import { isRespSucc, showErrorMsg } from '@/utils/utils';
 
 // c测试封装model对数据的获取
@@ -17,10 +17,9 @@ export default {
         routeid,
       });
     },
-    *clear({ routeid }, { put }) {
+    *clear(_, { put }) {
       yield put({
         type: 'clearState',
-        routeid,
       });
     },
     *getTableData({ routeid, payload }, { call, put }) {
@@ -30,13 +29,30 @@ export default {
         showErrorMsg(response);
         return;
       }
-      const { ResponseBody: { dataSource, pagination } } = response;
+      // const { ResponseBody: { dataSource, pagination } } = response;
+      const { data: { dataSource, pagination } } = response;
       yield put({
         type: 'saveState',
         routeid,
         payload: {
           dataSource, // 返回页面的数据
           pagination,
+        },
+      });
+    },
+    *addleData({ routeid, payload }, { call, put }) {
+      const response = yield call(addleData, payload);
+      if (!isRespSucc(response)) {
+        showErrorMsg(response);
+        return;
+      }
+      const { message, code } = response;
+      yield put({
+        type: 'saveState',
+        routeid,
+        payload: {
+          message,
+          code,
         },
       });
     },

@@ -446,16 +446,16 @@ export function getDicOptions(dicCategoryNos) {
   if (!dicCategoryNos.length) {
     return;
   }
-  const params = { cachebatchOne: dicCategoryNos };
-  return request('/api/com/cachebatchone', {
+  const params = { projectIds: dicCategoryNos };
+  return request('/api/lc/cacheone', {
     method: 'POST',
     data: params,
   }).then((response) => {
-    if (!isRespSucc(response)) {
-      // eslint-disable-next-line no-throw-literal
-      throw '数据字典获取异常';
-    }
-    const options = response.ResponseBody.retCacheList;
+    // if (!isRespSucc(response)) {
+    //   // eslint-disable-next-line no-throw-literal
+    //   throw '数据字典获取异常';
+    // }
+    const options = response.retCacheList;
     const obj = {};
     for (let i = 0; i < dicCategoryNos.length; i++) {
       for (let j = 0; j < options.length; j++) {

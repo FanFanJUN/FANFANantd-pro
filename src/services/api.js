@@ -127,12 +127,18 @@ export async function getFakeCaptcha(mobile) {
 
 // ******************请求************8  可以对request进行封装  包括请求头 请求体 //
 export async function getTableData(params) {
-  return request('/api/getTableData', {
+  return request('/api/lc/SELECTLISTUSER', {
     method: 'POST',
     data: params,
   });
 }
-
+export async function addleData(params) {
+  const api = params && params.flag === 'delete' ? '/api/lc/DELETETUSER' : '/api/lc/INSERTUSER';
+  return request(api, {
+    method: 'POST',
+    data: params,
+  });
+}
 export async function getMenuData(params) {
   return request('/api/getMenuData', {
     method: 'GET',

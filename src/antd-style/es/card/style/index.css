@@ -29,7 +29,7 @@
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.09);
 }
 .ant-card-bordered {
-  border: 1px solid #e8e8e8;
+  /* border: 1px solid #e8e8e8; */
 }
 .ant-card-head {
   min-height: 48px;
