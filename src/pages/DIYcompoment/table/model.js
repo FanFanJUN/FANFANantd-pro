@@ -44,7 +44,6 @@ export default {
       const response = yield call(addleData, payload);
       if (!isRespSucc(response)) {
         showErrorMsg(response);
-        return;
       }
       const { message, code } = response;
       yield put({

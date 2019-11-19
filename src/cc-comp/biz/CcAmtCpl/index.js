@@ -145,6 +145,7 @@ class CcAmtCpl extends React.PureComponent {
                   disabled={inputDisabled}
                   form={form}
                   field={field}
+                  // size="small"
                   formatter={value => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   parser={value => {
                     let tmpVal = value;

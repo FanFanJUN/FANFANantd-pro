@@ -6,7 +6,7 @@ import QRCode from 'qrcode.react';
 import Player from 'xgplayer';
 // import Canvas from 'canvas';
 import { getDicOptions, getEllipsis } from '@/utils/utils';
-import { CcLoanSelect, CcAmtCpl } from '@/cc-comp/biz';
+import { CcLoanSelect, CcAmtCpl, CcRegionCasCader } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
 import { CcInput } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
@@ -106,7 +106,7 @@ class Commoncomponent extends React.Component {
             label="证件类型"
             placeholder="请输入证件类型"
             dicCode="CERTFCT_TYPE"
-            field="xx"
+            field="certfctType"
             options={optionsData.CERTFCT_TYPE}
             valueProp="dictionaryNo"
             titleProp="dictionaryNm"
@@ -127,6 +127,21 @@ class Commoncomponent extends React.Component {
               })(<CcInput placeholder="请输入" disabled />)}
             </FormItem>
           </Col>
+        </Row>
+        <Row>
+          <CcRegionCasCader
+            columnLayout={3}
+            columnIndex={1}
+            form={form}
+            label="行政区划"
+            placeholder="请选择行政区划"
+            field="areaData"
+            // defaultInitiVal // 默认选中一级区域
+            // initialValue={['510000', '511000', '511024']}
+            // initialValue={['500000', '500100', '']} 省市区默认值
+            // initialValue={['500000', '500100', '500122']}
+            // initialValue={['500000']}
+          />
         </Row>
       </Fragment>
     );

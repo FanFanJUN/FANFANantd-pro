@@ -64,10 +64,6 @@ class DiyTable extends React.Component {
   initQuery=() => {
     const { dispatch } = this.props;
     const { routeid } = this.state;
-    dispatch({
-      type: 'table/create',
-      routeid,
-    });
     const params = { pageSize: 10, pageNum: 1 };
     dispatch({
       type: 'table/getTableData',

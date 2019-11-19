@@ -447,7 +447,7 @@ export function getDicOptions(dicCategoryNos) {
     return;
   }
   const params = { projectIds: dicCategoryNos };
-  return request('/api/lc/cacheone', {
+  return request('/api/lc/CACHEDIC', {
     method: 'POST',
     data: params,
   }).then((response) => {
