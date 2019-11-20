@@ -133,7 +133,17 @@ export async function getTableData(params) {
   });
 }
 export async function addleData(params) {
-  const api = params && params.flag === 'delete' ? '/api/lc/DELETETUSER' : '/api/lc/INSERTUSER';
+  // const api = params && params.flag === 'delete' ? '/api/lc/DELETETUSER' : '/api/lc/INSERTUSER';
+  let api = '';
+  if (params) {
+    if (params.flag === 'delete') {
+      api = '/api/lc/DELETETUSER';
+    } else if (params.flag === 'update') {
+      api = '/api/lc/UPDATEUSER';
+    } else {
+      api = '/api/lc/INSERTUSER';
+    }
+  }
   return request(api, {
     method: 'POST',
     data: params,
