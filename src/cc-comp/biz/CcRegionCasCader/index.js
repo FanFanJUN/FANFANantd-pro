@@ -65,7 +65,7 @@ class CcRegionCasCader extends React.PureComponent {
     const { initialValue } = this.props;
     const param = {
       dictionaryCategoryNo: 'STD_GB_AREA',
-      higherLevelDictionaryNo: 'all',
+      higherLevelDictionaryNo: '0',
     };
     let newOptions = [];
     if (initialLoad) {

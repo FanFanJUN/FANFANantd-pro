@@ -11,6 +11,8 @@
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560587495/antd/%E5%85%A8%E5%B1%8F.png)
 #### 组件（二维码||条形码）
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560682023/antd/0616.png)
+#### 公共组件
+![公共组件](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1574216556/antd/common.png)
 #### 地图
 ![image](https://res.cloudinary.com/dnmtpbj1g/image/upload/v1560840107/antd/map.png)
 #### table
