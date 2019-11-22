@@ -12,6 +12,14 @@ const { Sider } = Layout;
 
 let firstMount = true;
 
+/**
+ * @description 左侧菜单
+ * @author LC@1981824361
+ * @date 2019-11-21
+ * @export
+ * @class SiderMenu
+ * @extends {PureComponent}
+ */
 export default class SiderMenu extends PureComponent {
   constructor(props) {
     super(props);
@@ -80,7 +88,7 @@ export default class SiderMenu extends PureComponent {
             onCollapse(collapse);
           }
         }}
-        width={256}
+        width={200}
         collapsedWidth={0} // 收缩宽度
         theme={theme}
         className={siderClassName}

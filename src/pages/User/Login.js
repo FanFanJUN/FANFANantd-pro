@@ -5,6 +5,7 @@ import Link from 'umi/link';
 import { Checkbox, Alert, Modal, Icon } from 'antd';
 import Login from '@/components/Login';
 import styles from './Login.less';
+import { getSessionStorage, clearAllSessionStorage } from '@/utils/storage';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
@@ -18,6 +19,13 @@ class LoginPage extends Component {
     autoLogin: true,
   };
 
+  /** 手动输入登录界面路由 清空SessionStorage */
+  componentWillMount() {
+    if (this.props.location.pathname === '/user/login' &&
+    getSessionStorage('currentUser') !== null) {
+      clearAllSessionStorage();
+    }
+  }
   onTabChange = type => {
     this.setState({ type });
   };
@@ -80,37 +88,35 @@ class LoginPage extends Component {
             this.loginForm = form;
           }}
         >
-          <Tab key="account" tab={formatMessage({ id: 'app.login.tab-login-credentials' })}>
-            {login.status === 'error' &&
+          <UserName
+            name="userName"
+            placeholder={`${formatMessage({ id: 'app.login.userName' })}: admin or user`}
+            rules={[
+              {
+                required: true,
+                message: formatMessage({ id: 'validation.userName.required' }),
+              },
+            ]}
+          />
+          <Password
+            name="password"
+            placeholder={`${formatMessage({ id: 'app.login.password' })}: 123456`}
+            rules={[
+              {
+                required: true,
+                message: formatMessage({ id: 'validation.password.required' }),
+              },
+            ]}
+            onPressEnter={e => {
+              e.preventDefault();
+              this.loginForm.validateFields(this.handleSubmit);
+            }}
+          />
+          {login.status === 'error' &&
               login.type === 'account' &&
               !submitting &&
-              this.renderMessage(formatMessage({ id: 'app.login.message-invalid-credentials' }))}
-            <UserName
-              name="userName"
-              placeholder={`${formatMessage({ id: 'app.login.userName' })}: admin or user`}
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({ id: 'validation.userName.required' }),
-                },
-              ]}
-            />
-            <Password
-              name="password"
-              placeholder={`${formatMessage({ id: 'app.login.password' })}: 123456`}
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({ id: 'validation.password.required' }),
-                },
-              ]}
-              onPressEnter={e => {
-                e.preventDefault();
-                this.loginForm.validateFields(this.handleSubmit);
-              }}
-            />
-          </Tab>
-          <Tab key="mobile" tab={formatMessage({ id: 'app.login.tab-login-mobile' })}>
+              this.renderMessage('账号或密码错误')}
+          {/* <Tab key="mobile" tab={formatMessage({ id: 'app.login.tab-login-mobile' })}>
             {login.status === 'error' &&
               login.type === 'mobile' &&
               !submitting &&
@@ -145,7 +151,7 @@ class LoginPage extends Component {
                 },
               ]}
             />
-          </Tab>
+          </Tab> */}
           {/* <div>
             <Checkbox checked={autoLogin} onChange={this.changeAutoLogin}>
               <FormattedMessage id="app.login.remember-me" />

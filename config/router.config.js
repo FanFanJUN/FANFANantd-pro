@@ -223,18 +223,18 @@ export default [
           // }
         ],
       },
-      {
-        path: '/SpringBoot',
-        name: 'SpringBoot',
-        icon: 'code',
-        routes: [
-          {
-            path: '/SpringBoot/hello',
-            name: 'hellospringboot',
-            component: './SpringBoot/hello',
-          },
-        ]
-      },
+      // {
+      //   path: '/SpringBoot',
+      //   name: 'SpringBoot',
+      //   icon: 'code',
+      //   routes: [
+      //     {
+      //       path: '/SpringBoot/hello',
+      //       name: 'hellospringboot',
+      //       component: './SpringBoot/hello',
+      //     },
+      //   ]
+      // },
       {
         name: 'result',
         icon: 'check-circle-o',
@@ -356,6 +356,28 @@ export default [
             name: 'koni',
             component: './Editor/GGEditor/Koni',
           },
+        ],
+      },
+      {
+        name: 'system',
+        icon: 'setting',
+        path: '/system',
+        routes: [
+          {
+            path: '/system/sysdics',
+            name: 'sysdics',
+            component: './System/sysdic',
+          },
+          // {
+          //   path: '/editor/mind',
+          //   name: 'mind',
+          //   component: './Editor/GGEditor/Mind',
+          // },
+          // {
+          //   path: '/editor/koni',
+          //   name: 'koni',
+          //   component: './Editor/GGEditor/Koni',
+          // },
         ],
       },
       {

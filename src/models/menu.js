@@ -113,6 +113,40 @@ export default {
       const { routes, authority, path } = payload;
       const originalMenuData = memoizeOneFormatter(routes, authority, path);
       const menuData = filterMenuData(originalMenuData);
+
+      // const isLeaf = [
+
+      //   {
+      //     path: '/dashboard/analysis',
+      //     name: '分析页',
+      //     exact: true,
+      //     locale: 'menu.dashboard.analysis',
+      //   },
+      //   {
+      //     path: '/dashboard/monitor',
+      //     name: '监控页',
+      //     exact: true,
+      //     locale: 'menu.dashboard.monitor',
+      //   },
+      //   {
+      //     path: '/dashboard/workplace',
+      //     name: '工作台',
+      //     exact: true,
+      //     locale: 'menu.dashboard.workplace',
+      //   },
+
+      // ];
+      // const menuData = [
+      //   { path: '/dashboard', name: 'Dashboard', icon: 'dashboard', locale: '平台', isLeaf },
+      //   { path: '/form', icon: 'form', name: '表单页', locale: 'menu.form' },
+      //   { path: '/list', icon: 'table', name: '列表页', locale: 'menu.list' },
+      //   { path: '/profile', name: '详情页', icon: 'profile', locale: 'menu.profile' },
+      //   { path: '/charts', name: '图表', icon: 'area-chart', locale: 'menu.charts' },
+      //   { path: '/DIYcompoment', name: '组件', icon: 'appstore', locale: 'menu.DIY' },
+      //   { name: '结果页', icon: 'check-circle-o', path: '/result', locale: 'menu.result' },
+      //   { name: '个人页', icon: 'user', path: '/account', locale: 'menu.account' },
+      //   { name: '图形编辑器', icon: 'highlight', path: '/editor', locale: 'menu.editor' },
+      //   { name: '系统管理', icon: 'setting', path: '/system', locale: 'menu.system' }];
       const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(originalMenuData);
       // const menuData = yield call(getMenuData, payload);
       yield put({
