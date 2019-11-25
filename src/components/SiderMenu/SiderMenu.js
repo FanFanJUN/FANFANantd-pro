@@ -93,16 +93,16 @@ export default class SiderMenu extends PureComponent {
         theme={theme}
         className={siderClassName}
       >
-        <div className={styles.logo} id="logo">
+        {/* <div className={styles.logo} id="logo">
           <Link to="/">
             <img src={logo} alt="logo" />
             <h1>{title}</h1>
           </Link>
-        </div>
+        </div> */}
         <Suspense fallback={<PageLoading />}>
           <BaseMenu
             {...this.props}
-            mode="inline" // MenuMode = 'vertical' | 'vertical-left' | 'vertical-right' | 'horizontal' | 'inline';
+            mode="vertical" // MenuMode = 'vertical' | 'vertical-left' | 'vertical-right' | 'horizontal' | 'inline';
             handleOpenChange={this.handleOpenChange}
             onOpenChange={this.handleOpenChange}
             style={{ padding: '16px 0', width: '100%' }}

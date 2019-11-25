@@ -1,0 +1,7 @@
+.bslayout {
+    background: rgba(254, 253, 249, 0.8);
+}
+
+.bslayout :global(.ant-layout-footer) {
+    background: rgba(254, 253, 249, 0.8);
+}

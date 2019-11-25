@@ -10,12 +10,16 @@ import Footer from './Footer';
 import Header from './Header';
 import Context from './MenuContext';
 import SiderMenu from '@/components/SiderMenu';
+import CcTopMenu from '../cc-comp/gen/DynamicTopMenu';
 import getPageTitle from '@/utils/getPageTitle';
 import styles from './BasicLayout.less';
 import SiderDemo from '@/components/SiderLayout';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { getSessionStorage } from '@/utils/storage';
 import Exception from '@/components/Exception';
+import { CcGlobalHeader } from '@/cc-comp/pro';
+import blStyles from './BasicLayout.css';
+import { parseMenuData } from '@/utils/utils';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -50,11 +54,22 @@ const query = {
 class BasicLayout extends React.Component {
   constructor() {
     super();
+    if (getSessionStorage('currentUser')) {
+      this.getAllFirstMenu();
+    } else {
+      // eslint-disable-next-line no-useless-return
+      return;
+    }
     this.state = {
+      rendering: true,
+      isMobile: false,
       error: false,
       contentAreaMinHeight: 0,
+      firstMenus: [],
     };
   }
+
+
   componentDidMount() {
     const {
       dispatch,
@@ -93,26 +108,33 @@ class BasicLayout extends React.Component {
       });
     }
   }
-  getContext() {
-    const { location, breadcrumbNameMap } = this.props;
-    return {
-      location,
-      breadcrumbNameMap,
-    };
-  }
 
-  getContentType() {
-    const { fixedHeader } = this.props;
-    const { contentAreaMinHeight } = this.state;
-    return {
-      height: contentAreaMinHeight,
-      // margin: '0px 24px 0px',
-      paddingTop: fixedHeader ? 64 : 0,
-      overflowY: 'auto',
-      overflowX: 'hidden',
-      background: '#FFFFFF',
-    };
-  }
+ getAllFirstMenu=() => {
+   const firstMenuArr = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
+   console.log(firstMenuArr);
+   this.setState({ firstMenus: firstMenuArr });
+ }
+
+ getContext() {
+   const { location, breadcrumbNameMap } = this.props;
+   return {
+     location,
+     breadcrumbNameMap,
+   };
+ }
+
+ getContentType() {
+   const { fixedHeader } = this.props;
+   const { contentAreaMinHeight } = this.state;
+   return {
+     height: contentAreaMinHeight,
+     // margin: '0px 24px 0px',
+     paddingTop: fixedHeader ? 64 : 0,
+     overflowY: 'auto',
+     overflowX: 'hidden',
+     background: '#FFFFFF',
+   };
+ }
   countTimer = () => {
     if (document.getElementById('clock')) {
       const currTime = new Date()
@@ -166,29 +188,41 @@ class BasicLayout extends React.Component {
       layout: PropsLayout,
       children,
       location: { pathname },
-      isMobile,
       menuData,
       breadcrumbNameMap,
       fixedHeader,
       collapsed,
+      location,
     } = this.props;
 
-    const { error } = this.state;
-
+    const { error, isMobile } = this.state;
+    const firstMenus = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
     const isTop = PropsLayout === 'topmenu';
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
+    const posses = getSessionStorage('Positions') && JSON.parse(getSessionStorage('Positions')) || [];
     const layout = (
-      <Layout>
-        <SiderDemo
+      <Layout className={blStyles.bslayout}>
+        <CcGlobalHeader posses={posses} />
+        {/* <SiderDemo
           onCollapse={this.handleMenuCollapse}
           collapsed={collapsed}
-        />
-        <SiderMenu
+        /> */}
+        {/* <SiderMenu
           logo={logo}
           // theme={navTheme}
           onCollapse={this.handleMenuCollapse}
           collapsed={collapsed}
           menuData={menuData}
+          isMobile={isMobile}
+          {...this.props}
+        /> */}
+        <CcTopMenu
+          logo={logo}
+          // theme={navTheme}
+          onCollapse={this.handleMenuCollapse}
+          collapsed={collapsed}
+          firstMenus={firstMenus}
+          location={location}
           isMobile={isMobile}
           {...this.props}
         />

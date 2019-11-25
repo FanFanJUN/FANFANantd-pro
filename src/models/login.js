@@ -49,6 +49,35 @@ export default {
         reloadAuthorized();
         // 把用户信息存入sessionstorage
         setSessionStorage('currentUser', response.currentUser);
+        // 角色信息
+        const roles = [
+          { POSITION_NO: 'TEST_01' }, { POSITION_NM: '技术部经理' },
+          {
+            POSITION_NO: 'TEST_02' }, { POSITION_NM: '人事部经理',
+          }];
+        // 菜单信息
+        const paths = [
+          {
+            ResourceNo: '100',
+            ResourceNm: '用户管理',
+            ResourcePath: '/DIYcompoment/table',
+            ResourceLvl: '1',
+            ParentNo: '000000',
+            IsLeaf: '1',
+            ResourceOrd: '1',
+          },
+          {
+            ResourceNo: '200',
+            ResourceNm: '首页',
+            ResourcePath: '/dashboard/analysis',
+            ResourceLvl: '1',
+            ParentNo: '000000',
+            IsLeaf: '1',
+            ResourceOrd: '2',
+          },
+        ];
+        setSessionStorage('Positions', JSON.stringify(roles));
+        setSessionStorage('000000', JSON.stringify(paths));
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;

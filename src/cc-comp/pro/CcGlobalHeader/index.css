@@ -1,0 +1,115 @@
+@charset "utf-8";
+
+* {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font: Arial, Helvetica, sans-serif;
+}
+
+.header {
+    height: 48px;
+    position: relative;
+    margin: 0px 25px 4px;
+}
+
+.logoTitle {
+    position: absolute;
+    left: 10px;
+    top: 14px;
+    width: 43%;
+}
+
+.sysLogo {
+    background: url(../../../assets/logo.png) no-repeat;
+    width: 40%;
+    height: 44px;
+    float: left;
+    margin-left: -28px;
+    margin-top: -8px;
+    overflow: hidden;
+}
+.sysTitle {
+    font-size: 17px;
+    color: #53597b;
+    display: inline-block;
+    float: left;
+    margin-left: 5px;
+    line-height: 31px;
+    letter-spacing: 0px;
+}
+
+/* 按钮 */
+.hdBtn {
+    float: right;
+    padding: 15px 5px 0px 0px;
+    box-sizing: border-box;
+}
+
+.hdTitleBtn {
+    display: inline-block;
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+.hdTitleBtnLink {
+    margin: 0px opx opx 3ppx;
+    text-decoration: none;
+    color: #000;
+    font-size: 12px;
+    height: 30px;
+    line-height: 28px;
+    float: left;
+    display: inline-block;
+}
+
+.hdTitleBtnLink:hover {
+ text-shadow: 1x 1px 1px #ccc;
+}
+
+.hdTitleExit {
+    background: url(../../../assets/exit.svg) no-repeat;
+    width: 28px;
+    height: 28px;
+    display: inline-block;
+    float: left;
+}
+.hdTitleExit:hover {
+
+}
+
+/* 登录信息 */
+.loginMessage {
+    height: 54px;
+    width: auto;
+    float: right;
+    box-sizing: border-box;
+    padding-top: 17px;
+    margin-right: 5px;
+}
+
+.caraIcon {
+    background: url(../../../assets/user.svg) no-repeat;
+    width: 25px;
+    height: 25px;
+    display: inline-block;
+    float: left;
+    margin-right: 1px;
+}
+
+.titleName {
+    height: 30px;
+    text-decoration: none;
+    color: #3c4859;
+    font-size: 12px;
+    margin-left:  10px;
+    display: inline-block;
+    float: left;
+    line-height: 25px;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.titleName:hover {
+    text-shadow: 1px 1px 1px #ccc;
+}

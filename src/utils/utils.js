@@ -695,3 +695,44 @@ export function translateDataToTree(data) {
   // 返回最终的结果
   return parents;
 }
+
+/**
+ * @description解析菜单数据
+ * @author LC@1981824361
+ * @date 2019-11-25
+ * @export
+ * @param {*} data
+ * @param {*} parentNo
+ * @returns
+ */
+export function parseMenuData(data, parentNo) {
+  if (!data) {
+    return [];
+  }
+  const arr = [];
+  for (let i = 0; i < data.length; i++) {
+    const menu = {};
+    menu.name = data[i].ResourceNm;
+    menu.path = data[i].ResourcePath;
+    menu.id = data[i].ResourceNo;
+    menu.level = data[i].ResourceLvl;
+    menu.order = Number(data[i].ResourceOrd);
+    if (data[i].ParentNo === parentNo) {
+      if (data[i].IsLeaf === '1') {
+        const child = parseMenuData(data, data[i].ResourceNo);
+        if (!isEmptyArray(child)) menu.children = child;
+      }
+      arr.push(menu);
+    }
+  }
+  arr.sort((v1, v2) => {
+    if (v1.order > v2.order) {
+      return 1;
+    } else if (v1.order < v2.order) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+  return arr;
+}

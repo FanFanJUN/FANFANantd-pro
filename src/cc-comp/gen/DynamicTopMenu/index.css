@@ -1,0 +1,127 @@
+.CcTopMenu :global(.ant-menu-item) {
+    text-align: center;
+}
+
+.CcTopMenu :global(.ant-layout-header) {
+    height: 30px;
+    margin: 0px 25px;
+    background: none;
+    padding: 0px;
+}
+
+.CcTopMenu :global(.ant-menu-item > li) {
+    font-size: 15px;
+    height: 36px;
+    line-height: 35px;
+    color: #fff;
+}
+
+.CcTopMenu :global(.ant-menu-horizontal) {
+    overflow: hidden;
+    height: 36px;
+    background: none;
+    padding: 0px;
+    border-bottom: none;
+}
+
+.CcTopMenu :global(.ant-menu-horizontal > .ant-menu-item > a) {
+    color: #fff;
+} 
+
+.CcTopMenu :global(.ant-menu-item-active) {
+    color: #fff;
+    text-shadow: 0 1px 2px #bb4d52;
+}
+
+.CcTopMenu li {
+    width: 8.88%;
+    padding: 0;
+}
+
+.CcTopMenu :global(.ant-menu-horizontal > .ant-menu-submenu > hover) {
+    color: #fff;
+} 
+
+.CcTopMenu :global(.ant-menu-horizontal > .ant-menu-submenu > selected) {
+    color: #fff;
+} 
+
+.CcTopMenu :global(.ant-menu-submenu-title:hover) {
+    color: #fff;
+}
+
+.CcTopMenu :global(.ant-menu-submenu-title) {
+    padding: 0;
+}
+
+.CcTopMenu :global(.ant-menu li.ant-menu-item-active) {
+    color: #fff;
+}
+
+.subMenu {
+    height: 32px;
+    float: left;
+    padding: 0 25px;
+    overflow: hidden;
+    width: 100%;
+    clear: both;
+    background-color: white;
+    border-bottom: 2px solid red;
+    margin-top: -12px;
+}
+
+.subMenu ul {
+    width: auto;
+}
+
+.subMenu :global(ul li.submenuChecked a) {
+    background-color: #fff;
+    color: #ed7570;
+}
+
+.subMenu ul li {
+    width: auto;
+    display: inline;
+    list-style: none;
+    line-height: 28px;
+    overflow: hidden;
+    color: #ccc;
+    float: left;
+    margin-left: 10px;
+}
+
+.subMenu ul li a {
+    width: auto;
+    color: #333;
+    line-height: inherit;
+    text-decoration: none;
+    display: inline-block;
+    height: inherit;
+}
+
+.subMenu ul li a:link {
+    color: #333;
+    text-decoration: none;
+}
+
+.subMenu ul li a:hover {
+    color: #333;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.CcTopMenu :global(.ant-menu-item > li.ant-menu-item-selected) {
+    font-size: 15px;
+    background: #ff7f7a;
+}
+
+.CcTopMenu :global(.ant-menu-item-selected > a::after) {
+    position: absolute;
+    top: 100%;
+    left: calc(43% - 1px);
+    width: 0;
+    height: 0;
+    content: '';
+    border-width: 7px;
+    border-color: #ed7570 transparent transparent;
+}
