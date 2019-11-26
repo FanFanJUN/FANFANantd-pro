@@ -1,4 +1,7 @@
-import { queryNotices } from '@/services/api';
+/* eslint-disable consistent-return */
+import { queryNotices, getDescendantMenu } from '@/services/api';
+import { getSessionStorage, setSessionStorage } from '@/utils/storage';
+import { isEmptyArray, parseMenuData } from '@/utils/utils';
 
 export default {
   namespace: 'global',
@@ -51,8 +54,7 @@ export default {
             notice.read = true;
           }
           return notice;
-        })
-      );
+        }));
       yield put({
         type: 'saveNotices',
         payload: notices,
@@ -64,6 +66,32 @@ export default {
           unreadCount: notices.filter(item => !item.read).length,
         },
       });
+    },
+    *getDescendantMenu({ payload }, { put, call }) {
+      // 先从sessionStorage中获取
+      const cacheMenus = getSessionStorage(payload.ResourceNo);
+      if (!isEmptyArray(JSON.parse(cacheMenus))) {
+        yield put({
+          type: 'saveDescendantMenu',
+          payload: {
+            resourceLvl: payload.resourceLvl,
+            parentNo: payload.parentNo,
+            descendantMenu: cacheMenus,
+          },
+        });
+      } else {
+        // sessionStorage中没有  则获取后台数据 存进sessionStorage
+        const descendantMenu = yield call(getDescendantMenu, payload);
+        yield put({
+          type: 'saveDescendantMenu',
+          payload: {
+            resourceLvl: payload.resourceLvl,
+            parentNo: payload.parentNo,
+            descendantMenu: cacheMenus,
+          },
+        });
+        setSessionStorage(payload.parentNo, descendantMenu && JSON.stringify(descendantMenu.data));
+      }
     },
   },
 
@@ -85,6 +113,29 @@ export default {
         ...state,
         notices: state.notices.filter(item => item.type !== payload),
       };
+    },
+    saveDescendantMenu(state, { payload }) {
+      if (payload.resourceLvl === '1') {
+        return {
+          ...state,
+          firstMenu: payload.descendantMenu ?
+            parseMenuData(payload.descendantMenu, payload.parentNo) : [],
+          secMenus: [],
+          thirdMenus: [],
+        };
+      } else if (payload.resourceLvl === '2') {
+        return {
+          ...state,
+          secMenus: payload.descendantMenu ?
+            parseMenuData(payload.descendantMenu, payload.parentNo) : [],
+        };
+      } else if (payload.resourceLvl === '3') {
+        return {
+          ...state,
+          thirdMenus: payload.descendantMenu ?
+            parseMenuData(payload.descendantMenu, payload.parentNo) : [],
+        };
+      }
     },
   },
 

@@ -5,3 +5,31 @@
 .bslayout :global(.ant-layout-footer) {
     background: rgba(254, 253, 249, 0.8);
 }
+.bsTime {
+    padding-left: 10px;
+    width: 24%;
+    text-align: center;
+    float: right;
+    font-size: 15px;
+    color: #3f3f50;
+    margin: 4px 0px 0px opx;
+}
+
+.bcajust {
+    float: left;
+    height: 15px;
+    line-height: 31px;
+    background: none;
+    border-bottom: none;
+    box-sizing: border-box;
+    margin-bottom: 16px;
+}
+.iconPosition {
+    background: url(../assets/location.svg) no-repeat;
+    width: 20px;
+    height: 20px;
+    margin: 6px 5px 0px 22px;
+    display: inline-block;
+    float: left;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

@@ -11,6 +11,7 @@
 
 .CcTopMenu :global(.ant-menu-item > li) {
     font-size: 15px;
+    /* font-weight: 20; */
     height: 36px;
     line-height: 35px;
     color: #fff;
@@ -26,6 +27,7 @@
 
 .CcTopMenu :global(.ant-menu-horizontal > .ant-menu-item > a) {
     color: #fff;
+    font-weight: 700;
 } 
 
 .CcTopMenu :global(.ant-menu-item-active) {

@@ -124,7 +124,13 @@ export async function queryNotices(params = {}) {
 export async function getFakeCaptcha(mobile) {
   return request(`/api/captcha?mobile=${mobile}`);
 }
-
+/** 获取菜单数据 */
+export async function getDescendantMenu(params) {
+  return request('/api/lc/RESOURCESELECTLIST', {
+    method: 'POST',
+    data: params,
+  });
+}
 // ******************请求************8  可以对request进行封装  包括请求头 请求体 //
 export async function getTableData(params) {
   return request('/api/lc/SELECTLISTUSER', {

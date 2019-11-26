@@ -1,10 +1,14 @@
-import React, { Suspense } from 'react';
-import { Layout, BackTop } from 'antd';
+/* eslint-disable class-methods-use-this */
+/* eslint-disable react/destructuring-assignment */
+import React, { Suspense, createElement } from 'react';
+import { Layout, BackTop, Breadcrumb } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
 import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
 import Media from 'react-media';
+import Link from 'umi/link';
+import pathToRegexp from 'path-to-regexp';
 import logo from '../assets/LOGO.svg';
 import Footer from './Footer';
 import Header from './Header';
@@ -19,7 +23,9 @@ import { getSessionStorage } from '@/utils/storage';
 import Exception from '@/components/Exception';
 import { CcGlobalHeader } from '@/cc-comp/pro';
 import blStyles from './BasicLayout.css';
-import { parseMenuData } from '@/utils/utils';
+import { parseMenuData, isEmptyArray } from '@/utils/utils';
+import ThirdMenuLayout from './ThirdMenuLayout';
+import { urlToList } from '@/components/_utils/pathTools';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -52,23 +58,23 @@ const query = {
 };
 
 class BasicLayout extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     if (getSessionStorage('currentUser')) {
       this.getAllFirstMenu();
     } else {
       // eslint-disable-next-line no-useless-return
       return;
     }
-    this.state = {
-      rendering: true,
-      isMobile: false,
-      error: false,
-      contentAreaMinHeight: 0,
-      firstMenus: [],
-    };
+    this.breadcrumbNameMap = this.getBreadcrumbNameMap();
   }
-
+  state = {
+    rendering: true,
+    isMobile: false,
+    error: false,
+    contentAreaMinHeight: 0,
+    firstMenus: [],
+  };
 
   componentDidMount() {
     const {
@@ -87,7 +93,7 @@ class BasicLayout extends React.Component {
       payload: { routes, path, authority },
     });
     const rootDom = document.getElementById('root');
-    const contentAreaMinHeight = rootDom.offsetHeight - 32 - 32 - 37 - 1 - 1;
+    const contentAreaMinHeight = rootDom.offsetHeight - 32 - 32 - 37 - 39 - 58;
     window.sessionStorage.setItem('contentMinHeight', contentAreaMinHeight);
     this.setState({
       contentAreaMinHeight,
@@ -110,9 +116,38 @@ class BasicLayout extends React.Component {
   }
 
  getAllFirstMenu=() => {
-   const firstMenuArr = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
-   console.log(firstMenuArr);
-   this.setState({ firstMenus: firstMenuArr });
+   //  const firstMenuArr = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
+   const firstMenuPayload = {
+     parentNo: '000000',
+     resourceLvl: '1',
+   };
+   const { dispatch } = this.props;
+   dispatch({
+     type: 'global/getDescendantMenu',
+     payload: firstMenuPayload,
+   }).then(() => {
+     const firstMenuArr = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
+     this.setState({ firstMenus: firstMenuArr });
+     if (!isEmptyArray(firstMenuArr) && this.props.location.pathname === '/') {
+       this.props.history.push(firstMenuArr[0].resourcePath);
+     }
+   });
+ }
+
+ getBreadcrumbNameMap() {
+   const routerMap = {};
+   const mergeMenuAndRouter = data => {
+     if (!isEmptyArray(data)) {
+       data.forEach(menuItem => {
+         if (menuItem.children) {
+           mergeMenuAndRouter(menuItem.children);
+         }
+         routerMap[menuItem.path] = menuItem;
+       });
+     }
+   };
+   mergeMenuAndRouter(JSON.parse(getSessionStorage('currBreadcrumb')) || []);
+   return routerMap;
  }
 
  getContext() {
@@ -127,14 +162,77 @@ class BasicLayout extends React.Component {
    const { fixedHeader } = this.props;
    const { contentAreaMinHeight } = this.state;
    return {
-     height: contentAreaMinHeight,
-     // margin: '0px 24px 0px',
+     maxHeight: contentAreaMinHeight,
+     minHeight: contentAreaMinHeight || '428px',
+     //  margin: '0px 24px 0px',
      paddingTop: fixedHeader ? 64 : 0,
      overflowY: 'auto',
      overflowX: 'hidden',
-     background: '#FFFFFF',
+     //  background: '#FFFFFF',
    };
  }
+
+ conversionBreadcrumb=(breadcrumbList) => {
+   const breadcrumbSeparator = '>';
+   const linkElement = Link;
+   return (
+     <Breadcrumb className={blStyles.bcajust} separator={breadcrumbSeparator}>
+       {
+       breadcrumbList && breadcrumbList.map(item => {
+         const { title } = item;
+         return (
+           <Breadcrumb.Item key={item.key}>
+             {
+              item.href ?
+                createElement(
+                  linkElement, {
+                    [linkElement === 'a' ? 'href' : 'to']: item.href,
+                  },
+                  title
+                )
+                : title
+            }
+           </Breadcrumb.Item>
+         );
+       })
+     }
+     </Breadcrumb>
+   );
+ }
+
+ matchParamsPath=(pathname) => {
+   const pathkey = Object.keys(this.breadcrumbNameMap).find(key =>
+     pathToRegexp(`${key}`).test(pathname));
+   return this.breadcrumbNameMap[pathkey];
+ };
+
+ getCurrBreadcrumb=(pathnameMap) => {
+   const currBreadcrumbArr = [];
+   if (!pathnameMap || pathnameMap.length === 0) {
+     return [];
+   }
+   pathnameMap.map(pathname => {
+     const currRouterData = this.matchParamsPath(pathname);
+     if (!currRouterData) {
+       return null;
+     }
+     currBreadcrumbArr.push({
+       title: currRouterData.name,
+       href: pathname,
+     });
+     return currBreadcrumbArr;
+   });
+   return currBreadcrumbArr;
+ }
+
+ getPageTitle=(pathname) => {
+   const currRouterData = this.matchParamsPath(pathname);
+   if (!currRouterData) {
+     return 'FANFAN';
+   }
+   return `${currRouterData.name || ''} - FANFAN`;
+ }
+
   countTimer = () => {
     if (document.getElementById('clock')) {
       const currTime = new Date()
@@ -189,33 +287,23 @@ class BasicLayout extends React.Component {
       children,
       location: { pathname },
       menuData,
-      breadcrumbNameMap,
+      // breadcrumbNameMap,
       fixedHeader,
       collapsed,
       location,
     } = this.props;
+    this.breadcrumbNameMap = this.getBreadcrumbNameMap();
+    const { error, isMobile, firstMenus } = this.state;
+    // const firstMenus = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
+    const breadcrumbList = this.getCurrBreadcrumb(urlToList(pathname));
 
-    const { error, isMobile } = this.state;
-    const firstMenus = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
+    const thirdMenuData = '0';
     const isTop = PropsLayout === 'topmenu';
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
     const posses = getSessionStorage('Positions') && JSON.parse(getSessionStorage('Positions')) || [];
     const layout = (
       <Layout className={blStyles.bslayout}>
         <CcGlobalHeader posses={posses} />
-        {/* <SiderDemo
-          onCollapse={this.handleMenuCollapse}
-          collapsed={collapsed}
-        /> */}
-        {/* <SiderMenu
-          logo={logo}
-          // theme={navTheme}
-          onCollapse={this.handleMenuCollapse}
-          collapsed={collapsed}
-          menuData={menuData}
-          isMobile={isMobile}
-          {...this.props}
-        /> */}
         <CcTopMenu
           logo={logo}
           // theme={navTheme}
@@ -226,47 +314,33 @@ class BasicLayout extends React.Component {
           isMobile={isMobile}
           {...this.props}
         />
-        <Layout
-          style={{
-            ...this.getLayoutStyle(),
-            minHeight: '100vh',
-          }}
-        >
-          {/* <Header
-            menuData={menuData}
-            handleMenuCollapse={this.handleMenuCollapse}
-            logo={logo}
-            isMobile={isMobile}
-            {...this.props}
-          /> */}
-          <PageHeaderWrapper style={{ width: '75%' }} />
-          {/* <span
-            id="clock"
-            style={{ textAlign: 'right', backgroundColor: '#FFFFFF', width: '100%' }}
-          /> */}
-          <BackTop
-            className={styles.backTop}
-            target={() => document.querySelector('#contentLayout')}
-            visibilityHeight={200}
+        <div styles={{ padding: '0 25px 0 24px' }}>
+          {/* <PageHeaderWrapper style={{ width: '75%' }} /> */}
+          <div className={blStyles.iconPosition}/>
+          <div>{this.conversionBreadcrumb(breadcrumbList)}</div>
+          <div id="clock" className={blStyles.bsTime} />
+        </div>
+        <BackTop
+          className={styles.backTop}
+          target={() => document.querySelector('#contentLayout')}
+          visibilityHeight={200}
+        />
+        {!error ?
+          <Content id="contentLayout" style={this.getContentType()}>
+            <ThirdMenuLayout thirdMenuData={thirdMenuData} {...this.props} />
+          </Content>
+          :
+          <Exception
+            type="500"
+            backText="返回首页"
           />
-          {!error ?
-            <Content id="contentLayout" style={this.getContentType()}>
-              {children}
-            </Content>
-            :
-            <Exception
-              type="500"
-              backText="返回首页"
-            />
-            // <div style={{ textAlign: 'center', minHeight: '600px', height: '600px', lineHeight: '600px', color: 'red', fontSize: 23, fontWeight: 200 }}>系统错误！请联系管理员</div>
           }
-          <Footer />
-        </Layout>
+        <Footer />
       </Layout>
     );
     return (
       <React.Fragment>
-        <DocumentTitle title={getPageTitle(pathname, breadcrumbNameMap)}>
+        <DocumentTitle title={this.getPageTitle(pathname)}>
           <ContainerQuery query={query}>
             {params => (
               <Context.Provider value={this.getContext()}>

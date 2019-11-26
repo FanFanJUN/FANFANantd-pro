@@ -59,8 +59,8 @@ export default {
         const paths = [
           {
             ResourceNo: '100',
-            ResourceNm: '用户管理',
-            ResourcePath: '/DIYcompoment/table',
+            ResourceNm: '首页',
+            ResourcePath: '/dashboard/analysis',
             ResourceLvl: '1',
             ParentNo: '000000',
             IsLeaf: '1',
@@ -68,16 +68,61 @@ export default {
           },
           {
             ResourceNo: '200',
-            ResourceNm: '首页',
-            ResourcePath: '/dashboard/analysis',
+            ResourceNm: '用户管理',
+            ResourcePath: '/DIYcompoment/table',
             ResourceLvl: '1',
             ParentNo: '000000',
             IsLeaf: '1',
             ResourceOrd: '2',
           },
+          {
+            ResourceNo: '300',
+            ResourceNm: '公用组件',
+            ResourcePath: '/DIYcompoment/commoncomponent',
+            ResourceLvl: '1',
+            ParentNo: '000000',
+            IsLeaf: '1',
+            ResourceOrd: '3',
+          },
+          {
+            ResourceNo: '400',
+            ResourceNm: '图表管理',
+            ResourcePath: '/charts/orgtree',
+            ResourceLvl: '1',
+            ParentNo: '000000',
+            IsLeaf: '1',
+            ResourceOrd: '4',
+          },
+          {
+            ResourceNo: '500',
+            ResourceNm: '测试管理',
+            ResourcePath: '/DIYcompoment/test',
+            ResourceLvl: '1',
+            ParentNo: '000000',
+            IsLeaf: '1',
+            ResourceOrd: '5',
+          },
+          {
+            ResourceNo: '600',
+            ResourceNm: '测试管理',
+            ResourcePath: '/DIYcompoment/test1',
+            ResourceLvl: '1',
+            ParentNo: '000000',
+            IsLeaf: '1',
+            ResourceOrd: '6',
+          },
+          {
+            ResourceNo: '700',
+            ResourceNm: '测试管理',
+            ResourcePath: '/DIYcompoment/test2',
+            ResourceLvl: '1',
+            ParentNo: '000000',
+            IsLeaf: '1',
+            ResourceOrd: '7',
+          },
         ];
         setSessionStorage('Positions', JSON.stringify(roles));
-        setSessionStorage('000000', JSON.stringify(paths));
+        // setSessionStorage('000000', JSON.stringify(paths));
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;

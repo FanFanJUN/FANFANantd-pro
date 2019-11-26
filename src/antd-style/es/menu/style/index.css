@@ -362,8 +362,10 @@
 .ant-menu-horizontal > .ant-menu-submenu-open,
 .ant-menu-horizontal > .ant-menu-item-selected,
 .ant-menu-horizontal > .ant-menu-submenu-selected {
-  color: #1890ff;
-  border-bottom: 2px solid #1890ff;
+  /* color: #1890ff;
+  border-bottom: 2px solid #1890ff; */
+  color: #ed7570;
+  border-bottom: 2px solid #ed7570;
 }
 .ant-menu-horizontal > .ant-menu-item > a {
   display: block;

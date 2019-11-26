@@ -10,6 +10,7 @@ import { isUrl } from '@/utils/utils';
 import styles from './index.less';
 import IconFont from '@/components/IconFont';
 import csd from './index.css';
+import { getSessionStorage } from '@/utils/storage';
 // import Header from '@/layouts/Header';
 
 const { SubMenu } = Menu;
@@ -139,6 +140,7 @@ export default class CcTopMenu extends PureComponent {
     });
     return topMenu;
   }
+
   conversionPath = path => {
     if (path && path.indexOf('http') === 0) {
       return path;
@@ -156,6 +158,26 @@ export default class CcTopMenu extends PureComponent {
   getRef = ref => {
     this.wrap = ref;
   };
+
+  renderSecMenu=() => {
+    const secMenus = JSON.parse(getSessionStorage('currSecondMenus'));
+    const secMenuDataDom = secMenus && secMenus.filter((item) => item && item.path && !item.hideInMenu)
+      .map((item, index) => {
+        let subMenuCheckedClassName = '';
+        if (this.props.location.pathname.indexOf(item.path) !== -1) {
+          subMenuCheckedClassName = 'submenuChecked';
+        }
+        return (
+          <li key={`${item.path}li`} className={subMenuCheckedClassName}>
+            {this.getMenuItemPath(item)}
+            {index < secMenus.length - 1 ? (
+              <span style={{ padding: '0 0 0 10px' }}>|</span>
+            ) : null}
+          </li>
+        );
+      });
+    return secMenuDataDom;
+  }
 
   render() {
     const {
@@ -201,6 +223,9 @@ export default class CcTopMenu extends PureComponent {
           >
             { this.getTopMenuItems()}
           </Menu>
+          <div className={csd.subMenu}>
+            <ul>{this.renderSecMenu()}</ul>
+          </div>
         </Header>
       </div>
     );

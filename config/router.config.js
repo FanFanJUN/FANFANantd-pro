@@ -25,29 +25,43 @@ export default [
     Routes: ['src/pages/Authorized'],
     routes: [
       // dashboard
-      { path: '/', redirect: '/dashboard/analysis', authority: ['admin', 'user'] },
+      { path: '/', redirect: '/dashboard' },
+      // { path: '/table', redirect: '/DIYcompoment/table' },
       {
         path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',
-        routes: [
-          {
-            path: '/dashboard/analysis',
-            name: 'analysis',
-            component: './Dashboard/Analysis',
-          },
-          {
-            path: '/dashboard/monitor',
-            name: 'monitor',
-            component: './Dashboard/Monitor',
-          },
-          {
-            path: '/dashboard/workplace',
-            name: 'workplace',
-            component: './Dashboard/Workplace',
-          },
-        ],
+        component: './Dashboard/Analysis',
+        // routes: [
+        //   {
+        //     path: '/dashboard/analysis',
+        //     name: 'analysis',
+        //     component: './Dashboard/Analysis',
+        //   },
+          // {
+          //   path: '/dashboard/monitor',
+          //   name: 'monitor',
+          //   component: './Dashboard/Monitor',
+          // },
+          // {
+          //   path: '/dashboard/workplace',
+          //   name: 'workplace',
+          //   component: './Dashboard/Workplace',
+          // },
+        // ],
       },
+      // 一级菜单测试
+      {
+        path: '/table',
+        name: 'table',
+        component: './DIYcompoment/table',
+      },
+      {
+        path: '/commoncomponent',
+        name: 'commoncomponent',
+        component: './DIYcompoment/commoncomponent',
+      },
+      // end
       // forms
       {
         path: '/form',

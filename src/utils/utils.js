@@ -712,14 +712,14 @@ export function parseMenuData(data, parentNo) {
   const arr = [];
   for (let i = 0; i < data.length; i++) {
     const menu = {};
-    menu.name = data[i].ResourceNm;
-    menu.path = data[i].ResourcePath;
-    menu.id = data[i].ResourceNo;
-    menu.level = data[i].ResourceLvl;
-    menu.order = Number(data[i].ResourceOrd);
-    if (data[i].ParentNo === parentNo) {
-      if (data[i].IsLeaf === '1') {
-        const child = parseMenuData(data, data[i].ResourceNo);
+    menu.name = data[i].resourceNm;
+    menu.path = data[i].resourcePath;
+    menu.id = data[i].resourceNo;
+    menu.level = data[i].resourceLvl;
+    menu.order = Number(data[i].resourceOrd);
+    if (data[i].parentNo === parentNo) {
+      if (data[i].isLeaf === '1') {
+        const child = parseMenuData(data, data[i].resourceNo);
         if (!isEmptyArray(child)) menu.children = child;
       }
       arr.push(menu);
