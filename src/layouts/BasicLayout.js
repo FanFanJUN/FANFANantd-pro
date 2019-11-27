@@ -107,12 +107,16 @@ class BasicLayout extends React.Component {
       // eslint-disable-next-line react/destructuring-assignment
       this.props.history.replace('/user/login');
     }
+    const newState = {
+      thirdMenuData: JSON.parse(getSessionStorage('currthirdAndBelowMenus')),
+    };
     // eslint-disable-next-line react/destructuring-assignment
     if (nextProps.location.pathname !== this.props.location.pathname && this.state.error) {
       this.setState({
         error: false,
       });
     }
+    this.setState(newState);
   }
 
  getAllFirstMenu=() => {
@@ -126,7 +130,8 @@ class BasicLayout extends React.Component {
      type: 'global/getDescendantMenu',
      payload: firstMenuPayload,
    }).then(() => {
-     const firstMenuArr = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
+     const firstMenuArr = parseMenuData(getSessionStorage('000000') &&
+     JSON.parse(getSessionStorage('000000')), '000000') || [];
      this.setState({ firstMenus: firstMenuArr });
      if (!isEmptyArray(firstMenuArr) && this.props.location.pathname === '/') {
        this.props.history.push(firstMenuArr[0].resourcePath);
@@ -293,11 +298,12 @@ class BasicLayout extends React.Component {
       location,
     } = this.props;
     this.breadcrumbNameMap = this.getBreadcrumbNameMap();
-    const { error, isMobile, firstMenus } = this.state;
+    const { error, isMobile, firstMenus, thirdMenuData } = this.state;
     // const firstMenus = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
     const breadcrumbList = this.getCurrBreadcrumb(urlToList(pathname));
 
-    const thirdMenuData = '0';
+    // const thirdMenuData = '0';
+    console.log(thirdMenuData);
     const isTop = PropsLayout === 'topmenu';
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
     const posses = getSessionStorage('Positions') && JSON.parse(getSessionStorage('Positions')) || [];
@@ -316,7 +322,7 @@ class BasicLayout extends React.Component {
         />
         <div styles={{ padding: '0 25px 0 24px' }}>
           {/* <PageHeaderWrapper style={{ width: '75%' }} /> */}
-          <div className={blStyles.iconPosition}/>
+          <div className={blStyles.iconPosition} />
           <div>{this.conversionBreadcrumb(breadcrumbList)}</div>
           <div id="clock" className={blStyles.bsTime} />
         </div>

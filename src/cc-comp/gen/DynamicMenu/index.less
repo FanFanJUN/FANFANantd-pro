@@ -1,0 +1,94 @@
+@import '~antd/lib/style/themes/default.less';
+
+@nav-header-height: @layout-header-height;
+
+.logo {
+  position: relative;
+  height: @nav-header-height;
+  padding-left: (@menu-collapsed-width - 32px) / 2;
+  overflow: hidden;
+  line-height: @nav-header-height;
+  background: #002140;
+  transition: all 0.3s;
+  img {
+    display: inline-block;
+    height: 32px;
+    vertical-align: middle;
+  }
+  h1 {
+    display: inline-block;
+    margin: 0 0 0 12px;
+    color: red;
+    font-weight: 600;
+    font-size: 20px;
+    font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    vertical-align: middle;
+  }
+}
+.siderMenu {
+    :global li {
+      font-size: 16px;
+      color: #000;
+      margin: 0 10px;
+      background-color: #fafaff;
+      margin-bottom: 2px;
+      width: 100%;
+      .ant-menu-inline .ant-menu-submenu-title {
+        position: relative;
+        left: -10px;
+      }
+      .ant-menu-item-group-list .ant-menu-item {
+          width: 100%;
+      }
+    }
+    a,
+    .ant-menu-item-selected > a:hover {
+      color: #000;
+    }
+    .ant-menu-item-group-title {
+      font-size: 16px;
+      padding: 8px 25px;
+      .ant-menu-item-group-list[class= 'ant-menu-item'] {
+        width: 96%;
+      }
+    }
+}
+
+.icon {
+  width: 14px;
+  vertical-align: baseline;
+}
+
+:global {
+  .top-nav-menu li.ant-menu-item {
+    height: @nav-header-height;
+    line-height: @nav-header-height;
+  }
+  .drawer .drawer-content {
+    background: #001529;
+  }
+  .ant-menu-inline-collapsed {
+    & > .ant-menu-item .sider-menu-item-img + span,
+    &
+      > .ant-menu-item-group
+      > .ant-menu-item-group-list
+      > .ant-menu-item
+      .sider-menu-item-img
+      + span,
+    & > .ant-menu-submenu > .ant-menu-submenu-title .sider-menu-item-img + span {
+      display: inline-block;
+      max-width: 0;
+      opacity: 0;
+    }
+  }
+  .ant-menu-item .sider-menu-item-img + span,
+  .ant-menu-submenu-title .sider-menu-item-img + span {
+    opacity: 1;
+    transition: opacity 0.3s @ease-in-out, width 0.3s @ease-in-out;
+  }
+  .ant-drawer-left {
+    .ant-drawer-body {
+      padding: 0;
+    }
+  }
+}

@@ -30,8 +30,11 @@ function fetchOneChild(thirdMenus) {
 }
 /** 获取二级菜单 */
 function getSecondMenu(ResourseNo) {
+  console.log('获取二级菜单开始');
+  // 初始化二级/三级菜单
   setSessionStorage('currSecondMenus', '[]');
   setSessionStorage('currThirdAndBelowmenus', '[]');
+  // setSessionStorage(ResourseNo, '[]');
   const currResourseNoCache = getSessionStorage(ResourseNo);
   if (!isEmptyArray(currResourseNoCache)) {
     console.log(`${ResourseNo}缓存的二级菜单`, currResourseNoCache);
@@ -62,11 +65,11 @@ function getSecondMenu(ResourseNo) {
 
 /** 获取三级菜单 */
 function getThirdAndBelowMenu(ResourseNo) {
-  setSessionStorage('currThirdAndBelowmenus', '[]');
+  setSessionStorage('currthirdAndBelowMenus', '[]');
   const currResourseNoCache = getSessionStorage(ResourseNo);
   if (!isEmptyArray(currResourseNoCache)) {
     console.log(`${ResourseNo}缓存的三级菜单`, currResourseNoCache);
-    setSessionStorage('currThirdAndBelowmenus', JSON.stringify(parseMenuData(JSON.parse(currResourseNoCache), ResourseNo)));
+    setSessionStorage('currthirdAndBelowMenus', JSON.stringify(parseMenuData(JSON.parse(currResourseNoCache), ResourseNo)));
   } else {
     const params = {
       parentNo: ResourseNo,
@@ -82,7 +85,7 @@ function getThirdAndBelowMenu(ResourseNo) {
       }
       const thiMenuList = response.data;
       if (!isEmptyArray(thiMenuList)) {
-        setSessionStorage('currThirdAndBelowmenus', JSON.stringify(parseMenuData(thiMenuList, ResourseNo)));
+        setSessionStorage('currthirdAndBelowMenus', JSON.stringify(parseMenuData(thiMenuList, ResourseNo)));
       }
       if (ResourseNo) {
         setSessionStorage(ResourseNo, JSON.stringify(thiMenuList));
@@ -99,9 +102,11 @@ async function getChildrenMenuFromCurrFirstMenu(curFirst, location, path) {
   const currSec = currSecondMenus && currSecondMenus.filter((item) => item && item.path === path)[0] || {};
   const currSecFrom3 = currSecondMenus && currSecondMenus.filter((item) => item && path.startsWith(`${item.path}/`))[0] || {};
   if (curFirst.path === path) {
+    // 获取二级菜单
     await getSecondMenu(curFirst.id);
     const currSecondMenusNew = JSON.parse(getSessionStorage('currSecondMenus'));
     const defaultUrl = !isEmptyArray(currSecondMenusNew) ? `${currSecondMenusNew[0].path}${search}` : '';
+    // 自动定位到二级菜单第一个菜单
     if (defaultUrl) {
       router.push(defaultUrl);
     }
@@ -158,16 +163,19 @@ export function onRouteChange({ location, routes, action }) {
   const curFirstMenu = allFirstMenu && allFirstMenu.filter((item) => {
     return item && `${pathname}/`.startsWith(`${item.path}/`);
   });
+  console.log(curFirstMenu);
   const curFirst = curFirstMenu && curFirstMenu[0];
   if (curFirst) {
-    setSessionStorage('currFirst', JSON.stringify(curFirstMenu));
+    // 当前选中一级菜单数据存储
+    setSessionStorage('currFirstMenu', JSON.stringify(curFirstMenu));
+    // 获取一级菜单下子菜单 二级 && 三级
     getChildrenMenuFromCurrFirstMenu(curFirst, location, pathname);
     // 组装面包屑
     const currSecondMenus = JSON.parse(getSessionStorage('currSecondMenus'));
     const currthirdAndBelowMenus = JSON.parse(getSessionStorage('currthirdAndBelowMenus'));
-    const currSec = currSecondMenus && currSecondMenus.filter((item) => item && pathname.startsWith(item.path));
+    const currSec = !isEmptyArray(currSecondMenus) && currSecondMenus.filter((item) => item && pathname.startsWith(item.path));
     const breadcrumb = [
-      !isEmptyArray(currSec) ? { ...curFirst, children: [{ ...currSec[0], children: currthirdAndBelowMenus }] } : { ...currSec[0] },
+      !isEmptyArray(currSec) ? { ...curFirst, children: [{ ...currSec[0], children: currthirdAndBelowMenus }] } : { ...curFirst },
     ];
     setSessionStorage('currBreadcrumb', JSON.stringify(breadcrumb));
     setSessionStorage('lastBreadcrumb', JSON.stringify(breadcrumb));

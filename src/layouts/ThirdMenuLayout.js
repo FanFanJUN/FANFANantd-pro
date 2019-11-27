@@ -1,14 +1,17 @@
 import React from 'react';
 import { Row, Col } from 'antd';
+import { isEmptyArray } from '@/utils/utils';
+import DynamicMenu from '@/cc-comp/gen/DynamicMenu';
+import Authorized from '../utils/Authorized';
 
 class ThirdMenuLayout extends React.PureComponent {
   render() {
     const { children, thirdMenuData } = this.props;
     let thirdMenuDom;
-    if (thirdMenuData === '1') {
+    if (!isEmptyArray(thirdMenuData) && !thirdMenuData.hideInMenu) {
       thirdMenuDom = (
         <Row gutter={32}>
-          <Col lg={5}>三级菜单</Col>
+          <Col lg={5}><DynamicMenu menusData={thirdMenuData} Authorized={Authorized} /></Col>
           <Col lg={19}>{children}</Col>
         </Row>
       );

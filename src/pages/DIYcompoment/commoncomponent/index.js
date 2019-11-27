@@ -156,7 +156,7 @@ class Commoncomponent extends React.Component {
       overflow: 'hidden',
     };
     return (
-      <Card>
+      <Card title="公用组件">
         <Collapse
           bordered={false}
           defaultActiveKey={['1', '2', '4']}

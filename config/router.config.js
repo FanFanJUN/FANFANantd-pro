@@ -57,7 +57,7 @@ export default [
         component: './DIYcompoment/table',
       },
       {
-        path: '/commoncomponent',
+        path: '/test/02/02',
         name: 'commoncomponent',
         component: './DIYcompoment/commoncomponent',
       },
