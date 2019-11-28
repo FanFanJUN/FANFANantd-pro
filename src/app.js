@@ -33,7 +33,7 @@ function getSecondMenu(ResourseNo) {
   console.log('获取二级菜单开始');
   // 初始化二级/三级菜单
   setSessionStorage('currSecondMenus', '[]');
-  setSessionStorage('currThirdAndBelowmenus', '[]');
+  setSessionStorage('currthirdAndBelowMenus', '[]');
   // setSessionStorage(ResourseNo, '[]');
   const currResourseNoCache = getSessionStorage(ResourseNo);
   if (!isEmptyArray(currResourseNoCache)) {
@@ -113,8 +113,8 @@ async function getChildrenMenuFromCurrFirstMenu(curFirst, location, path) {
   } else if (!isEmptyObject(currSecFrom3)) {
     console.log('三级菜单path', path);
     await getThirdAndBelowMenu(currSecFrom3.id);
-    const currThirdAndBelowmenusRes = JSON.parse(getSessionStorage(currSecFrom3.id)) || [];
-    const currThi = currThirdAndBelowmenusRes && currThirdAndBelowmenusRes.filter((item) => item && item.resourcePath === path)[0] || {};
+    const currthirdAndBelowMenusRes = JSON.parse(getSessionStorage(currSecFrom3.id)) || [];
+    const currThi = currthirdAndBelowMenusRes && currthirdAndBelowMenusRes.filter((item) => item && item.resourcePath === path)[0] || {};
   } else if (!isEmptyObject(currSec)) {
     await getThirdAndBelowMenu(currSec.id);
     const currthirdAndBelowMenus = JSON.parse(getSessionStorage('currthirdAndBelowMenus'));
@@ -133,9 +133,9 @@ async function getChildrenMenuFromCurrFirstMenu(curFirst, location, path) {
     await getThirdAndBelowMenu(currSecNew.id);
     const currthirdAndBelowMenus = JSON.parse(getSessionStorage('currthirdAndBelowMenus'));
     console.log('输入的path二级菜单', currSecNew.id, currthirdAndBelowMenus);
-    const currThirdAndBelowmenusRes = JSON.parse(getSessionStorage(currSecNew.id)) || [];
-    if (!isEmptyArray(currThirdAndBelowmenusRes)) {
-      const defaultResource = currThirdAndBelowmenusRes && currThirdAndBelowmenusRes.filter((item) => item && item.resourcePath === path)[0] || {};
+    const currthirdAndBelowMenusRes = JSON.parse(getSessionStorage(currSecNew.id)) || [];
+    if (!isEmptyArray(currthirdAndBelowMenusRes)) {
+      const defaultResource = currthirdAndBelowMenusRes && currthirdAndBelowMenusRes.filter((item) => item && item.resourcePath === path)[0] || {};
       if (defaultResource.resourcePath) {
         router.push(defaultResource.resourcePath);
       }
