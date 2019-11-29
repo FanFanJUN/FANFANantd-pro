@@ -173,7 +173,7 @@ class BasicLayout extends React.Component {
      paddingTop: fixedHeader ? 64 : 0,
      overflowY: 'auto',
      overflowX: 'hidden',
-     //  background: '#FFFFFF',
+     background: '#FFFFFF',
    };
  }
 

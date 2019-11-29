@@ -126,11 +126,11 @@
   background-color: transparent;
 }
 .ant-menu-item-selected {
-  color: #1890ff;
+  color: #f3f3f3;
 }
 .ant-menu-item-selected > a,
 .ant-menu-item-selected > a:hover {
-  color: #1890ff;
+  color: #ed7570;
 }
 .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
   background-color: #e6f7ff;
@@ -400,7 +400,7 @@
   top: 0;
   right: 0;
   bottom: 0;
-  border-right: 3px solid #1890ff;
+  border-right: 3px solid #ed7570;
   -webkit-transform: scaleY(0.0001);
       -ms-transform: scaleY(0.0001);
           transform: scaleY(0.0001);

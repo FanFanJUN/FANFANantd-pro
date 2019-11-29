@@ -73,6 +73,7 @@
     height: 28px;
     display: inline-block;
     float: left;
+    cursor: pointer;
 }
 .hdTitleExit:hover {
 

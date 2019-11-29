@@ -208,9 +208,10 @@
   border-top-right-radius: 4px;
 }
 .ant-table-thead > tr:not(:last-child) > th[colspan] {
-  border-bottom: 0;
+  border-bottom: 1px solid #e8e8e8;
 }
 .ant-table-tbody > tr > td {
+  border-right: 1px solid #e8e8e8;
   border-bottom: 1px solid #e8e8e8;
   -webkit-transition: all 0.3s, border 0s;
   transition: all 0.3s, border 0s;
@@ -287,7 +288,7 @@
 .ant-table-thead > tr > th,
 .ant-table-tbody > tr > td {
   /* padding: 16px 16px; */
-  padding: 10px 10px;
+  padding: 6px 6px;
   word-break: break-word;
 }
 .ant-table-expand-icon-th,

@@ -56,11 +56,11 @@ export default [
         name: 'table',
         component: './DIYcompoment/table',
       },
-      {
-        path: '/test/02/02',
-        name: 'commoncomponent',
-        component: './DIYcompoment/commoncomponent',
-      },
+      // {
+      //   path: '/test/02/02',
+      //   name: 'commoncomponent',
+      //   component: './DIYcompoment/commoncomponent',
+      // },
       // end
       // forms
       {
@@ -381,6 +381,11 @@ export default [
             path: '/system/sysdics',
             name: 'sysdics',
             component: './System/sysdic',
+          },
+          {
+            path: '/system/resource',
+            name: 'resource',
+            component: './System/resource',
           },
           // {
           //   path: '/editor/mind',

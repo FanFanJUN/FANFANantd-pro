@@ -73,29 +73,33 @@
 }
 .ant-pagination-item:focus,
 .ant-pagination-item:hover {
-  border-color: #1890ff;
+  border-color: none;
+  border: none;
+  background-color: #bbbec5;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
 }
 .ant-pagination-item:focus a,
 .ant-pagination-item:hover a {
-  color: #1890ff;
+  color: #fff;
 }
 .ant-pagination-item-active {
   font-weight: 500;
-  background: #fff;
-  border-color: #1890ff;
+  background: #bbbec5;
+  /* border-color: #1890ff; */
+  border: none;
+  border-color: none;
 }
 .ant-pagination-item-active a {
-  color: #1890ff;
+  color: #fff;
 }
 .ant-pagination-item-active:focus,
 .ant-pagination-item-active:hover {
-  border-color: #40a9ff;
+  border-color: #fff;
 }
 .ant-pagination-item-active:focus a,
 .ant-pagination-item-active:hover a {
-  color: #40a9ff;
+  color: #fff;
 }
 .ant-pagination-jump-prev,
 .ant-pagination-jump-next {
