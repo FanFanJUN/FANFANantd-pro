@@ -1,4 +1,4 @@
-import { getTreeData } from '@/services/resource';
+import { getTreeData, addleData } from '@/services/resource';
 import { isRespSucc, showErrorMsg } from '@/utils/utils';
 
 const initState = {

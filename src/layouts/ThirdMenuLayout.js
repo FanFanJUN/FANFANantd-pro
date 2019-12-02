@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'antd';
+import { Row, Col, Divider } from 'antd';
 import { isEmptyArray } from '@/utils/utils';
 import DynamicMenu from '@/cc-comp/gen/DynamicMenu';
 import Authorized from '../utils/Authorized';

@@ -2,9 +2,12 @@
 import React from 'react';
 import { Card, Row, Col, Tree, Tabs, Tooltip, Icon, Alert, Form, Modal } from 'antd';
 import { CcMessege } from '@/cc-comp/basic';
-import { createRouteid } from '@/utils/utils';
+import { createRouteid, getDicOptions } from '@/utils/utils';
 import { connect } from 'dva';
+import moment from 'moment';
 import BasicInfo from './basicinfo';
+import AddModal from './addmodal';
+import { getSessionStorage } from '@/utils/storage';
 
 const { TreeNode } = Tree;
 const { TabPane } = Tabs;
@@ -15,10 +18,12 @@ class ResourcePage extends React.Component {
     this.state = {
       treeData: [],
       NodeTreeItem: null, // 右键菜单
+      optionsData: {}, // 字典项
       routeid: createRouteid(),
       rightNodeinfo: {},
       selectedNodeInfo: {},
       defaultKeys: [],
+      modaladdVisible: false,
     };
   }
 
@@ -29,9 +34,24 @@ class ResourcePage extends React.Component {
       type: 'resource/create',
       routeid,
     });
+    const dictionaryCategoryNos = [
+      { dictionaryCategoryNo: 'YES_OR_NO' },
+      { dictionaryCategoryNo: 'RESOURCE_TYPE' },
+    ];
+    getDicOptions(dictionaryCategoryNos).then(result => {
+      this.setState({
+        optionsData: result || {},
+      });
+    });
     this.initQuery();
   }
 
+  componentWillUnmount() {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'resource/clear',
+    });
+  }
     onLoadData = treeNode => {
       const { dispatch } = this.props;
       const { routeid } = this.state;
@@ -78,7 +98,7 @@ class ResourcePage extends React.Component {
           style={tmpStyle}
         >
           <div style={{ alignSelf: 'center', marginLeft: 10 }} onClick={this.handleAddSub}>
-            <Tooltip placement="bottom" title="添加子组织">
+            <Tooltip placement="bottom" title="添加子节点">
               <Icon type="plus-circle-o" />
             </Tooltip>
           </div>
@@ -124,18 +144,23 @@ class ResourcePage extends React.Component {
       });
     }
 
+    handleAddSub=() => {
+      this.setState({ modaladdVisible: true });
+    }
+
     handleDeleteSub=() => {
       const { rightNodeinfo } = this.state;
       Modal.confirm({
         content: `确定要删除【资源名称】为${rightNodeinfo && rightNodeinfo.resourceNm}【资源编号】为${rightNodeinfo && rightNodeinfo.resourceNo}吗`,
         onOk: () => {
-        //   this.sureDelete(record);
+          this.sureDelete(rightNodeinfo);
         },
         onCancel() {
           console.log('Cancel');
         },
       });
     }
+
     handleOnChange = (activeKey) => {
       console.log(activeKey);
       if (activeKey === 'delete') {
@@ -154,7 +179,7 @@ class ResourcePage extends React.Component {
           name: node.props.title,
         //   category: node.props.dataRef,
         },
-        rightNodeinfo: node.props.dataRef,
+        rightNodeinfo: node.props.dataRef, // 右键节点信息
       });
       //   const nodeInfo = event.node.props.dataRef;
       console.log(event, node);
@@ -168,6 +193,63 @@ class ResourcePage extends React.Component {
     clearMenu = () => {
       this.setState({
         NodeTreeItem: null,
+      });
+    }
+
+    /** 新增操作 */
+    handleAddCancel=() => {
+      this.setState({ modaladdVisible: false });
+      this.initQuery();
+    }
+
+    handleAddOk=() => {
+      const { dispatch } = this.props;
+      const { routeid } = this.state;
+      this.form.validateFields((err, values) => {
+        if (err) return;
+        if (!err) {
+          dispatch({
+            type: 'resource/addleData',
+            payload: {
+              ...values,
+              // createUserNo: JSON.parse(getSessionStorage('currentUser')),
+              // maintenanceDate: moment(new Date()).format('YYYYMMDD'),
+            },
+            routeid,
+          }).then(() => {
+            const { resData } = this.props;
+            const { message, code } = resData[routeid];
+            if (code === 200) {
+              CcMessege.success(message);
+              this.setState({ modaladdVisible: false });
+              // this.props.location.reload();
+            }
+          });
+        }
+      });
+    }
+
+    saveForm=(form) => {
+      this.form = form;
+    }
+
+
+    sureDelete(rightNodeinfo) {
+      const { dispatch } = this.props;
+      const { routeid } = this.state;
+      dispatch({
+        type: 'resource/addleData',
+        routeid,
+        payload: { resourceId: rightNodeinfo.resourceId, flag: 'delete' },
+      }).then(() => {
+        const { resData } = this.props;
+        if (resData[routeid] == null) {
+          return;
+        }
+        const { message, code } = resData[routeid];
+        if (code === 200) {
+          CcMessege.success(message);
+        }
       });
     }
 
@@ -203,7 +285,7 @@ class ResourcePage extends React.Component {
       return (
         <Tabs onChange={this.handleOnChange} type="card">
           <TabPane tab="基本信息" key="basicinfo">
-            <BasicInfo data={this.state.selectedNodeInfo} />
+            <BasicInfo data={this.state.selectedNodeInfo} optionsData={this.state.optionsData} />
           </TabPane>
           {/* <TabPane tab="新增" key="add">
                     Content of Tab Pane 2
@@ -213,6 +295,19 @@ class ResourcePage extends React.Component {
       );
     }
 
+    renderAddModal() {
+      const { rightNodeinfo, optionsData, modaladdVisible } = this.state;
+      return (
+        <AddModal
+          data={rightNodeinfo}
+          optionsData={optionsData}
+          visible={modaladdVisible}
+          handleAddOk={this.handleAddOk}
+          handleAddCancel={this.handleAddCancel}
+          saveForm={this.saveForm}
+        />
+      );
+    }
     // renderMenu = () => {
     //   const { menuVisible } = this.state;
     //   const menus =
@@ -230,7 +325,7 @@ class ResourcePage extends React.Component {
             type="info"
             showIcon
             // closable
-            message="左键点击菜单树可查看该节点下的人员，右键点击该节点可以进行添加、修改、删除操作"
+            message="左键点击菜单树可查看该节点下的信息，右键点击该节点可以进行添加、修改、删除操作"
             style={{ marginBottom: '20px' }}
           />
           <Row gutter={20}>
@@ -238,6 +333,7 @@ class ResourcePage extends React.Component {
             <Col span={19}>{this.renderTabs()}</Col>
           </Row>
           {this.state.NodeTreeItem != null ? this.getNodeTreeMenu() : null}
+          {this.renderAddModal()}
         </Card>
       );
     }

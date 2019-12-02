@@ -288,7 +288,7 @@
 .ant-table-thead > tr > th,
 .ant-table-tbody > tr > td {
   /* padding: 16px 16px; */
-  padding: 6px 6px;
+  padding: 5px 5px;
   word-break: break-word;
 }
 .ant-table-expand-icon-th,

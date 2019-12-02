@@ -8,24 +8,24 @@ class BasicInfo extends React.Component {
   constructor() {
     super();
     this.state = {
-      optionsData: {},
+      // optionsData: {},
     };
   }
 
   componentDidMount() {
-    const dictionaryCategoryNos = [
-      { dictionaryCategoryNo: 'YES_OR_NO' },
-      { dictionaryCategoryNo: 'RESOURCE_TYPE' },
-    ];
-    getDicOptions(dictionaryCategoryNos).then(result => {
-      this.setState({
-        optionsData: result || {},
-      });
-    });
+    // const dictionaryCategoryNos = [
+    //   { dictionaryCategoryNo: 'YES_OR_NO' },
+    //   { dictionaryCategoryNo: 'RESOURCE_TYPE' },
+    // ];
+    // getDicOptions(dictionaryCategoryNos).then(result => {
+    //   this.setState({
+    //     optionsData: result || {},
+    //   });
+    // });
   }
 
   renderBasicInfo=() => {
-    const { data } = this.props;
+    const { data, optionsData } = this.props;
     return (
       <Fragment>
         <DescriptionList>
@@ -39,9 +39,9 @@ class BasicInfo extends React.Component {
           <Description term="父节点资源编号">{data && data.parentNo}</Description>
         </DescriptionList>
         <DescriptionList>
-          <Description term="是否叶子节点">{data && getDicNameByKey(data.isLeaf, 'YES_OR_NO', this.state.optionsData)}</Description>
-          <Description term="系统类型">{data && data.sysId}</Description>
-          <Description term="资源类型">{data && getDicNameByKey(data.resourceTp, 'RESOURCE_TYPE', this.state.optionsData)}</Description>
+          <Description term="是否叶子节点">{data && getDicNameByKey(data.isLeaf, 'YES_OR_NO', optionsData)}</Description>
+          <Description term="系统编号">{data && data.sysId}</Description>
+          <Description term="资源类型">{data && getDicNameByKey(data.resourceTp, 'RESOURCE_TYPE', optionsData)}</Description>
           <Description>&nbsp;</Description>
         </DescriptionList>
       </Fragment>

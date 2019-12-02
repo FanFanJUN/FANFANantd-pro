@@ -387,11 +387,17 @@ export default [
             name: 'resource',
             component: './System/resource',
           },
-          // {
-          //   path: '/editor/mind',
-          //   name: 'mind',
-          //   component: './Editor/GGEditor/Mind',
-          // },
+          {
+            path: '/system/02',
+            name: 'mind',
+            routes: [
+              {
+                path: '/system/02/02',
+                name: '0202',
+                component: './System/sysdic',
+              },
+            ]
+          },
           // {
           //   path: '/editor/koni',
           //   name: 'koni',

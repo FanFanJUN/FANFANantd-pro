@@ -108,7 +108,7 @@ class CcLoanSelect extends React.Component {
                 rules: [
                   {
                     required,
-                    message: typeof label === 'function' ? label() : label,
+                    message: typeof label === 'function' ? label() : `请选择${label}`,
                   },
                 ],
               })(
