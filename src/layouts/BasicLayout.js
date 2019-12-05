@@ -26,6 +26,7 @@ import blStyles from './BasicLayout.css';
 import { parseMenuData, isEmptyArray } from '@/utils/utils';
 import ThirdMenuLayout from './ThirdMenuLayout';
 import { urlToList } from '@/components/_utils/pathTools';
+import { COMMONS } from '@/constants/comm';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -122,7 +123,7 @@ class BasicLayout extends React.Component {
  getAllFirstMenu=() => {
    //  const firstMenuArr = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
    const firstMenuPayload = {
-     parentNo: '000000',
+     parentNo: COMMONS.TOPMENUNO,
      resourceLvl: '1',
    };
    const { dispatch } = this.props;
