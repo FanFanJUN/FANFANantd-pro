@@ -5,7 +5,7 @@
 //  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
-import router from 'umi/router';
+import { getSessionStorage } from './storage';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -65,18 +65,36 @@ const errorHandler = error => {
 /**
  * 配置request请求时的默认参数具体参数 https://github.com/umijs/umi-request/blob/master/README_zh-CN.md
  */
+// 有些通用的配置我们不想每个请求里都去添加，那么可以通过 extend 新建一个 umi-request 实例
 const request = extend({
+  // prefix: '/api/lc', // 前置
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
   // headers: {
   //   some: 'header', // 统一的headers
   // },
 });
-// return request('/api/getTableData', {
-//   method: 'POST',
-//   body: params,
+
+// 封装请求
+// request.interceptors.request.use(async (url, options) => {
+//   console.log(url, options);
+//   const newOptions = options;
+//   const RequestHeader = {
+//     currentUser: getSessionStorage('currentUser'),
+//   };
+//   newOptions.data = {
+//     RequestHeader: { ...RequestHeader },
+//     RequestBody: {
+//       ...newOptions.data,
+//     } };
+//   return (
+//     {
+//       url,
+//       options: { ...options },
+//     }
+//   );
 // });
-console.log(request);
+
 export default request;
 
 

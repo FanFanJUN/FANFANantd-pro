@@ -89,10 +89,10 @@ class BasicLayout extends React.Component {
       type: 'setting/getSetting',
     });
     // 获取菜单数据
-    dispatch({
-      type: 'menu/getMenuData',
-      payload: { routes, path, authority },
-    });
+    // dispatch({
+    //   type: 'menu/getMenuData',
+    //   payload: { routes, path, authority },
+    // });
     const rootDom = document.getElementById('root');
     const contentAreaMinHeight = rootDom.offsetHeight - 32 - 32 - 37 - 39 - 58;
     window.sessionStorage.setItem('contentMinHeight', contentAreaMinHeight);
