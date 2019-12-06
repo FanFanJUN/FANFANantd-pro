@@ -25,30 +25,28 @@ export default [
     Routes: ['src/pages/Authorized'],
     routes: [
       // dashboard
-      { path: '/', redirect: '/dashboard' },
-      // { path: '/table', redirect: '/DIYcompoment/table' },
+      { path: '/dashboard', redirect: '/dashboard/analysis' },  
       {
         path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',
-        component: './Dashboard/Analysis',
-        // routes: [
-        //   {
-        //     path: '/dashboard/analysis',
-        //     name: 'analysis',
-        //     component: './Dashboard/Analysis',
-        //   },
-          // {
-          //   path: '/dashboard/monitor',
-          //   name: 'monitor',
-          //   component: './Dashboard/Monitor',
-          // },
-          // {
-          //   path: '/dashboard/workplace',
-          //   name: 'workplace',
-          //   component: './Dashboard/Workplace',
-          // },
-        // ],
+        routes: [
+          {
+            path: '/dashboard/analysis',
+            name: 'analysis',
+            component: './Dashboard/Analysis',
+          },
+          {
+            path: '/dashboard/monitor',
+            name: 'monitor',
+            component: './Dashboard/Monitor',
+          },
+          {
+            path: '/dashboard/workplace',
+            name: 'workplace',
+            component: './Dashboard/Workplace',
+          },
+        ],
       },
       // 一级菜单测试
       {
