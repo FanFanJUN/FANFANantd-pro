@@ -31,24 +31,24 @@ export default [
         path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',
-        component: './Dashboard/Analysis',
-        // routes: [
-        //   {
-        //     path: '/dashboard/analysis',
-        //     name: 'analysis',
-        //     component: './Dashboard/Analysis',
-        //   },
-          // {
-          //   path: '/dashboard/monitor',
-          //   name: 'monitor',
-          //   component: './Dashboard/Monitor',
-          // },
-          // {
-          //   path: '/dashboard/workplace',
-          //   name: 'workplace',
-          //   component: './Dashboard/Workplace',
-          // },
-        // ],
+        // component: './Dashboard/Analysis',
+        routes: [
+          {
+            path: '/dashboard/analysis',
+            name: 'analysis',
+            component: './Dashboard/Analysis',
+          },
+          {
+            path: '/dashboard/monitor',
+            name: 'monitor',
+            component: './Dashboard/Monitor',
+          },
+          {
+            path: '/dashboard/workplace',
+            name: 'workplace',
+            component: './Dashboard/Workplace',
+          },
+        ],
       },
       // 一级菜单测试
       {
@@ -395,6 +395,11 @@ export default [
                 path: '/system/02/02',
                 name: '0202',
                 component: './System/sysdic',
+              },
+              {
+                path: '/system/02/03',
+                name: '0203',
+                component: './Charts/orgtree',
               },
             ]
           },

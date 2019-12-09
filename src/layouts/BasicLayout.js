@@ -78,6 +78,10 @@ class BasicLayout extends React.Component {
   };
 
   componentDidMount() {
+    if (!getSessionStorage('currentUser')) {
+      // eslint-disable-next-line react/destructuring-assignment
+      this.props.history.replace('/user/login');
+    }
     const {
       dispatch,
       route: { routes, path, authority },
@@ -108,16 +112,16 @@ class BasicLayout extends React.Component {
       // eslint-disable-next-line react/destructuring-assignment
       this.props.history.replace('/user/login');
     }
-    const newState = {
-      thirdMenuData: JSON.parse(getSessionStorage('currthirdAndBelowMenus')),
-    };
+    // const newState = {
+    //   thirdMenuData: JSON.parse(getSessionStorage('currthirdAndBelowMenus')),
+    // };
     // eslint-disable-next-line react/destructuring-assignment
     if (nextProps.location.pathname !== this.props.location.pathname && this.state.error) {
       this.setState({
         error: false,
       });
     }
-    this.setState(newState);
+    // this.setState(newState);
   }
 
  getAllFirstMenu=() => {
@@ -299,12 +303,12 @@ class BasicLayout extends React.Component {
       location,
     } = this.props;
     this.breadcrumbNameMap = this.getBreadcrumbNameMap();
-    const { error, isMobile, firstMenus, thirdMenuData } = this.state;
+    const { error, isMobile, firstMenus } = this.state;
     // const firstMenus = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
     const breadcrumbList = this.getCurrBreadcrumb(urlToList(pathname));
 
+    const thirdMenuData = JSON.parse(getSessionStorage('currthirdAndBelowMenus')) || [];
     // const thirdMenuData = '0';
-    console.log(thirdMenuData);
     const isTop = PropsLayout === 'topmenu';
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
     const posses = getSessionStorage('Positions') && JSON.parse(getSessionStorage('Positions')) || [];
@@ -365,8 +369,8 @@ class BasicLayout extends React.Component {
 export default connect(({ global, setting, menu: menuModel }) => ({
   collapsed: global.collapsed,
   layout: setting.layout,
-  menuData: menuModel.menuData,
-  breadcrumbNameMap: menuModel.breadcrumbNameMap,
+  // menuData: menuModel.menuData,
+  // breadcrumbNameMap: menuModel.breadcrumbNameMap,
   ...setting,
 }))(props => (
   <Media query="(max-width: 599px)">
