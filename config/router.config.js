@@ -25,13 +25,15 @@ export default [
     Routes: ['src/pages/Authorized'],
     routes: [
       // dashboard
-      { path: '/', redirect: '/dashboard' },
-      // { path: '/table', redirect: '/DIYcompoment/table' },
+      { path: '/dashboard', redirect: '/dashboard/analysis' },  
       {
         path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',
+<<<<<<< HEAD
         // component: './Dashboard/Analysis',
+=======
+>>>>>>> 87f4a43e9443d343321e301d08a8c9bba09c9430
         routes: [
           {
             path: '/dashboard/analysis',

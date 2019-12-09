@@ -124,6 +124,17 @@ class BasicLayout extends React.Component {
     // this.setState(newState);
   }
 
+  componentDidUpdate(preProps) {
+    const { isMobile, firstMenus } = this.state;
+    const { collapsed } = this.props;
+    if (this.props.location.pathname === '/' && !isEmptyArray(firstMenus)) {
+      this.props.history.push(firstMenus[0].path);
+    }
+    if (isMobile && !preProps.isMobile && !collapsed) {
+      this.handleMenuCollapse(false);
+    }
+  }
+
  getAllFirstMenu=() => {
    //  const firstMenuArr = parseMenuData(JSON.parse(getSessionStorage('000000')), '000000');
    const firstMenuPayload = {

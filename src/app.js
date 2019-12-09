@@ -167,7 +167,7 @@ export function onRouteChange({ location, routes, action }) {
   const curFirst = curFirstMenu && curFirstMenu[0];
   if (curFirst) {
     // 当前选中一级菜单数据存储
-    setSessionStorage('currFirstMenu', JSON.stringify(curFirstMenu));
+    setSessionStorage('currFirstMenu', JSON.stringify(curFirst));
     // 获取一级菜单下子菜单 二级 && 三级
     getChildrenMenuFromCurrFirstMenu(curFirst, location, pathname);
     // 组装面包屑
