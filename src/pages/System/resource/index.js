@@ -1,7 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
-import { Card, Row, Col, Tree, Tabs, Tooltip, Icon, Alert, Form, Modal } from 'antd';
-import { CcMessege } from '@/cc-comp/basic';
+import { Card, Row, Col, Tree, Tabs, Tooltip, Icon, Alert, Form, Modal, Spin, Button, Divider } from 'antd';
+import { CcMessege, CcCard } from '@/cc-comp/basic';
 import { createRouteid, getDicOptions } from '@/utils/utils';
 import { connect } from 'dva';
 import moment from 'moment';
@@ -24,6 +24,9 @@ class ResourcePage extends React.Component {
       selectedNodeInfo: {},
       defaultKeys: [],
       modaladdVisible: false,
+      loading: true,
+      buttonFlag: false,
+      activeKey: 'basicinfo',
     };
   }
 
@@ -137,6 +140,7 @@ class ResourcePage extends React.Component {
         }
         const { dataSource } = resData[routeid];
         this.setState({
+          loading: false,
           treeData: dataSource,
           defaultKeys: [dataSource[0].resourceId], // 初始时选中的节点
           selectedNodeInfo: dataSource[0],
@@ -146,6 +150,10 @@ class ResourcePage extends React.Component {
 
     handleAddSub=() => {
       this.setState({ modaladdVisible: true });
+    }
+
+    handleButtonAdd=() => {
+      this.setState({ modaladdVisible: true, buttonFlag: true });
     }
 
     handleDeleteSub=() => {
@@ -163,8 +171,9 @@ class ResourcePage extends React.Component {
 
     handleOnChange = (activeKey) => {
       console.log(activeKey);
-      if (activeKey === 'delete') {
-        CcMessege.warning('删除');
+      if (activeKey === 'add') {
+        this.setState({ activeKey: 'basicinfo' });
+        this.handleButtonAdd();
       }
     }
 
@@ -199,7 +208,7 @@ class ResourcePage extends React.Component {
     /** 新增操作 */
     handleAddCancel=() => {
       this.setState({ modaladdVisible: false });
-      this.initQuery();
+      // this.initQuery();
     }
 
     handleAddOk=() => {
@@ -268,35 +277,36 @@ class ResourcePage extends React.Component {
 
     renderResourceTree() {
       return (
-        <div style={{ overflowY: 'scroll', height: '400px' }}>
-          <Tree
-            loadData={this.onLoadData}
-            onRightClick={this.handleRightClick}
-            onSelect={this.handleSelect}
-            selectedKeys={this.state.defaultKeys}
-          >
-            {this.renderTreeNodes(this.state.treeData)}
-          </Tree>
-        </div>
+        <Spin spinning={this.state.loading}>
+          <div style={{ overflowY: 'scroll', height: '400px' }}>
+            <Tree
+              loadData={this.onLoadData}
+              onRightClick={this.handleRightClick}
+              onSelect={this.handleSelect}
+              selectedKeys={this.state.defaultKeys}
+            >
+              {this.renderTreeNodes(this.state.treeData)}
+            </Tree>
+          </div>
+        </Spin>
       );
     }
 
     renderTabs = () => {
+      const { activeKey } = this.state;
       return (
-        <Tabs onChange={this.handleOnChange} type="card">
+        <Tabs onChange={this.handleOnChange} type="card" activeKey={activeKey}>
           <TabPane tab="基本信息" key="basicinfo">
             <BasicInfo data={this.state.selectedNodeInfo} optionsData={this.state.optionsData} />
           </TabPane>
-          {/* <TabPane tab="新增" key="add">
-                    Content of Tab Pane 2
-          </TabPane>
-          <TabPane tab="删除" key="delete" /> */}
+          <TabPane tab="根节点新增" key="add" />
+          {/* <TabPane tab="删除" key="delete" /> */}
         </Tabs>
       );
     }
 
     renderAddModal() {
-      const { rightNodeinfo, optionsData, modaladdVisible } = this.state;
+      const { rightNodeinfo, optionsData, modaladdVisible, buttonFlag } = this.state;
       return (
         <AddModal
           data={rightNodeinfo}
@@ -305,6 +315,7 @@ class ResourcePage extends React.Component {
           handleAddOk={this.handleAddOk}
           handleAddCancel={this.handleAddCancel}
           saveForm={this.saveForm}
+          flag={buttonFlag}
         />
       );
     }
@@ -320,7 +331,7 @@ class ResourcePage extends React.Component {
     // }
     render() {
       return (
-        <Card title="资源管理" onClick={this.clearMenu}>
+        <CcCard onClick={this.clearMenu}>
           <Alert
             type="info"
             showIcon
@@ -328,13 +339,15 @@ class ResourcePage extends React.Component {
             message="左键点击菜单树可查看该节点下的信息，右键点击该节点可以进行添加、修改、删除操作"
             style={{ marginBottom: '20px' }}
           />
+          {/* <Button type="primary" onClick={this.handleButtonAdd}>增加</Button> */}
+          {/* <Divider /> */}
           <Row gutter={20}>
             <Col span={5}>{this.renderResourceTree()}</Col>
             <Col span={19}>{this.renderTabs()}</Col>
           </Row>
           {this.state.NodeTreeItem != null ? this.getNodeTreeMenu() : null}
           {this.renderAddModal()}
-        </Card>
+        </CcCard>
       );
     }
 }

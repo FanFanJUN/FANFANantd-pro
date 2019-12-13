@@ -32,30 +32,30 @@ class AddModal extends React.Component {
   }
 
   renderForm() {
-    const { form: { getFieldDecorator }, data, optionsData, form } = this.props;
+    const { form: { getFieldDecorator }, data, optionsData, form, flag } = this.props;
     return (
       <Form>
         <Row>
           <Col {...colLayout}>
             <FormItem label="父节点资源编号" {...formItemLayout}>
               {getFieldDecorator('parentNo', {
-                initialValue: data && data.resourceNo,
+                initialValue: flag? '000000': data && data.resourceNo,
               })(<CcInput placeholder="请输入" disabled />)}
             </FormItem>
           </Col>
-          <Col {...colLayout}>
+          {flag?null:<Col {...colLayout}>
             <FormItem label={getEllipsis('当前节点资源编号', 6)} {...formItemLayout}>
               {getFieldDecorator('xx', {
                 initialValue: data && data.resourceNo,
               })(<CcInput placeholder="请输入" disabled />)}
             </FormItem>
-          </Col>
+          </Col>}
         </Row>
         <Row>
           <Col {...colLayout}>
             <FormItem label="资源编号" {...formItemLayout}>
               {getFieldDecorator('resourceNo', {
-                initialValue: data && `${data.resourceNo}**`,
+                initialValue: flag ? 'RES00000*' : data && `${data.resourceNo}**`,
                 rules: [
                   { required: true, message: '请输入资源编号' },
                 ],
@@ -90,6 +90,7 @@ class AddModal extends React.Component {
             label="资源类型"
             valueProp="dictionaryNo"
             titleProp="dictionaryNm"
+            initialValue="0"
             field="resourceTp"
             options={optionsData.RESOURCE_TYPE}
             required
@@ -97,7 +98,7 @@ class AddModal extends React.Component {
           <Col {...colLayout}>
             <FormItem label="资源层级" {...formItemLayout}>
               {getFieldDecorator('resourceLvl', {
-                initialValue: data && (Number(data.resourceLvl) + 1),
+                initialValue: flag ? '1' : data && (Number(data.resourceLvl) + 1),
                 rules: [
                   { required: true, message: '请输入资源层级' },
                 ],
@@ -142,11 +143,11 @@ class AddModal extends React.Component {
   }
 
   render() {
-    const { visible, handleAddOk, handleAddCancel, saveForm, form } = this.props;
+    const { visible, handleAddOk, handleAddCancel, saveForm, form, flag } = this.props;
     saveForm(form); // 把当前form属性传递到主页面
     return (
       <Modal
-        title="节点新增"
+        title={flag ? '根节点新增' : '节点新增'}
         visible={visible}
         width={800}
         // onOk={this.handleOk}

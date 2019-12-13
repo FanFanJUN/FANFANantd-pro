@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import { Table, Card, Button, Radio, Form, Modal, Row, Col, DatePicker, InputNumber } from 'antd';
+import { Table, Card, Button, Radio, Form, Modal, Row, Col, DatePicker, InputNumber, Switch, PageHeader } from 'antd';
 import { connect } from 'dva';
-import { createRouteid, getTablepag, getDicOptions, checkNull, getDicNameByKey, getHelloWord, isEmptyArray, isEmptyObject } from '@/utils/utils';
+import { createRouteid, getTablepag, getDicOptions, isEmptyObject } from '@/utils/utils';
 import moment from 'moment';
-import { CcInput, CcSelect, CcMessege } from '@/cc-comp/basic';
+import { CcInput, CcSelect, CcMessege, CcCard, CcButton } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
 import { CcLoanSelect } from '@/cc-comp/biz';
 
@@ -42,84 +42,78 @@ const UpdateForm = Form.create()(props => {
       <Form>
         <Row>
           <Col {...colLayout}>
-            <FormItem label="编号" {...formItemLayout}>
-              {getFieldDecorator('id', {
-                initialValue: radiovalue && radiovalue.id,
+            <FormItem label="系统编号" {...formItemLayout}>
+              {getFieldDecorator('systemNo', {
+                initialValue: radiovalue && radiovalue.systemNo,
               })(<CcInput placeholder="请输入" disabled />)}
-              {getFieldDecorator('flag', {
-                initialValue: 'update',
-              })(<CcInput hidden />)}
-            </FormItem>
-          </Col>
-          <Col {...colLayout}>
-            <FormItem label="描述" {...formItemLayout}>
-              {getFieldDecorator('description', {
-                initialValue: radiovalue && radiovalue.description,
-              })(<CcInput.TextArea placeholder="请输入" />)}
             </FormItem>
           </Col>
         </Row>
         <Row>
           <Col {...colLayout}>
-            <FormItem label="姓名" {...formItemLayout}>
-              {getFieldDecorator('name', {
-                initialValue: radiovalue && radiovalue.name,
+            <FormItem label="字典编号" {...formItemLayout}>
+              {getFieldDecorator('dictionaryNo', {
+                initialValue: radiovalue && radiovalue.dictionaryNo,
+              })(<CcInput disabled />)}
+            </FormItem>
+          </Col>
+          <Col {...colLayout}>
+            <FormItem label="字典名称" {...formItemLayout}>
+              {getFieldDecorator('dictionaryNm', {
+                initialValue: radiovalue && radiovalue.dictionaryNm,
+              })(<CcInput placeholder="请输入" disabled />)}
+            </FormItem>
+          </Col>
+        </Row>
+        <Row>
+          <Col {...colLayout}>
+            <FormItem label="字典类别编号" {...formItemLayout}>
+              {getFieldDecorator('dictionaryCategoryNo', {
+                initialValue: radiovalue && radiovalue.dictionaryCategoryNo,
+              })(<CcInput placeholder="请输入" disabled />)}
+            </FormItem>
+          </Col>
+          <Col {...colLayout}>
+            <FormItem label="字典类别名称" {...formItemLayout}>
+              {getFieldDecorator('dictionaryCategoryNm', {
+                initialValue: radiovalue && radiovalue.dictionaryCategoryNm,
+                rules: [
+                  { required: true, message: '请输入字典类别名称' },
+                ],
               })(<CcInput placeholder="请输入" />)}
             </FormItem>
           </Col>
-          <Col {...colLayout}>
-            <FormItem label="号码" {...formItemLayout}>
-              {getFieldDecorator('idnumber', {
-                initialValue: radiovalue && radiovalue.idnumber,
-                rules: [
-                  { required: true, message: '请输入号码' },
-                ],
-              })(
-                <InputNumber placeholder="请输入" style={{ width: '100%' }} />
-              )}
-            </FormItem>
-          </Col>
         </Row>
         <Row>
           <Col {...colLayout}>
-            <FormItem label="生日" {...formItemLayout}>
-              {getFieldDecorator('birthdate', {
-                initialValue: radiovalue && moment(radiovalue.birthdate),
-                rules: [
-                  { required: true, message: '请选择生日' },
-                ],
-              })(
-                <DatePicker style={{ width: '100%' }} placeholder="请输入更新日期" />
-              )}
+            <FormItem label="级别编号" {...formItemLayout}>
+              {getFieldDecorator('levelNo', {
+                initialValue: radiovalue && radiovalue.levelNo,
+              })(<CcInput placeholder="请输入" disabled />)}
             </FormItem>
           </Col>
-          <CcLoanSelect
-            columnLayout={2}
-            columnIndex={1}
-            form={form}
-            label="性别"
-            placeholder="请输入性别"
-            dicCode="SEX"
-            field="sex"
-            initialValue={radiovalue && radiovalue.sex}
-            options={optionsData.SEX}
-            valueProp="dictionaryNo"
-            titleProp="dictionaryNm"
-          // ChooseFlag
-          />
+          <Col {...colLayout}>
+            <FormItem label="字典顺序" {...formItemLayout}>
+              {getFieldDecorator('sequenceNum', {
+                initialValue: radiovalue && radiovalue.levelNo,
+              })(<CcInput placeholder="请输入" disabled />)}
+            </FormItem>
+          </Col>
         </Row>
       </Form>
     </Modal>
   );
 });
+
+
 /**
- * @description 标准的列表查询
+ * @description 角色菜单
  * @author LC@1981824361
- * @date 2019-09-02
- * @class DiyTable
+ * @date 2019-12-13
+ * @class RoleTable
  * @extends {React.Component}
  */
-class DiyTable extends React.Component {
+class RoleTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -138,7 +132,7 @@ class DiyTable extends React.Component {
     const { dispatch } = this.props;
     const { routeid } = this.state;
     dispatch({
-      type: 'table/create',
+      type: 'role/create',
       routeid,
     });
 
@@ -160,7 +154,7 @@ class DiyTable extends React.Component {
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'table/clear',
+      type: 'role/clear',
     });
   }
 
@@ -169,7 +163,7 @@ class DiyTable extends React.Component {
     const { routeid } = this.state;
     const params = { pageSize: 10, pageNum: 1 };
     dispatch({
-      type: 'table/getTableData',
+      type: 'role/getTableData',
       routeid,
       payload: params,
     }).then(() => {
@@ -190,7 +184,7 @@ class DiyTable extends React.Component {
     const { routeid, page } = this.state;
     const params = { pageSize: page.pageSize, pageNum: page.current };
     dispatch({
-      type: 'table/getTableData',
+      type: 'role/getTableData',
       routeid,
       payload: params,
     }).then(() => {
@@ -218,7 +212,7 @@ class DiyTable extends React.Component {
       pageNum: page.current,
     };
     dispatch({
-      type: 'table/getTableData',
+      type: 'role/getTableData',
       routeid,
       payload: params,
     }).then(() => {
@@ -234,6 +228,11 @@ class DiyTable extends React.Component {
     });
   }
 
+  handleChange=(record) => {
+    const statusFlag = record && record.statusFlag === '1' ? '2' : '1';
+    const params = { ...record, statusFlag };
+    this.handleUpdate(params);
+  }
   onChange = (e) => {
     this.setState({ radiovalue: e.target.value });
   }
@@ -269,11 +268,10 @@ class DiyTable extends React.Component {
     form.validateFields((err, values) => {
       if (err) return;
       if (!err) {
-        const birthdate = values && moment(values.birthdate).format('YYYYMMDD');
         dispatch({
-          type: 'table/addleData',
+          type: 'role/addleData',
           routeid,
-          payload: { ...values, birthdate },
+          payload: { ...values, statusFlag: '2', deleteFlag: '2' },
         }).then(() => {
           const { tableData } = this.props;
           if (tableData[routeid] == null) {
@@ -295,12 +293,12 @@ class DiyTable extends React.Component {
 
   handleUpdate = (fieldsValue) => {
     const { dispatch } = this.props;
-    const { routeid } = this.state;
-    const birthdate = fieldsValue && moment(fieldsValue.birthdate).format('YYYYMMDD');
+    const { routeid, radiovalue } = this.state;
+    const maintenanceDate = moment(new Date()).format('YYYYMMDD');
     dispatch({
-      type: 'table/addleData',
+      type: 'role/addleData',
       routeid,
-      payload: { ...fieldsValue, birthdate },
+      payload: { maintenanceDate, statusFlag: radiovalue.statusFlag, deleteFlag: radiovalue.deleteFlag, flag: 'update', ...fieldsValue },
     }).then(() => {
       const { tableData } = this.props;
       if (tableData[routeid] == null) {
@@ -318,7 +316,7 @@ class DiyTable extends React.Component {
 
   handleDelete = (record) => {
     Modal.confirm({
-      content: `确定要删除${record && record.name}吗`,
+      content: `确定要删除【字典类别】为${record && record.dictionaryCategoryNm}【字典编号】为${record && record.dictionaryNo}吗`,
       onOk: () => {
         this.sureDelete(record);
       },
@@ -332,9 +330,9 @@ class DiyTable extends React.Component {
     const { dispatch } = this.props;
     const { routeid } = this.state;
     dispatch({
-      type: 'table/addleData',
+      type: 'role/addleData',
       routeid,
-      payload: { id: record.id, flag: 'delete' },
+      payload: { ...record, flag: 'delete' },
     }).then(() => {
       const { tableData } = this.props;
       if (tableData[routeid] == null) {
@@ -350,8 +348,10 @@ class DiyTable extends React.Component {
   renderButton() {
     return (
       <Fragment>
-        <Button type="primary" onClick={this.handleShowModal} style={{ marginBottom: '18px', marginRight: '10px' }}>新增</Button>
-        <Button type="primary" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px' }}>更新</Button>
+        <CcButton type="primary" onClick={this.handleShowModal} style={{ marginBottom: '18px', marginRight: '10px' }}>新增</CcButton>
+        <CcButton type="primary" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px', marginRight: '10px' }}>更新</CcButton>
+        <CcButton type="primary" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px', marginRight: '10px' }}>已分配人员</CcButton>
+        <CcButton type="danger" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px' }}>删除</CcButton>
       </Fragment>
     );
   }
@@ -364,7 +364,7 @@ class DiyTable extends React.Component {
     } = this.props;
     return (
       <Modal
-        title="用户新增"
+        title="字典新增"
         visible={visible}
         onOk={this.handleOk}
         onCancel={this.handleCancel}
@@ -381,70 +381,75 @@ class DiyTable extends React.Component {
         <Form>
           <Row>
             <Col {...colLayout}>
-              <FormItem label="描述" {...formItemLayout}>
-                {getFieldDecorator('description', {
-                })(<CcInput.TextArea placeholder="请输入" />)}
+              <FormItem label="系统编号" {...formItemLayout}>
+                {getFieldDecorator('systemNo', {
+                  initialValue: 'FanFan',
+                  rules: [
+                    { required: true, message: '请输入系统编号' },
+                  ],
+                })(<CcInput placeholder="请输入" />)}
               </FormItem>
             </Col>
           </Row>
           <Row>
             <Col {...colLayout}>
-              <FormItem label="姓名" {...formItemLayout}>
-                {getFieldDecorator('name', {
+              <FormItem label="字典编号" {...formItemLayout}>
+                {getFieldDecorator('dictionaryNo', {
+                  rules: [
+                    { required: true, message: '请输入字典编号' },
+                  ],
                 })(<CcInput placeholder="请输入" />)}
               </FormItem>
             </Col>
             <Col {...colLayout}>
-              <FormItem label="号码" {...formItemLayout}>
-                {getFieldDecorator('idnumber', {
+              <FormItem label="字典名称" {...formItemLayout}>
+                {getFieldDecorator('dictionaryNm', {
                   rules: [
-                    { required: true, message: '请输入号码' },
+                    { required: true, message: '请输入字典名称' },
                   ],
-                })(
-                  <InputNumber placeholder="请输入" style={{ width: '100%' }} />
-                )}
+                })(<CcInput placeholder="请输入" />)}
               </FormItem>
             </Col>
           </Row>
           <Row>
             <Col {...colLayout}>
-              <FormItem label="生日" {...formItemLayout}>
-                {getFieldDecorator('birthdate', {
+              <FormItem label="字典类别编号" {...formItemLayout}>
+                {getFieldDecorator('dictionaryCategoryNo', {
                   rules: [
-                    { required: true, message: '请选择生日' },
+                    { required: true, message: '请输入字典类别编号' },
                   ],
-                })(
-                  <DatePicker style={{ width: '100%' }} placeholder="请输入更新日期" />
-                )}
+                })(<CcInput placeholder="请输入" />)}
               </FormItem>
             </Col>
-            {/* <Col {...colLayout}>
-              <FormItem label="性别" {...formItemLayout}>
-                {getFieldDecorator('sex', {
+            <Col {...colLayout}>
+              <FormItem label="字典类别名称" {...formItemLayout}>
+                {getFieldDecorator('dictionaryCategoryNm', {
                   rules: [
-                    { required: true, message: '请选择性别' },
+                    { required: true, message: '请输入字典类别名称' },
                   ],
-                })(
-                  <CcSelect placeholder="请选择" style={{ width: '100%' }}>
-                    <Option value="0">男</Option>
-                    <Option value="1">女</Option>
-                  </CcSelect>
-                )}
+                })(<CcInput placeholder="请输入" />)}
               </FormItem>
-            </Col> */}
-            <CcLoanSelect
-              columnLayout={2}
-              columnIndex={1}
-              form={form}
-              label="性别"
-              placeholder="请输入性别"
-              dicCode="SEX"
-              field="sex"
-              options={optionsData.SEX}
-              valueProp="dictionaryNo"
-              titleProp="dictionaryNm"
-            // ChooseFlag
-            />
+            </Col>
+          </Row>
+          <Row>
+            <Col {...colLayout}>
+              <FormItem label="级别编号" {...formItemLayout}>
+                {getFieldDecorator('levelNo', {
+                  rules: [
+                    { required: true, message: '请输入字典级别编号' },
+                  ],
+                })(<CcInput placeholder="请输入" />)}
+              </FormItem>
+            </Col>
+            <Col {...colLayout}>
+              <FormItem label="字典顺序" {...formItemLayout}>
+                {getFieldDecorator('sequenceNum', {
+                  rules: [
+                    { required: true, message: '请输入字典顺序' },
+                  ],
+                })(<CcInput placeholder="请输入" />)}
+              </FormItem>
+            </Col>
           </Row>
         </Form>
       </Modal>
@@ -458,16 +463,6 @@ class DiyTable extends React.Component {
       handleUpdate: this.handleUpdate,
       handleModalVisible: this.handleCancel,
     };
-    // key: i,
-    // href: 'https://ant.design',
-    // name: `TradeCode ${i}`,
-    // title: `一个任务名称 ${i}`,
-    // owner: '曲丽丽',
-    // callNo: Math.floor(Math.random() * 1000),
-    // status: Math.floor(Math.random() * 10) % 2,
-    // updatedAt: new Date(),
-    // createdAt: new Date(),
-    // progress: Math.ceil(Math.random() * 100),
     const columns = [
       {
         title: '选择',
@@ -483,44 +478,43 @@ class DiyTable extends React.Component {
         },
       },
       {
-        dataIndex: 'id',
-        title: '编号',
+        dataIndex: 'dictionaryNo',
+        title: '字典编号',
         align: 'center',
       },
       {
-        dataIndex: 'name',
-        title: '名字',
+        dataIndex: 'dictionaryNm',
+        title: '字典名字',
         align: 'center',
       },
       {
-        dataIndex: 'sex',
-        title: '性别',
-        align: 'center',
-        render: (sex) => {
-          // if (sex === '1') {
-          //   return '女';
-          // } else {
-          //   return '男';
-          // }
-          return sex && getDicNameByKey(sex, 'SEX', this.state.optionsData);
-        },
-      },
-      {
-        dataIndex: 'idnumber',
-        title: '号码',
+        dataIndex: 'dictionaryCategoryNo',
+        title: '字典类别编号',
         align: 'center',
       },
       {
-        dataIndex: 'description',
-        title: '介绍',
+        dataIndex: 'dictionaryCategoryNm',
+        title: '字典类别名字',
         align: 'center',
       },
       {
-        dataIndex: 'birthdate',
-        title: '生日',
+        dataIndex: 'levelNo',
+        title: '级别编号',
         align: 'center',
-        render: (birthdate) => {
-          return birthdate && moment(birthdate).format('YYYY-MM-DD');
+      },
+      {
+        dataIndex: 'sequenceNum',
+        title: '顺序数量',
+        align: 'center',
+      },
+      {
+        dataIndex: 'statusFlag',
+        title: '状态标志',
+        align: 'center',
+        render: (statusFlag, record) => {
+          return (
+            <Switch checkedChildren="有效" unCheckedChildren="失效" checked={statusFlag === '1'} onChange={() => this.handleChange(record)} />
+          );
         },
       },
       {
@@ -533,43 +527,59 @@ class DiyTable extends React.Component {
       },
     ];
     return (
-      <Card
-        title="用户管理"
-      >
-        {/* <h1><span>{!isEmptyArray(data) ? data[0].userName : null}</span></h1> */}
-        {this.renderButton()}
-        {this.renderAddModal()}
-        {/* this.renderUpdateModal() */}
-        <UpdateForm
-          {...parentMethods}
-          modalVisible={updateVisible}
-          optionsData={optionsData}
-          radiovalue={radiovalue}
-        />
-        <Table
-          dataSource={dataSource}
-          loading={tableLoading}
-          columns={columns}
-          pagination={getTablepag(pagination)}
-          onChange={this.handleTablepage}
-          onRow={(record) => {
-            return {
-              onClick: () => {
-                this.onRowClick(record);
-              },
-            };
-          }}
-        />
-      </Card>
+      <Fragment>
+        <Row gutter={20}>
+          <Col span={16}>
+            <CcCard>
+              {/* <h1><span>{!isEmptyArray(data) ? data[0].userName : null}</span></h1> */}
+              {this.renderButton()}
+              {this.renderAddModal()}
+              {/* this.renderUpdateModal() */}
+              <UpdateForm
+                {...parentMethods}
+                modalVisible={updateVisible}
+                optionsData={optionsData}
+                radiovalue={radiovalue}
+              />
+              <Table
+                dataSource={dataSource}
+                loading={tableLoading}
+                columns={columns}
+                pagination={getTablepag(pagination)}
+                onChange={this.handleTablepage}
+                onRow={(record) => {
+                  return {
+                    onClick: () => {
+                      this.onRowClick(record);
+                    },
+                  };
+                }}
+              />
+            </CcCard>
+          </Col>
+          <Col span={8}>
+            <CcCard>
+              <PageHeader
+                style={{
+                  border: '1px solid rgb(235, 237, 240)',
+                }}
+                title="资源分配"
+              >
+                <span><strong>请先选择角色</strong></span>
+              </PageHeader>
+            </CcCard>
+          </Col>
+        </Row>
+      </Fragment>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    tableData: state.table,
-    tableLoading: state.loading.effects['table/getTableData'],
+    tableData: state.role,
+    tableLoading: state.loading.effects['role/getTableData'],
   };
 }
 
-export default connect(mapStateToProps)(Form.create()(DiyTable));
+export default connect(mapStateToProps)(Form.create()(RoleTable));

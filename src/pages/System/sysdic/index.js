@@ -3,7 +3,7 @@ import { Table, Card, Button, Radio, Form, Modal, Row, Col, DatePicker, InputNum
 import { connect } from 'dva';
 import { createRouteid, getTablepag, getDicOptions, isEmptyObject } from '@/utils/utils';
 import moment from 'moment';
-import { CcInput, CcSelect, CcMessege } from '@/cc-comp/basic';
+import { CcInput, CcSelect, CcMessege, CcCard, CcButton } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
 import { CcLoanSelect } from '@/cc-comp/biz';
 
@@ -347,8 +347,8 @@ class SysDicTable extends React.Component {
   renderButton() {
     return (
       <Fragment>
-        <Button type="primary" onClick={this.handleShowModal} style={{ marginBottom: '18px', marginRight: '10px' }}>新增</Button>
-        <Button type="primary" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px' }}>更新</Button>
+        <CcButton type="primary" onClick={this.handleShowModal} style={{ marginBottom: '18px', marginRight: '10px' }}>新增</CcButton>
+        <CcButton type="primary" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px' }}>更新</CcButton>
       </Fragment>
     );
   }
@@ -524,7 +524,7 @@ class SysDicTable extends React.Component {
       },
     ];
     return (
-      <Card
+      <CcCard
         title="字典管理"
       >
         {/* <h1><span>{!isEmptyArray(data) ? data[0].userName : null}</span></h1> */}
@@ -551,7 +551,7 @@ class SysDicTable extends React.Component {
             };
           }}
         />
-      </Card>
+      </CcCard>
     );
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React, { Fragment } from 'react';
 import { Layout, Icon } from 'antd';
 import GlobalFooter from '@/components/GlobalFooter';
@@ -28,7 +29,8 @@ const FooterView = () => (
       // ]}
       copyright={
         <Fragment>
-          Copyright <Icon type="copyright" /> {new Date().getFullYear()} lcccc.com.cn
+          Copyright <Icon type="copyright" /> {new Date().getFullYear()}&nbsp;
+          <a target="_blank" href="https://github.com/FanFanJUN"><Icon type="github" />FanFanJUN</a>
         </Fragment>
       }
     />

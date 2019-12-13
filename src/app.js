@@ -28,6 +28,31 @@ function fetchOneChild(thirdMenus) {
     return fetchOneChild(thirdMenus[0].children);
   }
 }
+
+/** 获取二级菜单 */
+function getButtonAccess(ResourseNo, path) {
+  console.log(`请求${ResourseNo}(${path})下的按钮权限`);
+  const params = {
+    parentNo: ResourseNo,
+    flg: '1',
+  };
+  return request('/api/lc/RESOURCESELECTLIST', {
+    method: 'POST',
+    data: params,
+  }).then((response) => {
+    if (!isRespSucc(response)) {
+      showErrorMsg(response);
+      return;
+    }
+    const resNos = (response.data).map((item)=>{
+      return item.resourceNo;
+    });
+    if (!isEmptyArray(resNos) && path) {
+      setSessionStorage(path, JSON.stringify(resNos));
+    }
+  });
+}
+
 /** 获取二级菜单 */
 function getSecondMenu(ResourseNo) {
   console.log('获取二级菜单开始');
@@ -115,6 +140,7 @@ async function getChildrenMenuFromCurrFirstMenu(curFirst, location, path) {
     await getThirdAndBelowMenu(currSecFrom3.id);
     const currthirdAndBelowMenusRes = JSON.parse(getSessionStorage(currSecFrom3.id)) || [];
     const currThi = currthirdAndBelowMenusRes && currthirdAndBelowMenusRes.filter((item) => item && item.resourcePath === path)[0] || {};
+    await getButtonAccess(currThi.resourceNo, path);
   } else if (!isEmptyObject(currSec)) {
     await getThirdAndBelowMenu(currSec.id);
     const currthirdAndBelowMenus = JSON.parse(getSessionStorage('currthirdAndBelowMenus'));
@@ -123,6 +149,8 @@ async function getChildrenMenuFromCurrFirstMenu(curFirst, location, path) {
       if (defaultUrl) {
         router.push(defaultUrl);
       }
+    } else {
+      await getButtonAccess(currSec.id, path);
     }
   } else {
     // 直接输入菜单url

@@ -149,9 +149,9 @@ class BasicLayout extends React.Component {
      const firstMenuArr = parseMenuData(getSessionStorage('000000') &&
      JSON.parse(getSessionStorage('000000')), '000000') || [];
      this.setState({ firstMenus: firstMenuArr });
-     if (!isEmptyArray(firstMenuArr) && this.props.location.pathname === '/') {
-       this.props.history.push(firstMenuArr[0].resourcePath);
-     }
+     //  if (!isEmptyArray(firstMenuArr) && this.props.location.pathname === '/') {
+     //    this.props.history.push(firstMenuArr[0].resourcePath);
+     //  }
    });
  }
 
@@ -189,7 +189,7 @@ class BasicLayout extends React.Component {
      paddingTop: fixedHeader ? 64 : 0,
      overflowY: 'auto',
      overflowX: 'hidden',
-     background: '#FFFFFF',
+    //  background: '#FFFFFF',
    };
  }
 

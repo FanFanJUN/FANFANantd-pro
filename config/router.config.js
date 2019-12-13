@@ -25,15 +25,12 @@ export default [
     Routes: ['src/pages/Authorized'],
     routes: [
       // dashboard
+      // { path: '/', redirect: '/dashboard' },
       { path: '/dashboard', redirect: '/dashboard/analysis' },  
       {
         path: '/dashboard',
         name: 'dashboard',
         icon: 'dashboard',
-<<<<<<< HEAD
-        // component: './Dashboard/Analysis',
-=======
->>>>>>> 87f4a43e9443d343321e301d08a8c9bba09c9430
         routes: [
           {
             path: '/dashboard/analysis',
@@ -390,21 +387,31 @@ export default [
             component: './System/resource',
           },
           {
-            path: '/system/02',
-            name: 'mind',
-            routes: [
-              {
-                path: '/system/02/02',
-                name: '0202',
-                component: './System/sysdic',
-              },
-              {
-                path: '/system/02/03',
-                name: '0203',
-                component: './Charts/orgtree',
-              },
-            ]
+            path: '/system/userinfo',
+            name: 'userinfo',
+            component: './DIYcompoment/table',
           },
+          {
+            path: '/system/rolesys',
+            name: 'rolesys',
+            component: './System/role',
+          },
+          // {
+          //   path: '/system/02',
+          //   name: 'mind',
+          //   routes: [
+          //     {
+          //       path: '/system/02/02',
+          //       name: '0202',
+          //       component: './System/sysdic',
+          //     },
+          //     {
+          //       path: '/system/02/03',
+          //       name: '0203',
+          //       component: './Charts/orgtree',
+          //     },
+          //   ]
+          // },
           // {
           //   path: '/editor/koni',
           //   name: 'koni',
