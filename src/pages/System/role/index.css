@@ -1,0 +1,23 @@
+.clickRowStyl{
+    background-color: #e6f7ff;
+  }
+  .ant-table-tbody>.clickRowStyl:hover>td {
+    background-color : #00b4ed;
+  }
+.nodata {
+    background: url(../../../assets/nodata.svg) no-repeat;
+    width: 40%;
+    height: 68px;
+    float: right;
+    margin-right: 43px;
+    /* margin-top: 200px; */
+    overflow: hidden;
+    text-align: center;
+    position: relative;
+}
+.divstyle{
+  margin-top: 200px;
+  overflow: hidden;
+  text-align: center;
+  font-size: 18px; 
+}

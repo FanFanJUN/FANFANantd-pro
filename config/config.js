@@ -144,8 +144,8 @@ export default {
   // 服务器代理配置
   "proxy": {
     "/api/lc": {
-      "target": "http://129.28.167.200:20080",
-      // "target": "http://localhost:20080", 
+      // "target": "http://129.28.167.200:20080",
+      "target": "http://localhost:20080", 
       "changeOrigin": true,
       // "pathRewrite": { "^/api" : "" }
     }

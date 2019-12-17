@@ -13,7 +13,7 @@ class AddModal extends React.Component {
   constructor() {
     super();
     this.state = {
-
+      selectedValue: '',
     };
   }
 
@@ -31,25 +31,30 @@ class AddModal extends React.Component {
     }
   }
 
+  handleSelect=(value) => {
+    this.setState({ selectedValue: value });
+  }
+
   renderForm() {
     const { form: { getFieldDecorator }, data, optionsData, form, flag } = this.props;
+    const { selectedValue } = this.state;
     return (
       <Form>
         <Row>
           <Col {...colLayout}>
             <FormItem label="父节点资源编号" {...formItemLayout}>
               {getFieldDecorator('parentNo', {
-                initialValue: flag? '000000': data && data.resourceNo,
+                initialValue: flag ? '000000' : data && data.resourceNo,
               })(<CcInput placeholder="请输入" disabled />)}
             </FormItem>
           </Col>
-          {flag?null:<Col {...colLayout}>
+          {flag ? null : <Col {...colLayout}>
             <FormItem label={getEllipsis('当前节点资源编号', 6)} {...formItemLayout}>
               {getFieldDecorator('xx', {
                 initialValue: data && data.resourceNo,
               })(<CcInput placeholder="请输入" disabled />)}
             </FormItem>
-          </Col>}
+                         </Col>}
         </Row>
         <Row>
           <Col {...colLayout}>
@@ -71,6 +76,21 @@ class AddModal extends React.Component {
               })(<CcInput placeholder="请输入" />)}
             </FormItem>
           </Col>
+          <CcLoanSelect
+            columnLayout={3}
+            columnIndex={1}
+            form={form}
+            label="资源类型"
+            valueProp="dictionaryNo"
+            titleProp="dictionaryNm"
+            // initialValue="0"
+            field="resourceTp"
+            options={optionsData.RESOURCE_TYPE}
+            // onSelect={this.handleSelect}
+            required
+          />
+        </Row>
+        <Row>
           <Col {...colLayout}>
             <FormItem label="资源路径" {...formItemLayout}>
               {getFieldDecorator('resourcePath', {
@@ -81,20 +101,6 @@ class AddModal extends React.Component {
               })(<CcInput placeholder="请输入" />)}
             </FormItem>
           </Col>
-        </Row>
-        <Row>
-          <CcLoanSelect
-            columnLayout={3}
-            columnIndex={1}
-            form={form}
-            label="资源类型"
-            valueProp="dictionaryNo"
-            titleProp="dictionaryNm"
-            initialValue="0"
-            field="resourceTp"
-            options={optionsData.RESOURCE_TYPE}
-            required
-          />
           <Col {...colLayout}>
             <FormItem label="资源层级" {...formItemLayout}>
               {getFieldDecorator('resourceLvl', {

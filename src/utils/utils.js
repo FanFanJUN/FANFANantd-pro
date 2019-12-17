@@ -319,7 +319,7 @@ export function showPaginationMessage(pageSize = 10, pageNum, pageRange) {
 export function getTablepag(pagination) {
   if (!pagination) {
     // eslint-disable-next-line no-throw-literal
-    throw '请传入分页信息';
+    return;
   }
   const pag = {
     total: pagination.total,

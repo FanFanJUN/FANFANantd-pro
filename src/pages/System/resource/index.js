@@ -1,11 +1,12 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { Card, Row, Col, Tree, Tabs, Tooltip, Icon, Alert, Form, Modal, Spin, Button, Divider } from 'antd';
-import { CcMessege, CcCard } from '@/cc-comp/basic';
-import { createRouteid, getDicOptions } from '@/utils/utils';
 import { connect } from 'dva';
 import moment from 'moment';
+import { CcMessege, CcCard } from '@/cc-comp/basic';
+import { createRouteid, getDicOptions, isEmptyArray } from '@/utils/utils';
 import BasicInfo from './basicinfo';
+import ButtonInfoTable from './buttoninfo';
 import AddModal from './addmodal';
 import { getSessionStorage } from '@/utils/storage';
 
@@ -174,6 +175,8 @@ class ResourcePage extends React.Component {
       if (activeKey === 'add') {
         this.setState({ activeKey: 'basicinfo' });
         this.handleButtonAdd();
+      } else {
+        this.setState({ activeKey });
       }
     }
 
@@ -196,7 +199,11 @@ class ResourcePage extends React.Component {
 
     handleSelect=(selectedKeys, e) => {
       if (e.selected) {
-        this.setState({ selectedNodeInfo: e.node.props.dataRef, defaultKeys: selectedKeys });
+        this.setState({
+          selectedNodeInfo: e.node.props.dataRef,
+          defaultKeys: selectedKeys,
+          activeKey: 'basicinfo',
+        });
       }
     }
     clearMenu = () => {
@@ -264,7 +271,7 @@ class ResourcePage extends React.Component {
 
     renderTreeNodes = data =>
       data.map(item => {
-        const isLeaf = item.isLeaf === '1';
+        const isLeaf = item.isLeaf === '1'; // 叶子节点
         if (item.children) {
           return (
             <TreeNode title={item.resourceNm} key={item.resourceId} dataRef={item} isLeaf={isLeaf}>
@@ -293,14 +300,17 @@ class ResourcePage extends React.Component {
     }
 
     renderTabs = () => {
-      const { activeKey } = this.state;
+      const { activeKey, defaultKeys, selectedNodeInfo } = this.state;
       return (
         <Tabs onChange={this.handleOnChange} type="card" activeKey={activeKey}>
           <TabPane tab="基本信息" key="basicinfo">
-            <BasicInfo data={this.state.selectedNodeInfo} optionsData={this.state.optionsData} />
+            {activeKey === 'basicinfo' ? <BasicInfo data={this.state.selectedNodeInfo} optionsData={this.state.optionsData} /> : null }
           </TabPane>
+          {!isEmptyArray(defaultKeys) && selectedNodeInfo && selectedNodeInfo.isLeaf === '1' ?
+            <TabPane tab="按钮权限信息" key="buttoninfo">
+              {activeKey === 'buttoninfo' ? <ButtonInfoTable data={this.state.selectedNodeInfo} optionsData={this.state.optionsData} /> : null }
+            </TabPane> : null }
           <TabPane tab="根节点新增" key="add" />
-          {/* <TabPane tab="删除" key="delete" /> */}
         </Tabs>
       );
     }

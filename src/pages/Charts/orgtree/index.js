@@ -55,7 +55,7 @@ class OrgTree extends React.Component {
     }
   }
   getOption = (data) => {
-    const curve = '---------------------------------------';
+    // const curve = '---------------------------------------';
     const option = {
       title: {
         text: '手机品牌',
@@ -160,8 +160,8 @@ class OrgTree extends React.Component {
               const showData = [
                 `已有金额:\n{a|${toThousands(value[0])}}元`,
                 `已用金额:\n{a|${toThousands(value[1])}}元`,
-              ].join(`\n${curve}\n`);
-              return `${obj.name}:\n{a|${toThousands(value[2])}}元\n${curve}\n${showData}`;
+              ].join('\n\n');
+              return `${obj.name}:\n{a|${toThousands(value[2])}}元\n\n${showData}`;
             },
             // textStyle: {
             //   color: '#cc9999',

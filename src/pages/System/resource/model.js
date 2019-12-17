@@ -1,4 +1,4 @@
-import { getTreeData, addleData } from '@/services/resource';
+import { getTreeData, addleData, getButtonTableData } from '@/services/resource';
 import { isRespSucc, showErrorMsg } from '@/utils/utils';
 
 const initState = {
@@ -34,6 +34,23 @@ export default {
         routeid,
         payload: {
           dataSource: data, // 返回页面的数据
+        },
+      });
+    },
+    *getButtonTableData({ routeid, payload }, { call, put }) {
+      // 请求service
+      const response = yield call(getButtonTableData, payload);
+      if (!isRespSucc(response)) {
+        showErrorMsg(response);
+        return;
+      }
+      const { data: { dataSource, pagination } } = response;
+      yield put({
+        type: 'saveState',
+        routeid,
+        payload: {
+          dataSource, // 返回页面的数据
+          pagination,
         },
       });
     },

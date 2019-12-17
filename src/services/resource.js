@@ -1,10 +1,19 @@
 import request from '@/utils/request';
+import { RESOURCETP } from '@/constants/comm';
 
 /** 获取菜单数据 */
 export async function getTreeData(params) {
   return request('/api/lc/RESOURCESELECTLIST', {
     method: 'POST',
-    data: params,
+    data: { ...params, resourceTp: RESOURCETP.RESOURCETP_0 },
+  });
+}
+
+/** 获取菜单按钮权限信息 */
+export async function getButtonTableData(params) {
+  return request('/api/lc/RESOURCEBUTTON', {
+    method: 'POST',
+    data: { ...params, resourceTp: RESOURCETP.RESOURCETP_1 },
   });
 }
 

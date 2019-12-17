@@ -14,4 +14,11 @@ function freezeObj(obj) {
   });
 }
 
+// 资源类型 0菜单 1资源
+export const RESOURCETP = {
+  RESOURCETP_0: '0',
+  RESOURCETP_1: '1',
+};
+
 freezeObj(COMMONS);
+freezeObj(RESOURCETP);

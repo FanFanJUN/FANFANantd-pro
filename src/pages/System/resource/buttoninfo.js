@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Table, Card, Button, Radio, Form, Modal, Row, Col, DatePicker, InputNumber } from 'antd';
+import { Table, Card, Button, Radio, Form, Modal, Row, Col, DatePicker, InputNumber, Switch } from 'antd';
 import { connect } from 'dva';
 import moment from 'moment';
 import { createRouteid, getTablepag, getDicOptions, checkNull, getDicNameByKey, getHelloWord, isEmptyArray, isEmptyObject } from '@/utils/utils';
@@ -113,13 +113,13 @@ const UpdateForm = Form.create()(props => {
   );
 });
 /**
- * @description 标准的列表查询
+ * @description 按钮权限信息
  * @author LC@1981824361
- * @date 2019-09-02
- * @class DiyTable
+ * @date 2019-12-17
+ * @class ButtonInfoTable
  * @extends {React.Component}
  */
-class DiyTable extends React.Component {
+class ButtonInfoTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -138,40 +138,27 @@ class DiyTable extends React.Component {
     const { dispatch } = this.props;
     const { routeid } = this.state;
     dispatch({
-      type: 'table/create',
+      type: 'resource/create',
       routeid,
     });
 
-    const dicparams = [
-      { dictionaryCategoryNo: 'SEX' },
-      { dictionaryCategoryNo: 'YES_OR_NO' },
-    ];
-
-    /* 获取数据字典 */
-    getDicOptions(dicparams).then((response) => {
-      this.setState({ optionsData: response || {} });
-    });
-
-    // getHelloWord().then((result) => {
-    //   this.setState({ data: result });
-    // });
     this.initQuery();
   }
   componentWillUnmount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'table/clear',
+      type: 'resource/clear',
     });
   }
 
   initQuery = () => {
-    const { dispatch } = this.props;
+    const { dispatch, data } = this.props;
     const { routeid } = this.state;
     const params = { pageSize: 10, pageNum: 1 };
     dispatch({
-      type: 'table/getTableData',
+      type: 'resource/getButtonTableData',
       routeid,
-      payload: params,
+      payload: { ...params, parentNo: data && data.resourceNo },
     }).then(() => {
       const { tableData } = this.props;
       if (tableData[routeid] == null) {
@@ -190,7 +177,7 @@ class DiyTable extends React.Component {
     const { routeid, page } = this.state;
     const params = { pageSize: page.pageSize, pageNum: page.current };
     dispatch({
-      type: 'table/getTableData',
+      type: 'resource/getButtonTableData',
       routeid,
       payload: params,
     }).then(() => {
@@ -218,7 +205,7 @@ class DiyTable extends React.Component {
       pageNum: page.current,
     };
     dispatch({
-      type: 'table/getTableData',
+      type: 'resource/getButtonTableData',
       routeid,
       payload: params,
     }).then(() => {
@@ -271,7 +258,7 @@ class DiyTable extends React.Component {
       if (!err) {
         const birthdate = values && moment(values.birthdate).format('YYYYMMDD');
         dispatch({
-          type: 'table/addleData',
+          type: 'resource/addleData',
           routeid,
           payload: { ...values, birthdate },
         }).then(() => {
@@ -298,7 +285,7 @@ class DiyTable extends React.Component {
     const { routeid } = this.state;
     const birthdate = fieldsValue && moment(fieldsValue.birthdate).format('YYYYMMDD');
     dispatch({
-      type: 'table/addleData',
+      type: 'resource/addleData',
       routeid,
       payload: { ...fieldsValue, birthdate },
     }).then(() => {
@@ -332,7 +319,7 @@ class DiyTable extends React.Component {
     const { dispatch } = this.props;
     const { routeid } = this.state;
     dispatch({
-      type: 'table/addleData',
+      type: 'resource/addleData',
       routeid,
       payload: { id: record.id, flag: 'delete' },
     }).then(() => {
@@ -468,22 +455,12 @@ class DiyTable extends React.Component {
   }
 
   render() {
-    const { dataSource, pagination, optionsData, radiovalue, updateVisible } = this.state;
-    const { tableLoading } = this.props;
+    const { dataSource, pagination, radiovalue, updateVisible } = this.state;
+    const { tableLoading, optionsData } = this.props;
     const parentMethods = {
       handleUpdate: this.handleUpdate,
       handleModalVisible: this.handleCancel,
     };
-    // key: i,
-    // href: 'https://ant.design',
-    // name: `TradeCode ${i}`,
-    // title: `一个任务名称 ${i}`,
-    // owner: '曲丽丽',
-    // callNo: Math.floor(Math.random() * 1000),
-    // status: Math.floor(Math.random() * 10) % 2,
-    // updatedAt: new Date(),
-    // createdAt: new Date(),
-    // progress: Math.ceil(Math.random() * 100),
     const columns = [
       {
         title: '选择',
@@ -499,44 +476,34 @@ class DiyTable extends React.Component {
         },
       },
       {
-        dataIndex: 'id',
-        title: '编号',
+        dataIndex: 'resourceNo',
+        title: '按钮资源编号',
         align: 'center',
       },
       {
-        dataIndex: 'name',
-        title: '名字',
+        dataIndex: 'resourceNm',
+        title: '按钮名称',
         align: 'center',
       },
       {
-        dataIndex: 'sex',
-        title: '性别',
+        dataIndex: 'resourceTp',
+        title: '资源类型',
         align: 'center',
-        render: (sex) => {
-          // if (sex === '1') {
-          //   return '女';
-          // } else {
-          //   return '男';
-          // }
-          return sex && getDicNameByKey(sex, 'SEX', this.state.optionsData);
+        render: (resourceTp) => {
+          return resourceTp && getDicNameByKey(resourceTp, 'RESOURCE_TYPE', optionsData);
         },
       },
       {
-        dataIndex: 'idnumber',
-        title: '号码',
+        dataIndex: 'resourcePath',
+        title: '按钮所在资源路径',
         align: 'center',
       },
       {
-        dataIndex: 'description',
-        title: '介绍',
+        dataIndex: 'resourceEffectFlg',
+        title: '按钮是否有效',
         align: 'center',
-      },
-      {
-        dataIndex: 'birthdate',
-        title: '生日',
-        align: 'center',
-        render: (birthdate) => {
-          return birthdate && moment(birthdate).format('YYYY-MM-DD');
+        render: (resourceEffectFlg) => {
+          return <Switch checkedChildren="有效" unCheckedChildren="失效" checked={resourceEffectFlg === '1'} />;
         },
       },
       {
@@ -549,11 +516,9 @@ class DiyTable extends React.Component {
       },
     ];
     return (
-      <Card
-        title="用户管理"
-      >
+      <Fragment>
         {/* <h1><span>{!isEmptyArray(data) ? data[0].userName : null}</span></h1> */}
-        {this.renderButton()}
+        {/* this.renderButton() */}
         {this.renderAddModal()}
         {/* this.renderUpdateModal() */}
         <UpdateForm
@@ -577,16 +542,16 @@ class DiyTable extends React.Component {
           }}
           rowKey={record => record.id}
         />
-      </Card>
+      </Fragment>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    tableData: state.table,
-    tableLoading: state.loading.effects['table/getTableData'],
+    tableData: state.resource,
+    tableLoading: state.loading.effects['resource/getButtonTableData'],
   };
 }
 
-export default connect(mapStateToProps)(Form.create()(DiyTable));
+export default connect(mapStateToProps)(Form.create()(ButtonInfoTable));

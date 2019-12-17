@@ -1,15 +1,17 @@
 import React, { Fragment } from 'react';
 import { Table, Card, Button, Radio, Form, Modal, Row, Col, DatePicker, InputNumber, Switch, PageHeader } from 'antd';
 import { connect } from 'dva';
-import { createRouteid, getTablepag, getDicOptions, isEmptyObject } from '@/utils/utils';
 import moment from 'moment';
+import { createRouteid, getTablepag, getDicOptions, isEmptyObject } from '@/utils/utils';
 import { CcInput, CcSelect, CcMessege, CcCard, CcButton } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
 import { CcLoanSelect } from '@/cc-comp/biz';
+import styles from './index.css';
 
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
 const { Option } = CcSelect;
+const { Search } = CcInput;
 const formItemLayout = getFormItemLayout(1);
 const colLayout = getFormItemLayout(2);
 
@@ -125,6 +127,7 @@ class RoleTable extends React.Component {
       page: {},
       visible: false,
       updateVisible: false,
+      rowId: '',
     };
   }
 
@@ -241,7 +244,12 @@ class RoleTable extends React.Component {
   onRowClick = (record) => {
     this.setState({
       radiovalue: record,
+      rowId: record.id,
     });
+  }
+
+  setRowClassName = (record) => {
+    return record.id === this.state.rowId ? `${styles.clickRowStyl}` : '';
   }
 
   handleShowModal = () => {
@@ -352,6 +360,14 @@ class RoleTable extends React.Component {
         <CcButton type="primary" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px', marginRight: '10px' }}>更新</CcButton>
         <CcButton type="primary" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px', marginRight: '10px' }}>已分配人员</CcButton>
         <CcButton type="danger" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px' }}>删除</CcButton>
+        <div style={{ float: 'right' }}>
+          <Search
+            placeholder="请输入角色名词"
+            enterButton
+            size="default"
+            onSearch={value => console.log(value)}
+          />
+        </div>
       </Fragment>
     );
   }
@@ -463,48 +479,33 @@ class RoleTable extends React.Component {
       handleUpdate: this.handleUpdate,
       handleModalVisible: this.handleCancel,
     };
+    const data = [
+      {
+        id: '1',
+      },
+      {
+        id: '2',
+      },
+    ];
     const columns = [
       {
-        title: '选择',
-        dataIndex: 'action',
-        // align: 'center',
-        // width: '5%',
-        render: (text, record) => {
-          return (
-            <RadioGroup onChange={this.onChange} value={radiovalue}>
-              <Radio value={record} />
-            </RadioGroup>
-          );
-        },
+        dataIndex: 'id',
+        title: '角色编号',
+        align: 'center',
       },
       {
         dataIndex: 'dictionaryNo',
-        title: '字典编号',
+        title: '角色名词',
         align: 'center',
       },
       {
         dataIndex: 'dictionaryNm',
-        title: '字典名字',
+        title: '角色组编号',
         align: 'center',
       },
       {
         dataIndex: 'dictionaryCategoryNo',
-        title: '字典类别编号',
-        align: 'center',
-      },
-      {
-        dataIndex: 'dictionaryCategoryNm',
-        title: '字典类别名字',
-        align: 'center',
-      },
-      {
-        dataIndex: 'levelNo',
-        title: '级别编号',
-        align: 'center',
-      },
-      {
-        dataIndex: 'sequenceNum',
-        title: '顺序数量',
+        title: '角色组名词',
         align: 'center',
       },
       {
@@ -515,14 +516,6 @@ class RoleTable extends React.Component {
           return (
             <Switch checkedChildren="有效" unCheckedChildren="失效" checked={statusFlag === '1'} onChange={() => this.handleChange(record)} />
           );
-        },
-      },
-      {
-        dataIndex: 'opration',
-        title: '链接',
-        align: 'center',
-        render: (index, record) => {
-          return <a onClick={() => this.handleDelete(record)}>删除</a>;
         },
       },
     ];
@@ -542,11 +535,12 @@ class RoleTable extends React.Component {
                 radiovalue={radiovalue}
               />
               <Table
-                dataSource={dataSource}
+                dataSource={data}
                 loading={tableLoading}
                 columns={columns}
                 pagination={getTablepag(pagination)}
                 onChange={this.handleTablepage}
+                rowKey={record => record.id}
                 onRow={(record) => {
                   return {
                     onClick: () => {
@@ -554,6 +548,7 @@ class RoleTable extends React.Component {
                     },
                   };
                 }}
+                rowClassName={this.setRowClassName} // onRow配合rowClassName 行选择 高亮显示
               />
             </CcCard>
           </Col>
@@ -564,9 +559,14 @@ class RoleTable extends React.Component {
                   border: '1px solid rgb(235, 237, 240)',
                 }}
                 title="资源分配"
-              >
-                <span><strong>请先选择角色</strong></span>
-              </PageHeader>
+                subTitle="请先选择角色"
+              />
+              {isEmptyObject(radiovalue) ?
+                <div className={styles.divstyle}>
+                  <div className={styles.nodata} />
+                  {/* <div style={{ marginTop: '11px', textAlign: 'center' }}><span>请先选择角色</span></div> */}
+                </div> :
+                null}
             </CcCard>
           </Col>
         </Row>

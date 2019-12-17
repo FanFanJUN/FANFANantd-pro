@@ -26,7 +26,7 @@ import blStyles from './BasicLayout.css';
 import { parseMenuData, isEmptyArray } from '@/utils/utils';
 import ThirdMenuLayout from './ThirdMenuLayout';
 import { urlToList } from '@/components/_utils/pathTools';
-import { COMMONS } from '@/constants/comm';
+import { COMMONS, RESOURCETP } from '@/constants/comm';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -140,18 +140,19 @@ class BasicLayout extends React.Component {
    const firstMenuPayload = {
      parentNo: COMMONS.TOPMENUNO,
      resourceLvl: '1',
+     resourceTp: RESOURCETP.RESOURCETP_0,
    };
    const { dispatch } = this.props;
    dispatch({
      type: 'global/getDescendantMenu',
      payload: firstMenuPayload,
    }).then(() => {
-     const firstMenuArr = parseMenuData(getSessionStorage('000000') &&
-     JSON.parse(getSessionStorage('000000')), '000000') || [];
+     const firstMenuArr = parseMenuData(getSessionStorage(COMMONS.TOPMENUNO) &&
+     JSON.parse(getSessionStorage(COMMONS.TOPMENUNO)), COMMONS.TOPMENUNO) || [];
      this.setState({ firstMenus: firstMenuArr });
-     //  if (!isEmptyArray(firstMenuArr) && this.props.location.pathname === '/') {
-     //    this.props.history.push(firstMenuArr[0].resourcePath);
-     //  }
+     if (!isEmptyArray(firstMenuArr) && this.props.location.pathname === '/') {
+       this.props.history.push(firstMenuArr[0].resourcePath);
+     }
    });
  }
 
@@ -189,7 +190,7 @@ class BasicLayout extends React.Component {
      paddingTop: fixedHeader ? 64 : 0,
      overflowY: 'auto',
      overflowX: 'hidden',
-    //  background: '#FFFFFF',
+     //  background: '#FFFFFF',
    };
  }
 

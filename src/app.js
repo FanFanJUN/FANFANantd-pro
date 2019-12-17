@@ -3,6 +3,7 @@ import { router } from 'umi';
 import { getSessionStorage, setSessionStorage } from './utils/storage';
 import { parseMenuData, isEmptyObject, isEmptyArray, isRespSucc, showErrorMsg } from './utils/utils';
 import request from './utils/request';
+import { RESOURCETP } from './constants/comm';
 
 // umi 约定 src 目录下的 app.js 为运行时的配置文件。https://umijs.org/zh/guide/app-structure.html#src-app-js-ts
 export const dva = {
@@ -29,12 +30,12 @@ function fetchOneChild(thirdMenus) {
   }
 }
 
-/** 获取二级菜单 */
+/** 按钮权限资源ID */
 function getButtonAccess(ResourseNo, path) {
   console.log(`请求${ResourseNo}(${path})下的按钮权限`);
   const params = {
     parentNo: ResourseNo,
-    flg: '1',
+    resourceTp: RESOURCETP.RESOURCETP_1, // 0菜单 1功能
   };
   return request('/api/lc/RESOURCESELECTLIST', {
     method: 'POST',
@@ -47,6 +48,7 @@ function getButtonAccess(ResourseNo, path) {
     const resNos = (response.data).map((item)=>{
       return item.resourceNo;
     });
+    console.log(`按钮权限资源ID=>>>>>>>${resNos}`);
     if (!isEmptyArray(resNos) && path) {
       setSessionStorage(path, JSON.stringify(resNos));
     }
@@ -68,6 +70,7 @@ function getSecondMenu(ResourseNo) {
     const params = {
       parentNo: ResourseNo,
       resourceLvl: '2',
+      resourceTp: RESOURCETP.RESOURCETP_0, // 0菜单 1功能
     };
     return request('/api/lc/RESOURCESELECTLIST', {
       method: 'POST',
@@ -99,6 +102,7 @@ function getThirdAndBelowMenu(ResourseNo) {
     const params = {
       parentNo: ResourseNo,
       resourceLvl: '3',
+      resourceTp: RESOURCETP.RESOURCETP_0, // 0菜单 1功能
     };
     return request('/api/lc/RESOURCESELECTLIST', {
       method: 'POST',

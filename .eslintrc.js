@@ -27,6 +27,11 @@ module.exports = {
         devDependencies: ['**/tests/**.js', '/mock/**/**.js', '**/**.test.js'],
       },
     ],
+    "import/extensions": ["error", "ignorePackages", {
+      "js": "never",
+      "mjs": "never",
+      "jsx": "never"
+    }],
     'import/no-cycle': 0,
     'jsx-a11y/no-noninteractive-element-interactions': 0,
     'jsx-a11y/click-events-have-key-events': 0,
