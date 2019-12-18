@@ -35,7 +35,7 @@ export default [
           {
             path: '/dashboard/analysis',
             name: 'analysis',
-            component: './Dashboard/Analysis',
+            component: './Dashboard/G2Plot',
           },
           {
             path: '/dashboard/monitor',

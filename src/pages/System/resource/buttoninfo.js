@@ -527,14 +527,14 @@ class ButtonInfoTable extends React.Component {
           return resourceEffectFlg && <Switch checkedChildren="有效" unCheckedChildren="失效" checked={resourceEffectFlg === '1'} onChange={() => this.handleChange(record)} />;
         },
       },
-      {
-        dataIndex: 'opration',
-        title: '链接',
-        align: 'center',
-        render: (index, record) => {
-          return <a onClick={() => this.handleDelete(record)}>删除</a>;
-        },
-      },
+      // {
+      //   dataIndex: 'opration',
+      //   title: '链接',
+      //   align: 'center',
+      //   render: (index, record) => {
+      //     return <a onClick={() => this.handleDelete(record)}>删除</a>;
+      //   },
+      // },
     ];
     return (
       <Fragment>
