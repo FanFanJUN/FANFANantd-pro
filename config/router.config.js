@@ -420,6 +420,11 @@ export default [
         ],
       },
       {
+        path: '/',
+        commoncomponent: 'empty',
+      }
+      ,
+      {
         component: '404',
       },
     ],
