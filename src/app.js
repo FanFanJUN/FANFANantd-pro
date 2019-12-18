@@ -45,12 +45,14 @@ function getButtonAccess(ResourseNo, path) {
       showErrorMsg(response);
       return;
     }
-    const resNos = (response.data).map((item)=>{
+    const resNos = (response.data).map((item) => {
       return item.resourceNo;
     });
     console.log(`按钮权限资源ID=>>>>>>>${resNos}`);
     if (!isEmptyArray(resNos) && path) {
       setSessionStorage(path, JSON.stringify(resNos));
+    } else if (!isEmptyArray(JSON.parse(getSessionStorage(path))) && isEmptyArray(resNos)) {
+      sessionStorage.removeItem(path);
     }
   });
 }

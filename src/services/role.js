@@ -1,7 +1,7 @@
 import request from '@/utils/request';
 
 export async function getTableData(params) {
-  return request('/api/lc/xxx', {
+  return request('/api/lc/TCRGTROLESELECTLIST', {
     method: 'POST',
     data: params,
   });

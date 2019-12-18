@@ -150,7 +150,7 @@ class ResourcePage extends React.Component {
     }
 
     handleAddSub=() => {
-      this.setState({ modaladdVisible: true });
+      this.setState({ modaladdVisible: true, buttonFlag: false });
     }
 
     handleButtonAdd=() => {

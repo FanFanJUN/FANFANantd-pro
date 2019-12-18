@@ -356,10 +356,42 @@ class RoleTable extends React.Component {
   renderButton() {
     return (
       <Fragment>
-        <CcButton type="primary" onClick={this.handleShowModal} style={{ marginBottom: '18px', marginRight: '10px' }}>新增</CcButton>
-        <CcButton type="primary" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px', marginRight: '10px' }}>更新</CcButton>
-        <CcButton type="primary" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px', marginRight: '10px' }}>已分配人员</CcButton>
-        <CcButton type="danger" onClick={this.handleShowUpdateModal} style={{ marginBottom: '18px' }}>删除</CcButton>
+        <CcButton
+          type="primary"
+          resourceNo="RES00000441"
+          resourcePath={this.props.location.pathname}
+          onClick={this.handleShowModal}
+          style={{ marginBottom: '18px', marginRight: '10px' }}
+        >
+        新增
+        </CcButton>
+        <CcButton
+          type="primary"
+          resourceNo="RES00000443"
+          resourcePath={this.props.location.pathname}
+          onClick={this.handleShowUpdateModal}
+          style={{ marginBottom: '18px', marginRight: '10px' }}
+        >
+        更新
+        </CcButton>
+        <CcButton
+          type="primary"
+          resourceNo="RES00000444"
+          resourcePath={this.props.location.pathname}
+          onClick={this.handleShowUpdateModal}
+          style={{ marginBottom: '18px', marginRight: '10px' }}
+        >
+        已分配人员
+        </CcButton>
+        <CcButton
+          type="danger"
+          resourceNo="RES00000442"
+          resourcePath={this.props.location.pathname}
+          onClick={this.handleShowUpdateModal}
+          style={{ marginBottom: '18px' }}
+        >
+        删除
+        </CcButton>
         <div style={{ float: 'right' }}>
           <Search
             placeholder="请输入角色名词"
@@ -479,14 +511,6 @@ class RoleTable extends React.Component {
       handleUpdate: this.handleUpdate,
       handleModalVisible: this.handleCancel,
     };
-    const data = [
-      {
-        id: '1',
-      },
-      {
-        id: '2',
-      },
-    ];
     const columns = [
       {
         dataIndex: 'id',
@@ -535,7 +559,7 @@ class RoleTable extends React.Component {
                 radiovalue={radiovalue}
               />
               <Table
-                dataSource={data}
+                dataSource={dataSource}
                 loading={tableLoading}
                 columns={columns}
                 pagination={getTablepag(pagination)}

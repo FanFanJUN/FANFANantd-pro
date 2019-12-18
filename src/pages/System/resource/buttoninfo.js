@@ -303,6 +303,27 @@ class ButtonInfoTable extends React.Component {
     });
   }
 
+  handleChange=(record) => {
+    const { dispatch } = this.props;
+    const { routeid } = this.state;
+    const resourceEffectFlg = record && record.resourceEffectFlg === '1' ? '2' : '1';
+    dispatch({
+      type: 'resource/addleData',
+      payload: { flag: 'update', ...record, maintenanceDate: moment(new Date()).format('YYYYMMDD'), resourceEffectFlg },
+      routeid,
+    }).then(() => {
+      const { tableData } = this.props;
+      if (tableData[routeid] == null) {
+        return;
+      }
+      const { message, code } = tableData[routeid];
+      if (code === 200) {
+        CcMessege.success(message);
+        this.initQuery();
+      }
+    });
+  }
+
   handleDelete = (record) => {
     Modal.confirm({
       content: `确定要删除${record && record.name}吗`,
@@ -462,19 +483,19 @@ class ButtonInfoTable extends React.Component {
       handleModalVisible: this.handleCancel,
     };
     const columns = [
-      {
-        title: '选择',
-        dataIndex: 'action',
-        // align: 'center',
-        // width: '5%',
-        render: (text, record) => {
-          return (
-            <RadioGroup onChange={this.onChange} value={radiovalue}>
-              <Radio value={record} />
-            </RadioGroup>
-          );
-        },
-      },
+      // {
+      //   title: '选择',
+      //   dataIndex: 'action',
+      //   // align: 'center',
+      //   // width: '5%',
+      //   render: (text, record) => {
+      //     return (
+      //       <RadioGroup onChange={this.onChange} value={radiovalue}>
+      //         <Radio value={record} />
+      //       </RadioGroup>
+      //     );
+      //   },
+      // },
       {
         dataIndex: 'resourceNo',
         title: '按钮资源编号',
@@ -502,8 +523,8 @@ class ButtonInfoTable extends React.Component {
         dataIndex: 'resourceEffectFlg',
         title: '按钮是否有效',
         align: 'center',
-        render: (resourceEffectFlg) => {
-          return <Switch checkedChildren="有效" unCheckedChildren="失效" checked={resourceEffectFlg === '1'} />;
+        render: (resourceEffectFlg, record) => {
+          return resourceEffectFlg && <Switch checkedChildren="有效" unCheckedChildren="失效" checked={resourceEffectFlg === '1'} onChange={() => this.handleChange(record)} />;
         },
       },
       {
