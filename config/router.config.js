@@ -45,7 +45,7 @@ export default [
           {
             path: '/dashboard/workplace',
             name: 'workplace',
-            component: './Dashboard/Workplace',
+            component: './Dashboard/G2Chart',
           },
         ],
       },

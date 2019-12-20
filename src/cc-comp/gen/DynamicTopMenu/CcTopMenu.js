@@ -219,7 +219,9 @@ export default class CcTopMenu extends PureComponent {
             // style={style}
             mode="horizontal"
             className="ant-menu-item"
-            style={{ width: '100%', minWidth: '800px', backgroundColor: '#CB3428', marginBottom: 12 }}
+            // style={{ width: '100%', minWidth: '800px', backgroundColor: '#CB3428', marginBottom: 12 }}
+            /* 样式2新增 */
+            style={{ width: '100%', minWidth: '800px' }}
           >
             { this.getTopMenuItems()}
           </Menu>

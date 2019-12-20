@@ -3,7 +3,7 @@ import { Table, Card, Button, Radio, Form, Modal, Row, Col, DatePicker, InputNum
 import { connect } from 'dva';
 import moment from 'moment';
 import { createRouteid, getTablepag, getDicOptions, checkNull, getDicNameByKey, getHelloWord, isEmptyArray, isEmptyObject } from '@/utils/utils';
-import { CcInput, CcSelect, CcMessege, CcButton } from '@/cc-comp/basic';
+import { CcInput, CcSelect, CcMessege, CcButton, CcCard } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
 import { CcLoanSelect } from '@/cc-comp/biz';
 
@@ -549,7 +549,7 @@ class DiyTable extends React.Component {
       },
     ];
     return (
-      <Card
+      <CcCard
         title="用户管理"
       >
         {/* <h1><span>{!isEmptyArray(data) ? data[0].userName : null}</span></h1> */}
@@ -577,7 +577,7 @@ class DiyTable extends React.Component {
           }}
           rowKey={record => record.id}
         />
-      </Card>
+      </CcCard>
     );
   }
 }

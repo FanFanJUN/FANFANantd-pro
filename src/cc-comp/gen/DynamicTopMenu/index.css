@@ -15,11 +15,17 @@
     height: 36px;
     line-height: 35px;
     color: #fff;
+    /* 样式2新增 */
+    border-radius: 4px;
+    background: linear-gradient(#f0413b, #c93327 70%, #d1362b);
+    margin: 1px;
 }
 
 .CcTopMenu :global(.ant-menu-horizontal) {
     overflow: hidden;
-    height: 36px;
+    /* height: 36px; */
+    /* 样式2新增 */
+    height: 50px;
     background: none;
     padding: 0px;
     border-bottom: none;
@@ -126,4 +132,6 @@
     content: '';
     border-width: 7px;
     border-color: #ed7570 transparent transparent;
+    /* 样式2新增 */
+    border-style: solid;
 }
