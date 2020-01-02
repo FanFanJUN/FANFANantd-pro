@@ -19,14 +19,14 @@ export default {
       /* 暂时不访问mock 在这里写死 */
       const { password, userName, type } = payload;
       let response = {};
-      if (password === '123456' && userName === 'admin') {
+      if (password === 'ccss00665566' && userName === 'licai') {
         response = {
           status: 'success',
           type,
           currentUser: userName,
           currentAuthority: 'admin',
         };
-      } else if (password === '123456' && userName === 'user') {
+      } else if (password === 'ccss00665566' && userName === 'mengxi') {
         response = {
           status: 'success',
           type,

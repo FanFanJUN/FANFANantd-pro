@@ -3,8 +3,8 @@ import { formatMessage } from 'umi-plugin-react/locale';
 import { connect } from 'dva';
 import Link from 'umi/link';
 import { Icon } from 'antd';
-import GlobalFooter from '@/components/GlobalFooter';
 import DocumentTitle from 'react-document-title';
+import GlobalFooter from '@/components/GlobalFooter';
 import SelectLang from '@/components/SelectLang';
 import styles from './UserLayout.less';
 import logo from '../assets/LOGO.svg';
@@ -30,7 +30,8 @@ const links = [
 
 const copyright = (
   <Fragment>
-    Copyright <Icon type="copyright" /> {new Date().getFullYear()} lcccc.com.cn
+    Copyright <Icon type="copyright" /> {new Date().getFullYear()}&nbsp;
+    <a target="_blank" href="https://github.com/FanFanJUN"><Icon type="github" />FanFanJUN</a>
   </Fragment>
 );
 

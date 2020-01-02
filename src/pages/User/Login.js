@@ -90,7 +90,7 @@ class LoginPage extends Component {
         >
           <UserName
             name="userName"
-            placeholder={`${formatMessage({ id: 'app.login.userName' })}: admin or user`}
+            // placeholder={`${formatMessage({ id: 'app.login.userName' })}: admin or user`}
             rules={[
               {
                 required: true,
@@ -100,7 +100,7 @@ class LoginPage extends Component {
           />
           <Password
             name="password"
-            placeholder={`${formatMessage({ id: 'app.login.password' })}: 123456`}
+            // placeholder={`${formatMessage({ id: 'app.login.password' })}: 123456`}
             rules={[
               {
                 required: true,
