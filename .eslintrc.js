@@ -27,7 +27,7 @@ module.exports = {
         devDependencies: ['**/tests/**.js', '/mock/**/**.js', '**/**.test.js'],
       },
     ],
-    "import/extensions": ["error", "ignorePackages", {
+    "import/extensions": ["error", {
       "js": "never",
       "mjs": "never",
       "jsx": "never"

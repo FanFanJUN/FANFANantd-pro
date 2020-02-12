@@ -61,7 +61,7 @@ const UpdateForm = Form.create()(props => {
             <FormItem label="字典名称" {...formItemLayout}>
               {getFieldDecorator('dictionaryNm', {
                 initialValue: radiovalue && radiovalue.dictionaryNm,
-              })(<CcInput placeholder="请输入" disabled />)}
+              })(<CcInput placeholder="请输入" />)}
             </FormItem>
           </Col>
         </Row>
@@ -80,7 +80,7 @@ const UpdateForm = Form.create()(props => {
                 rules: [
                   { required: true, message: '请输入字典类别名称' },
                 ],
-              })(<CcInput placeholder="请输入" />)}
+              })(<CcInput placeholder="请输入" disabled />)}
             </FormItem>
           </Col>
         </Row>

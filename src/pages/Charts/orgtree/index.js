@@ -5,7 +5,9 @@ import 'echarts/lib/chart/tree';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/toolbox';
 import 'echarts/lib/component/title';
+import html2canvas from 'html2canvas';
 import { toThousands } from '@/utils/utils';
+import { CcButton } from '@/cc-comp/basic';
 
 const sendData = [
   {
@@ -143,6 +145,7 @@ class OrgTree extends React.Component {
       }
     }, false);
   }
+
   getOption = (data) => {
     // const curve = '---------------------------------------';
     const option = {
@@ -283,12 +286,26 @@ class OrgTree extends React.Component {
     };
     return option;
   }
+
+  takeScreenshot=() => {
+    console.log('test');
+    html2canvas(document.getElementById('main')).then(canvas => {
+      // document.body.appendChild(canvas);
+      const img = new Image();
+      img.src = canvas.toDataURL('image/jpeg');
+      img.style.cssText += 'position:relative;width:100%;height: 300px;left:0;top:0;';
+      document.body.appendChild(img);
+    });
+  }
+
   render() {
+    // html2canvas将HTML内容写入Canvas生成图片 http://caibaojian.com/html2canvas.html https://html2canvas.hertzen.com/
     return (
       <Card
         title="组织结构图"
         bordered
       >
+        {/* <CcButton type="primary" onClick={this.takeScreenshot}>截图</CcButton> */}
         <div id="main" style={{ width: '100%', height: '600px', position: 'relative', background: '#FFFFFF' }} />
       </Card>
     );
