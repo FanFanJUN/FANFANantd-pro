@@ -164,6 +164,7 @@ export default class CcTopMenu extends PureComponent {
     const secMenuDataDom = secMenus && secMenus.filter((item) => item && item.path && !item.hideInMenu)
       .map((item, index) => {
         let subMenuCheckedClassName = '';
+        // 选中时根据路由 赋予css
         if (this.props.location.pathname.indexOf(item.path) !== -1) {
           subMenuCheckedClassName = 'submenuChecked';
         }

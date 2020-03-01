@@ -225,6 +225,11 @@ export default [
             component: './DIYcompoment/commoncomponent',
           },
           {
+            path: '/DIYcompoment/menus',
+            name: 'menus',
+            component: './DIYcompoment/menus',
+          },
+          {
             path: '/DIYcompoment/map',
             name: 'map',
             component: './DIYcompoment/map',

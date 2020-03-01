@@ -1,6 +1,7 @@
 import getEnvVariables from '@/utils/env';
 
 // eslint-disable-next-line import/prefer-default-export
+// 根据运行时环境变量获取不同环境参数
 export const COMMONS = {
   TOPMENUNO: getEnvVariables('TOPMENUNO'),
 };

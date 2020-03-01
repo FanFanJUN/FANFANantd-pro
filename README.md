@@ -1,4 +1,5 @@
-## [前台访问地址NGINX](http://129.28.167.200:9999)
+## Pro框架2.x Antd组件3.x
+## [前台访问地址NGINX](http://120.55.81.129:9999/)
 ## [前台访问地址dockerNGINX](http://129.28.167.200:8888)
 ## [知识日志](https://github.com/FanFanJUN/STUDY-DAY-BY-DAY)
 ## 对AntdPro UI一些方面的封装

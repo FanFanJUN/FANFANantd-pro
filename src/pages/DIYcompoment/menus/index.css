@@ -1,0 +1,146 @@
+/*********** http://www.6vgood.com/**************/
+
+/* .menutv,.menumv {margin-bottom:1px;clear:both;height:auto; overflow:hidden;width:960px;} */
+.menutv {
+    /* background: url(http://www.6vgood.com/template/default1/images/menbg.gif) no-repeat; */
+    background-color: #55A52E;
+    border: 1px solid #55A52E;
+    height: 41px;
+    line-height: 41px;
+    margin-bottom: 1px;
+    clear: both;
+    height: auto;
+    overflow: hidden;
+    width: 960px;
+}
+.menutv ul {
+    margin:0 0 0 2px;
+    padding:0 0 0 0;
+    clear:both;
+}
+.menutv ul li {
+    float:left;
+    font-weight:bold;
+    font-size:12px;
+    width:58px;
+    height:38px;
+}
+/* .menutv ul li a {
+    width: auto;
+    color: #ffffff;
+    line-height: inherit;
+    text-decoration: none;
+    display: inline-block;
+    height: inherit;
+}
+.menutv ul li a:hover {
+    color: #333;
+    font-size: 15px;
+    font-weight: 800;
+} */
+.menutv ul li a,
+.menutv ul li a:link,
+.menutv ul li a:visited,
+.menutv ul li a:active,
+.menutv ul li a:hover { 
+    line-height:38px; 
+    color:#fff;
+    text-align:center;
+    display:block;
+    margin:1px 0px 0 0;
+}
+.menutv ul li a:hover,
+.menutv ul li a.nonce,
+.menutv ul li a:visited.nonce{
+     color:#418100;
+     background:url(http://www.6vgood.com/template/default1/images/menu_li_a_hover.png) left center no-repeat;
+     text-decoration:none;
+     display:block;
+     width:58px;
+     height:38px;
+     text-align:center;
+    }
+
+
+
+
+/******* 80s *******/
+.nav {
+    height: 39px;
+    width: 960px;
+    padding-left: 20px;
+    /* margin-left: auto; */
+    margin-right: auto;
+    background: url(https://t.dyxz.la/css/img/nav-bg1029.png) no-repeat;
+}
+.nav ul {
+    height: 39px;
+    line-height: 39px;
+    width: 940px;
+    overflow: hidden !important;
+}
+.nav ul li { 
+      float:left;
+      padding-left:18px;
+      padding-right:18px;
+}
+#nav ul li a,
+.nav ul li a:link,
+.nav ul li a:visited,
+.nav ul li a:active,
+.nav ul li a:hover { 
+    font-size:14px;
+    color:#FFF;
+    outline:none;
+}
+
+/******* 人人美剧**********/
+/*菜单*/
+.menubox {
+    background: #4A7ADE;
+    background-image: linear-gradient(180deg, #4A7ADE 0%, #3866C5 100%);
+    height: 64px;
+    margin-bottom: 23px;
+    overflow: visible; }
+
+.menubox li {
+    float: left;
+    display: inline;
+    }
+
+.menubox a {
+    float: left;
+    padding: 0 17px;
+    font-size: 18px;
+    height: 64px;
+    line-height: 64px;
+    color: #fff;
+    position: relative;
+    }
+
+.menubox a.cur, .menubox a:hover {
+    margin-top: 0;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2); }
+.menubox a.cur:after, .menubox a:hover:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background: #fff; }
+
+.menubox a em {
+    font-style: normal;
+    background: #ff4800;
+    color: #fff;
+    font-size: 11px;
+    width: 18px;
+    text-align: center;
+    height: 18px;
+    line-height: 18px;
+    font-weight: normal;
+    position: absolute;
+    top: -5px;
+    right: 1px; }
