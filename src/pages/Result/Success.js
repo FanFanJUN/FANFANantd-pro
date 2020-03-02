@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+import { useIntl, FormattedMessage } from 'umi';
 import { Button, Row, Col, Icon, Steps, Card } from 'antd';
 import Result from '@/components/Result';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
 const { Step } = Steps;
+const intl = useIntl();
 
 const desc1 = (
   <div
@@ -133,8 +134,8 @@ export default () => (
     <Card bordered={false}>
       <Result
         type="success"
-        title={formatMessage({ id: 'app.result.success.title' })}
-        description={formatMessage({ id: 'app.result.success.description' })}
+        title={intl.formatMessage({ id: 'app.result.success.title' })}
+        description={intl.formatMessage({ id: 'app.result.success.description' })}
         extra={extra}
         actions={actions}
         style={{ marginTop: 48, marginBottom: 16 }}

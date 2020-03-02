@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
-import { connect } from 'dva';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
-import Link from 'umi/link';
-import router from 'umi/router';
+import { connect, FormattedMessage, useIntl, history, Link } from 'umi';
+// import { intl.formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+// import Link from 'umi/link';
+// import history from 'umi/history';
 import { Form, Input, Button, Modal, Select, Row, Col, Popover, Progress } from 'antd';
 import styles from './Register.less';
 
 const FormItem = Form.Item;
 const { Option } = Select;
 const InputGroup = Input.Group;
+const intl = useIntl();
 
 const passwordStatusMap = {
   ok: (
@@ -52,7 +53,7 @@ class Register extends Component {
     const { form, register } = this.props;
     const account = form.getFieldValue('mail');
     if (register.status === 'ok') {
-      router.push({
+      history.push({
         pathname: '/user/register-result',
         state: {
           account,
@@ -76,7 +77,7 @@ class Register extends Component {
       }
     }, 1000);
     Modal.info({
-      title: formatMessage({ id: 'app.login.verification-code-warning' }),
+      title: intl.formatMessage({ id: 'app.login.verification-code-warning' }),
     });
   };
 
@@ -118,7 +119,7 @@ class Register extends Component {
   checkConfirm = (rule, value, callback) => {
     const { form } = this.props;
     if (value && value !== form.getFieldValue('password')) {
-      callback(formatMessage({ id: 'validation.password.twice' }));
+      callback(intl.formatMessage({ id: 'validation.password.twice' }));
     } else {
       callback();
     }
@@ -128,7 +129,7 @@ class Register extends Component {
     const { visible, confirmDirty } = this.state;
     if (!value) {
       this.setState({
-        help: formatMessage({ id: 'validation.password.required' }),
+        help: intl.formatMessage({ id: 'validation.password.required' }),
         visible: !!value,
       });
       callback('error');
@@ -191,15 +192,15 @@ class Register extends Component {
               rules: [
                 {
                   required: true,
-                  message: formatMessage({ id: 'validation.email.required' }),
+                  message: intl.formatMessage({ id: 'validation.email.required' }),
                 },
                 {
                   type: 'email',
-                  message: formatMessage({ id: 'validation.email.wrong-format' }),
+                  message: intl.formatMessage({ id: 'validation.email.wrong-format' }),
                 },
               ],
             })(
-              <Input size="large" placeholder={formatMessage({ id: 'form.email.placeholder' })} />
+              <Input size="large" placeholder={intl.formatMessage({ id: 'form.email.placeholder' })} />
             )}
           </FormItem>
           <FormItem help={help}>
@@ -228,7 +229,7 @@ class Register extends Component {
                 <Input
                   size="large"
                   type="password"
-                  placeholder={formatMessage({ id: 'form.password.placeholder' })}
+                  placeholder={intl.formatMessage({ id: 'form.password.placeholder' })}
                 />
               )}
             </Popover>
@@ -238,7 +239,7 @@ class Register extends Component {
               rules: [
                 {
                   required: true,
-                  message: formatMessage({ id: 'validation.confirm-password.required' }),
+                  message: intl.formatMessage({ id: 'validation.confirm-password.required' }),
                 },
                 {
                   validator: this.checkConfirm,
@@ -248,7 +249,7 @@ class Register extends Component {
               <Input
                 size="large"
                 type="password"
-                placeholder={formatMessage({ id: 'form.confirm-password.placeholder' })}
+                placeholder={intl.formatMessage({ id: 'form.confirm-password.placeholder' })}
               />
             )}
           </FormItem>
@@ -267,18 +268,18 @@ class Register extends Component {
                 rules: [
                   {
                     required: true,
-                    message: formatMessage({ id: 'validation.phone-number.required' }),
+                    message: intl.formatMessage({ id: 'validation.phone-number.required' }),
                   },
                   {
                     pattern: /^\d{11}$/,
-                    message: formatMessage({ id: 'validation.phone-number.wrong-format' }),
+                    message: intl.formatMessage({ id: 'validation.phone-number.wrong-format' }),
                   },
                 ],
               })(
                 <Input
                   size="large"
                   style={{ width: '80%' }}
-                  placeholder={formatMessage({ id: 'form.phone-number.placeholder' })}
+                  placeholder={intl.formatMessage({ id: 'form.phone-number.placeholder' })}
                 />
               )}
             </InputGroup>
@@ -290,13 +291,13 @@ class Register extends Component {
                   rules: [
                     {
                       required: true,
-                      message: formatMessage({ id: 'validation.verification-code.required' }),
+                      message: intl.formatMessage({ id: 'validation.verification-code.required' }),
                     },
                   ],
                 })(
                   <Input
                     size="large"
-                    placeholder={formatMessage({ id: 'form.verification-code.placeholder' })}
+                    placeholder={intl.formatMessage({ id: 'form.verification-code.placeholder' })}
                   />
                 )}
               </Col>
@@ -309,7 +310,7 @@ class Register extends Component {
                 >
                   {count
                     ? `${count} s`
-                    : formatMessage({ id: 'app.register.get-verification-code' })}
+                    : intl.formatMessage({ id: 'app.register.get-verification-code' })}
                 </Button>
               </Col>
             </Row>

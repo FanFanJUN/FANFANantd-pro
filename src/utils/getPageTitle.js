@@ -1,5 +1,4 @@
-import { formatMessage } from 'umi-plugin-react/locale';
-import pathToRegexp from 'path-to-regexp';
+import { useIntl } from 'umi'; import pathToRegexp from 'path-to-regexp';
 import isEqual from 'lodash/isEqual';
 import memoizeOne from 'memoize-one';
 import { menu, title } from '../defaultSettings';

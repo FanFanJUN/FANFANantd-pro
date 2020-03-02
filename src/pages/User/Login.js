@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { connect } from 'dva';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
-import Link from 'umi/link';
+import { connect, Link, FormattedMessage, useIntl } from 'umi';
+// import { useIntl, FormattedMessage } from 'umi';
 import { Checkbox, Alert, Modal, Icon } from 'antd';
 import Login from '@/components/Login';
-import styles from './Login.less';
 import { getSessionStorage, clearAllSessionStorage } from '@/utils/storage';
+import styles from './Login.less';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
+const intl = useIntl();
 @connect(({ login, loading }) => ({
   login,
   submitting: loading.effects['login/login'],
@@ -45,7 +45,7 @@ class LoginPage extends Component {
             .catch(reject);
 
           Modal.info({
-            title: formatMessage({ id: 'app.login.verification-code-warning' }),
+            title: intl.formatMessage({ id: 'app.login.verification-code-warning' }),
           });
         }
       });
@@ -90,21 +90,21 @@ class LoginPage extends Component {
         >
           <UserName
             name="userName"
-            // placeholder={`${formatMessage({ id: 'app.login.userName' })}: admin or user`}
+            // placeholder={`${intl.formatMessage({ id: 'app.login.userName' })}: admin or user`}
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'validation.userName.required' }),
+                message: intl.formatMessage({ id: 'validation.userName.required' }),
               },
             ]}
           />
           <Password
             name="password"
-            // placeholder={`${formatMessage({ id: 'app.login.password' })}: 123456`}
+            // placeholder={`${intl.formatMessage({ id: 'app.login.password' })}: 123456`}
             rules={[
               {
                 required: true,
-                message: formatMessage({ id: 'validation.password.required' }),
+                message: intl.formatMessage({ id: 'validation.password.required' }),
               },
             ]}
             onPressEnter={e => {
@@ -116,38 +116,38 @@ class LoginPage extends Component {
               login.type === 'account' &&
               !submitting &&
               this.renderMessage('账号或密码错误')}
-          {/* <Tab key="mobile" tab={formatMessage({ id: 'app.login.tab-login-mobile' })}>
+          {/* <Tab key="mobile" tab={intl.formatMessage({ id: 'app.login.tab-login-mobile' })}>
             {login.status === 'error' &&
               login.type === 'mobile' &&
               !submitting &&
               this.renderMessage(
-                formatMessage({ id: 'app.login.message-invalid-verification-code' })
+                intl.formatMessage({ id: 'app.login.message-invalid-verification-code' })
               )}
             <Mobile
               name="mobile"
-              placeholder={formatMessage({ id: 'form.phone-number.placeholder' })}
+              placeholder={intl.formatMessage({ id: 'form.phone-number.placeholder' })}
               rules={[
                 {
                   required: true,
-                  message: formatMessage({ id: 'validation.phone-number.required' }),
+                  message: intl.formatMessage({ id: 'validation.phone-number.required' }),
                 },
                 {
                   pattern: /^1\d{10}$/,
-                  message: formatMessage({ id: 'validation.phone-number.wrong-format' }),
+                  message: intl.formatMessage({ id: 'validation.phone-number.wrong-format' }),
                 },
               ]}
             />
             <Captcha
               name="captcha"
-              placeholder={formatMessage({ id: 'form.verification-code.placeholder' })}
+              placeholder={intl.formatMessage({ id: 'form.verification-code.placeholder' })}
               countDown={120}
               onGetCaptcha={this.onGetCaptcha}
-              getCaptchaButtonText={formatMessage({ id: 'form.get-captcha' })}
-              getCaptchaSecondText={formatMessage({ id: 'form.captcha.second' })}
+              getCaptchaButtonText={intl.formatMessage({ id: 'form.get-captcha' })}
+              getCaptchaSecondText={intl.formatMessage({ id: 'form.captcha.second' })}
               rules={[
                 {
                   required: true,
-                  message: formatMessage({ id: 'validation.verification-code.required' }),
+                  message: intl.formatMessage({ id: 'validation.verification-code.required' }),
                 },
               ]}
             />

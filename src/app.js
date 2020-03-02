@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-import { router } from 'umi';
+import { history } from 'umi';
 import { getSessionStorage, setSessionStorage } from './utils/storage';
 import { parseMenuData, isEmptyObject, isEmptyArray, isRespSucc, showErrorMsg } from './utils/utils';
 import request from './utils/request';
@@ -139,7 +139,7 @@ async function getChildrenMenuFromCurrFirstMenu(curFirst, location, path) {
     const defaultUrl = !isEmptyArray(currSecondMenusNew) ? `${currSecondMenusNew[0].path}${search}` : '';
     // 自动定位到二级菜单第一个菜单
     if (defaultUrl) {
-      router.push(defaultUrl);
+      history.push(defaultUrl);
     }
   } else if (!isEmptyObject(currSecFrom3)) {
     console.log('三级菜单path', path);
@@ -153,7 +153,7 @@ async function getChildrenMenuFromCurrFirstMenu(curFirst, location, path) {
     if (!isEmptyArray(currthirdAndBelowMenus)) {
       const defaultUrl = !isEmptyArray(currthirdAndBelowMenus) ? `${fetchOneChild(currthirdAndBelowMenus)}${search}` : '';
       if (defaultUrl) {
-        router.push(defaultUrl);
+        history.push(defaultUrl);
       }
     } else {
       await getButtonAccess(currSec.id, path);
@@ -171,7 +171,7 @@ async function getChildrenMenuFromCurrFirstMenu(curFirst, location, path) {
     if (!isEmptyArray(currthirdAndBelowMenusRes)) {
       const defaultResource = currthirdAndBelowMenusRes && currthirdAndBelowMenusRes.filter((item) => item && item.resourcePath === path)[0] || {};
       if (defaultResource.resourcePath) {
-        router.push(defaultResource.resourcePath);
+        history.push(defaultResource.resourcePath);
       }
     }
   }
@@ -218,4 +218,9 @@ export function onRouteChange({ location, routes, action }) {
     setSessionStorage('currSecondMenus', '[]');
     setSessionStorage('currthirdAndBelowMenus', '[]');
   }
+}
+
+export async function getInitialState() {
+  // const data = await fetchXXX();
+  // return data;
 }

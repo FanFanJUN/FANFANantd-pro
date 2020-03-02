@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from 'react';
-import { connect } from 'dva';
+import { connect, Link } from 'umi';
 import moment from 'moment';
-import Link from 'umi/link';
+
 import {
   Row,
   Col,

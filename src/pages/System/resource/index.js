@@ -1,8 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import { Card, Row, Col, Tree, Tabs, Tooltip, Icon, Alert, Form, Modal, Spin, Button, Divider } from 'antd';
-import { connect } from 'dva';
-import moment from 'moment';
+import { connect } from 'umi'; import moment from 'moment';
 import { CcMessege, CcCard } from '@/cc-comp/basic';
 import { createRouteid, getDicOptions, isEmptyArray } from '@/utils/utils';
 import BasicInfo from './basicinfo';

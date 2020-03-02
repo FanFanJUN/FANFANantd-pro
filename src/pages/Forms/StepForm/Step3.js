@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
-import { connect } from 'dva';
+import { connect, history } from 'umi';
 import { Button, Row, Col } from 'antd';
-import router from 'umi/router';
+// import history from 'umi/history';
 import Result from '@/components/Result';
 import styles from './style.less';
 
@@ -12,7 +12,7 @@ class Step3 extends React.PureComponent {
   render() {
     const { data } = this.props;
     const onFinish = () => {
-      router.push('/form/step-form/info');
+      history.push('/form/step-form/info');
     };
     const information = (
       <div className={styles.information}>

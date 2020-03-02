@@ -1,7 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+// import { intl.formatMessage } from 'umi-plugin-react/locale';
 import { List } from 'antd';
+import { FormattedMessage, useIntl } from 'umi';
 // import { getTimeDistance } from '@/utils/utils';
+const intl = useIntl();
 
 const passwordStrength = {
   strong: (
@@ -25,10 +27,10 @@ const passwordStrength = {
 class SecurityView extends Component {
   getData = () => [
     {
-      title: formatMessage({ id: 'app.settings.security.password' }, {}),
+      title: intl.formatMessage({ id: 'app.settings.security.password' }, {}),
       description: (
         <Fragment>
-          {formatMessage({ id: 'app.settings.security.password-description' })}：
+          {intl.formatMessage({ id: 'app.settings.security.password-description' })}：
           {passwordStrength.strong}
         </Fragment>
       ),
@@ -39,8 +41,8 @@ class SecurityView extends Component {
       ],
     },
     {
-      title: formatMessage({ id: 'app.settings.security.phone' }, {}),
-      description: `${formatMessage(
+      title: intl.formatMessage({ id: 'app.settings.security.phone' }, {}),
+      description: `${intl.formatMessage(
         { id: 'app.settings.security.phone-description' },
         {}
       )}：138****8293`,
@@ -51,8 +53,8 @@ class SecurityView extends Component {
       ],
     },
     {
-      title: formatMessage({ id: 'app.settings.security.question' }, {}),
-      description: formatMessage({ id: 'app.settings.security.question-description' }, {}),
+      title: intl.formatMessage({ id: 'app.settings.security.question' }, {}),
+      description: intl.formatMessage({ id: 'app.settings.security.question-description' }, {}),
       actions: [
         <a>
           <FormattedMessage id="app.settings.security.set" defaultMessage="Set" />
@@ -60,8 +62,8 @@ class SecurityView extends Component {
       ],
     },
     {
-      title: formatMessage({ id: 'app.settings.security.email' }, {}),
-      description: `${formatMessage(
+      title: intl.formatMessage({ id: 'app.settings.security.email' }, {}),
+      description: `${intl.formatMessage(
         { id: 'app.settings.security.email-description' },
         {}
       )}：ant***sign.com`,
@@ -72,8 +74,8 @@ class SecurityView extends Component {
       ],
     },
     {
-      title: formatMessage({ id: 'app.settings.security.mfa' }, {}),
-      description: formatMessage({ id: 'app.settings.security.mfa-description' }, {}),
+      title: intl.formatMessage({ id: 'app.settings.security.mfa' }, {}),
+      description: intl.formatMessage({ id: 'app.settings.security.mfa-description' }, {}),
       actions: [
         <a>
           <FormattedMessage id="app.settings.security.bind" defaultMessage="Bind" />

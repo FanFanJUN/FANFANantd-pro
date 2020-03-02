@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import moment from 'moment';
-import { connect } from 'dva';
+import { connect, FormattedMessage } from 'umi';
 import { Row, Col, Form, Card, Select, List } from 'antd';
-import { FormattedMessage } from 'umi-plugin-react/locale';
+// import { FormattedMessage } from 'umi-plugin-react/locale';
 
 import TagSelect from '@/components/TagSelect';
 import AvatarList from '@/components/AvatarList';

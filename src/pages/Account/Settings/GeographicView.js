@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Select, Spin } from 'antd';
-import { connect } from 'dva';
-import styles from './GeographicView.less';
+import { connect } from 'umi'; import styles from './GeographicView.less';
 
 const { Option } = Select;
 

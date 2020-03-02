@@ -1,12 +1,12 @@
 import React from 'react';
-import { router } from 'umi';
+import { history } from 'umi';
 import { Tooltip } from 'antd';
 import styles from './index.css';
 import { getSessionStorage, clearAllSessionStorage } from '@/utils/storage';
 
 function CcGlobalHeader(props) {
   function handleClick(e) {
-    router.push('/user/login');
+    history.push('/user/login');
     clearAllSessionStorage();
   }
   const { posses } = props;
@@ -37,7 +37,7 @@ function CcGlobalHeader(props) {
         <span className={styles.titleName}>管理员</span>
         {posses.length > 1 ?
           <Tooltip title={possesStr} placement="bottom" className={styles.titleName}>
-            {'[岗位信息]'}
+            [岗位信息]
           </Tooltip>
           :
           <span className={styles.titleName}>{posses[0] && posses[0].POSITION_NM || ''}</span>

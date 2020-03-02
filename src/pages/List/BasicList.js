@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import { findDOMNode } from 'react-dom';
 import moment from 'moment';
-import { connect } from 'dva';
-import {
+import { connect } from 'umi'; import {
   List,
   Card,
   Row,

@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
 import { Row, Col, Icon, Tooltip } from 'antd';
-import { FormattedMessage, formatMessage } from 'umi-plugin-react/locale';
+import { FormattedMessage, useIntl } from 'umi';
+import numeral from 'numeral';
 import styles from './Analysis.less';
 import { ChartCard, MiniArea, MiniBar, MiniProgress, Field } from '@/components/Charts';
 import Trend from '@/components/Trend';
-import numeral from 'numeral';
 import Yuan from '@/utils/Yuan';
 
 const topColResponsiveProps = {
@@ -15,6 +15,8 @@ const topColResponsiveProps = {
   xl: 6,
   style: { marginBottom: 24 },
 };
+
+const intl = useIntl();
 
 const IntroduceRow = memo(({ loading, visitData }) => (
   <Row gutter={24}>
@@ -139,7 +141,7 @@ const IntroduceRow = memo(({ loading, visitData }) => (
           percent={78}
           strokeWidth={8}
           target={80}
-          targetLabel={`${formatMessage({ id: 'component.miniProgress.tooltipDefault' }).concat(
+          targetLabel={`${intl.formatMessage({ id: 'component.miniProgress.tooltipDefault' }).concat(
             ': '
           )}80%`}
           color="#13C2C2"

@@ -4,8 +4,9 @@ import React, { PureComponent } from 'react';
 import { Menu, Icon, Card } from 'antd';
 import PropTypes from 'prop-types';
 // import Link from 'umi/link';
-import { Link, withRouter } from 'dva/router';
-import { formatMessage } from 'umi-plugin-react/locale';
+// import { Link, withRouter } from 'dva/router';
+import { Link, withRouter, useIntl } from 'umi';
+// import { intl.useIntl } from 'umi-plugin-react/locale';
 // import { withRouter } from 'umi';
 import { urlToList } from '../../../components/_utils/pathTools';
 // import { getMenuMatches } from './SiderMenuUtils';
@@ -14,7 +15,7 @@ import styles from './index.less';
 import IconFont from '@/components/IconFont';
 
 const { SubMenu, ItemGroup, Item } = Menu;
-
+const intl = useIntl();
 // Allow menu.js config icon as string or ReactNode
 //   icon: 'setting',
 //   icon: 'icon-geren' #For Iconfont ,
@@ -133,7 +134,7 @@ class DynamicMenu extends PureComponent {
 
     let name;
     if (item.nodeName) {
-      name = formatMessage({ id: item.nodeName });
+      name = intl.useIntl({ id: item.nodeName });
     } else {
       name = item.name;
     }

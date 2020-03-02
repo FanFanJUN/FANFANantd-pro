@@ -1,9 +1,8 @@
 import React from 'react';
-import { FormattedMessage } from 'umi-plugin-react/locale';
-import Link from 'umi/link';
+// import { FormattedMessage } from 'umi-plugin-react/locale';
+// import Link from 'umi/link';
 import { PageHeader, Tabs, Typography } from 'antd';
-import { connect } from 'dva';
-import classNames from 'classnames';
+import { connect, Link, FormattedMessage } from 'umi'; import classNames from 'classnames';
 import GridContent from './GridContent';
 import styles from './index.less';
 import MenuContext from '@/layouts/MenuContext';

@@ -1,10 +1,12 @@
 import React from 'react';
 import pathToRegexp from 'path-to-regexp';
-import Link from 'umi/link';
-import { formatMessage } from 'umi-plugin-react/locale';
+// import Link from 'umi/link';
+import { Link, useIntl } from 'umi';
+// import { intl. formatMessage } from 'umi-plugin-react/locale';
 import { urlToList } from '../_utils/pathTools';
 import { menu } from '../../defaultSettings';
 
+const intl = useIntl();
 // 渲染Breadcrumb 子节点
 // Render the Breadcrumb child node
 const itemRender = (route, params, routes, paths) => {
@@ -24,7 +26,7 @@ const renderItemLocal = item => {
   if (item.locale) {
     const name = menu.disableLocal
       ? item.name
-      : formatMessage({ id: item.locale, defaultMessage: item.name });
+      : intl.formatMessage({ id: item.locale, defaultMessage: item.name });
     return name;
   }
   return item.name;

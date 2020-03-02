@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+import { useIntl, FormattedMessage } from 'umi';
 import {
   Form,
   Input,
@@ -20,6 +19,7 @@ const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
+const intl = useIntl();
 
 @connect(({ loading }) => ({
   submitting: loading.effects['form/submitRegularForm'],
@@ -72,25 +72,25 @@ class BasicForms extends PureComponent {
               rules: [
                 {
                   required: true,
-                  message: formatMessage({ id: 'validation.title.required' }),
+                  message: intl.formatMessage({ id: 'validation.title.required' }),
                 },
               ],
-            })(<Input placeholder={formatMessage({ id: 'form.title.placeholder' })} />)}
+            })(<Input placeholder={intl.formatMessage({ id: 'form.title.placeholder' })} />)}
           </FormItem>
           <FormItem {...formItemLayout} label={<FormattedMessage id="form.date.label" />}>
             {getFieldDecorator('date', {
               rules: [
                 {
                   required: true,
-                  message: formatMessage({ id: 'validation.date.required' }),
+                  message: intl.formatMessage({ id: 'validation.date.required' }),
                 },
               ],
             })(
               <RangePicker
                 style={{ width: '100%' }}
                 placeholder={[
-                  formatMessage({ id: 'form.date.placeholder.start' }),
-                  formatMessage({ id: 'form.date.placeholder.end' }),
+                  intl.formatMessage({ id: 'form.date.placeholder.start' }),
+                  intl.formatMessage({ id: 'form.date.placeholder.end' }),
                 ]}
               />
             )}
@@ -100,13 +100,13 @@ class BasicForms extends PureComponent {
               rules: [
                 {
                   required: true,
-                  message: formatMessage({ id: 'validation.goal.required' }),
+                  message: intl.formatMessage({ id: 'validation.goal.required' }),
                 },
               ],
             })(
               <TextArea
                 style={{ minHeight: 32 }}
-                placeholder={formatMessage({ id: 'form.goal.placeholder' })}
+                placeholder={intl.formatMessage({ id: 'form.goal.placeholder' })}
                 rows={4}
               />
             )}
@@ -116,13 +116,13 @@ class BasicForms extends PureComponent {
               rules: [
                 {
                   required: true,
-                  message: formatMessage({ id: 'validation.standard.required' }),
+                  message: intl.formatMessage({ id: 'validation.standard.required' }),
                 },
               ],
             })(
               <TextArea
                 style={{ minHeight: 32 }}
-                placeholder={formatMessage({ id: 'form.standard.placeholder' })}
+                placeholder={intl.formatMessage({ id: 'form.standard.placeholder' })}
                 rows={4}
               />
             )}
@@ -142,7 +142,7 @@ class BasicForms extends PureComponent {
               }
           >
             {getFieldDecorator('client')(
-              <Input placeholder={formatMessage({ id: 'form.client.placeholder' })} />
+              <Input placeholder={intl.formatMessage({ id: 'form.client.placeholder' })} />
             )}
           </FormItem>
           <FormItem
@@ -157,7 +157,7 @@ class BasicForms extends PureComponent {
               }
           >
             {getFieldDecorator('invites')(
-              <Input placeholder={formatMessage({ id: 'form.invites.placeholder' })} />
+              <Input placeholder={intl.formatMessage({ id: 'form.invites.placeholder' })} />
             )}
           </FormItem>
           <FormItem
@@ -173,7 +173,7 @@ class BasicForms extends PureComponent {
           >
             {getFieldDecorator('weight')(
               <InputNumber
-                placeholder={formatMessage({ id: 'form.weight.placeholder' })}
+                placeholder={intl.formatMessage({ id: 'form.weight.placeholder' })}
                 min={0}
                 max={100}
               />
@@ -205,7 +205,7 @@ class BasicForms extends PureComponent {
                 {getFieldDecorator('publicUsers')(
                   <Select
                     mode="multiple"
-                    placeholder={formatMessage({ id: 'form.publicUsers.placeholder' })}
+                    placeholder={intl.formatMessage({ id: 'form.publicUsers.placeholder' })}
                     style={{
                       margin: '8px 0',
                       display: getFieldValue('public') === '2' ? 'block' : 'none',

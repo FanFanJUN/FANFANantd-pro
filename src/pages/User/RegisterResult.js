@@ -1,9 +1,11 @@
 import React from 'react';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+// import { intl.formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 import { Button } from 'antd';
-import Link from 'umi/link';
+import { Link, FormattedMessage, useIntl } from 'umi';
 import Result from '@/components/Result';
 import styles from './RegisterResult.less';
+
+const intl = useIntl();
 
 const actions = (
   <div className={styles.actions}>
@@ -32,7 +34,7 @@ const RegisterResult = ({ location }) => (
         />
       </div>
     }
-    description={formatMessage({ id: 'app.register-result.activation-email' })}
+    description={intl.formatMessage({ id: 'app.register-result.activation-email' })}
     actions={actions}
     style={{ marginTop: 56 }}
   />

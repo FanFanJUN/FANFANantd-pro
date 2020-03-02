@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { Table, Card, Button, Radio, Form, Modal, Row, Col, DatePicker, InputNumber, Switch, PageHeader } from 'antd';
-import { connect } from 'dva';
-import moment from 'moment';
+import { connect } from 'umi'; import moment from 'moment';
 import { createRouteid, getTablepag, getDicOptions, isEmptyObject } from '@/utils/utils';
 import { CcInput, CcSelect, CcMessege, CcCard, CcButton } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';

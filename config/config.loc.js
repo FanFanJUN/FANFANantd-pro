@@ -82,7 +82,7 @@ const plugins = [
 
 // umi V3.0 配置方式 https://umijs.org/zh-CN/docs/upgrade-to-umi-3#%E9%85%8D%E7%BD%AE%E5%B1%82
 const plugins_V3 = {
-  // antd: true,
+  antd: {},
   dva: {
     hmr: true,
   },
@@ -155,7 +155,7 @@ export default defineConfig({
       const match = context.resourcePath.match(/src(.*)/);
       if (match && match[1]) {
         const antdProPath = match[1].replace('.less', '');
-        const arr = slash(antdProPath)
+        const arr = winPath(antdProPath)
           .split('/')
           .map(a => a.replace(/([A-Z])/g, '-$1'))
           .map(a => a.toLowerCase());

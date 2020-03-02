@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Button, Spin, Card } from 'antd';
-import { connect } from 'dva';
-import styles from './style.less';
+import { connect } from 'umi'; import styles from './style.less';
 
 @connect(state => ({
   isloading: state.error.isloading,

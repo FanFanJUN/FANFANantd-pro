@@ -1,8 +1,10 @@
 import React, { Fragment } from 'react';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+import { useIntl, FormattedMessage } from 'umi';
 import { Button, Icon, Card } from 'antd';
 import Result from '@/components/Result';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
+
+const intl = useIntl();
 
 const extra = (
   <Fragment>
@@ -55,8 +57,8 @@ export default () => (
     <Card bordered={false}>
       <Result
         type="error"
-        title={formatMessage({ id: 'app.result.error.title' })}
-        description={formatMessage({ id: 'app.result.error.description' })}
+        title={intl.formatMessage({ id: 'app.result.error.title' })}
+        description={intl.formatMessage({ id: 'app.result.error.description' })}
         extra={extra}
         actions={actions}
         style={{ marginTop: 48, marginBottom: 16 }}

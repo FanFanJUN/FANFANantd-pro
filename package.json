@@ -5,7 +5,7 @@
   "description": "An out-of-box UI solution for enterprise applications",
   "scripts": {
     "analyze": "cross-env ANALYZE=1 umi build",
-    "clear": "rm -rf dist&& mkdir build",
+    "clear": "rm -rf dist",
     "start": "npm run clear&& npm run start:loc",
     "start:uit": "cross-env APP_TYPE=site PORT=6666 umi dev",
     "start:loc": "cross-env UMI_ENV=loc APP_TYPE=site PORT=9999 umi dev",
@@ -57,7 +57,6 @@
     "bizcharts-plugin-slider": "^2.1.1-beta.1",
     "canvas": "^2.5.0",
     "classnames": "^2.2.6",
-    "dva": "^2.4.1",
     "echarts": "^4.2.1",
     "echarts-for-react": "^2.0.15-beta.0",
     "enquire-js": "^0.2.1",
@@ -90,9 +89,8 @@
     "react-particles-js": "^2.7.0",
     "react-qmap": "^0.1.5",
     "resize-observer-polyfill": "^1.5.1",
-    "umi": "^2.4.4",
-    "umi-plugin-qrcode": "^0.0.5",
-    "umi-plugin-react": "^1.7.2",
+    "umi": "^3.0.0",
+    "@umijs/preset-react": "^1.2.2",
     "umi-request": "^1.0.5",
     "xgplayer": "^2.1.13"
   },
@@ -138,9 +136,7 @@
     "stylelint-order": "^2.0.0",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
-    "tslint-react": "^3.6.0",
-    "umi-plugin-ga": "^1.1.3",
-    "webpack": "^4.32.0"
+    "tslint-react": "^3.6.0"
   },
   "optionalDependencies": {
     "puppeteer": "^1.12.1"

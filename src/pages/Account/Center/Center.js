@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'dva';
-import Link from 'umi/link';
-import router from 'umi/router';
+// import { connect } from 'umi';import { connect, Link, history } from 'umi';
+// import Link from 'umi/link';
 import { Card, Row, Col, Icon, Avatar, Tag, Divider, Spin, Input } from 'antd';
 import GridContent from '@/components/PageHeaderWrapper/GridContent';
 import styles from './Center.less';
@@ -40,13 +39,13 @@ class Center extends PureComponent {
     const { match } = this.props;
     switch (key) {
       case 'articles':
-        router.push(`${match.url}/articles`);
+        history.push(`${match.url}/articles`);
         break;
       case 'applications':
-        router.push(`${match.url}/applications`);
+        history.push(`${match.url}/applications`);
         break;
       case 'projects':
-        router.push(`${match.url}/projects`);
+        history.push(`${match.url}/projects`);
         break;
       default:
         break;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import router from 'umi/router';
-import { connect } from 'dva';
+// import history from 'umi/history';
+import { connect, history } from 'umi';
 import { Input } from 'antd';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
@@ -10,13 +10,13 @@ class SearchList extends Component {
     const { match } = this.props;
     switch (key) {
       case 'articles':
-        router.push(`${match.url}/articles`);
+        history.push(`${match.url}/articles`);
         break;
       case 'applications':
-        router.push(`${match.url}/applications`);
+        history.push(`${match.url}/applications`);
         break;
       case 'projects':
-        router.push(`${match.url}/projects`);
+        history.push(`${match.url}/projects`);
         break;
       default:
         break;

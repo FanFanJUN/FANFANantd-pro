@@ -3,7 +3,7 @@
 import React, { PureComponent } from 'react';
 import classNames from 'classnames';
 import { Menu, Icon, Layout } from 'antd';
-import Link from 'umi/link';
+import { Link } from 'umi';
 import { urlToList } from '../../../components/_utils/pathTools';
 // import { getMenuMatches } from './SiderMenuUtils';
 import { isUrl } from '@/utils/utils';

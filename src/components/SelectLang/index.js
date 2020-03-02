@@ -1,10 +1,11 @@
 import React, { PureComponent } from 'react';
-import { formatMessage, setLocale, getLocale } from 'umi-plugin-react/locale';
+import { useIntl, setLocale, getLocale } from 'umi';
 import { Menu, Icon } from 'antd';
 import classNames from 'classnames';
 import HeaderDropdown from '../HeaderDropdown';
 import styles from './index.less';
 
+const intl = useIntl();
 export default class SelectLang extends PureComponent {
   changeLang = ({ key }) => {
     setLocale(key);
@@ -41,7 +42,7 @@ export default class SelectLang extends PureComponent {
     return (
       <HeaderDropdown overlay={langMenu} placement="bottomRight">
         <span className={classNames(styles.dropDown, className)}>
-          <Icon type="global" title={formatMessage({ id: 'navBar.lang' })} />
+          <Icon type="global" title={intl.formatMessage({ id: 'navBar.lang' })} />
         </span>
       </HeaderDropdown>
     );

@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Debounce from 'lodash-decorators/debounce';
 import Bind from 'lodash-decorators/bind';
-import { connect } from 'dva';
-import {
+import { connect } from 'umi'; import {
   Button,
   Menu,
   Dropdown,
@@ -123,13 +122,13 @@ const popoverContent = (
 );
 
 const customDot = (dot, { status }) =>
-  status === 'process' ? (
+  (status === 'process' ? (
     <Popover placement="topLeft" arrowPointAtCenter content={popoverContent}>
       {dot}
     </Popover>
   ) : (
     dot
-  );
+  ));
 
 const operationTabList = [
   {
@@ -162,11 +161,11 @@ const columns = [
     dataIndex: 'status',
     key: 'status',
     render: text =>
-      text === 'agree' ? (
+      (text === 'agree' ? (
         <Badge status="success" text="成功" />
       ) : (
         <Badge status="error" text="驳回" />
-      ),
+      )),
   },
   {
     title: '操作时间',

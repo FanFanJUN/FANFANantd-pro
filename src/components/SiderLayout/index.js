@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Layout, Popover, Tooltip, Switch } from 'antd';
 import { Debounce } from 'lodash-decorators/debounce';
-import router from 'umi/router';
-import { connect } from 'dva';
-import styles from './index.less';
+// import history from 'umi';
+import { connect, history } from 'umi'; import styles from './index.less';
 import NoticeIcon from '@/components/NoticeIcon';
 import { getSessionStorage } from '@/utils/storage';
 
@@ -28,12 +27,12 @@ class SiderDemo extends PureComponent {
       type: 'login/logout',
       payload: {},
     });
-    // router.push('/user');
+    // history.push('/user');
   }
 
   returnHome = () => {
     // const {location: { pathname }} = this.props;
-    router.push('/dashboard/analysis');
+    history.push('/dashboard/analysis');
   }
 
   // 全屏

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Tooltip, Icon } from 'antd';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { useIntl } from 'umi';
 import styles from './ThemeColor.less';
+
+const intl = useIntl();
 
 const Tag = ({ color, check, ...rest }) => (
   <div
@@ -57,7 +59,7 @@ const ThemeColor = ({ colors, title, value, onChange }) => {
       <h3 className={styles.title}>{title}</h3>
       <div className={styles.content}>
         {colorList.map(({ key, color }) => (
-          <Tooltip key={color} title={formatMessage({ id: `app.setting.themecolor.${key}` })}>
+          <Tooltip key={color} title={intl.formatMessage({ id: `app.setting.themecolor.${key}` })}>
             <Tag
               className={styles.colorBlock}
               color={color}

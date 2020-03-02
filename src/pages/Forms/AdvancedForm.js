@@ -12,8 +12,7 @@ import {
   Select,
   Popover,
 } from 'antd';
-import { connect } from 'dva';
-// import FooterToolbar from '@/components/FooterToolbar';
+import { connect } from 'umi';// import FooterToolbar from '@/components/FooterToolbar';
 // import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import TableForm from './TableForm';
 import styles from './style.less';

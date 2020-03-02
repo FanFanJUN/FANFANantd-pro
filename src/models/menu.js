@@ -1,6 +1,6 @@
 import memoizeOne from 'memoize-one';
 import isEqual from 'lodash/isEqual';
-import { formatMessage } from 'umi-plugin-react/locale';
+import { useIntl } from 'umi';
 import Authorized from '@/utils/Authorized';
 import { menu } from '../defaultSettings';
 import { getMenuData } from '../services/api';

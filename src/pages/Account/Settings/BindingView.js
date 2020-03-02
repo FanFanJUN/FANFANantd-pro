@@ -1,12 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+import { FormattedMessage, useIntl } from 'umi';
 import { Icon, List } from 'antd';
 
+const intl = useIntl();
 class BindingView extends Component {
   getData = () => [
     {
-      title: formatMessage({ id: 'app.settings.binding.taobao' }, {}),
-      description: formatMessage({ id: 'app.settings.binding.taobao-description' }, {}),
+      title: intl.formatMessage({ id: 'app.settings.binding.taobao' }, {}),
+      description: intl.formatMessage({ id: 'app.settings.binding.taobao-description' }, {}),
       actions: [
         <a>
           <FormattedMessage id="app.settings.binding.bind" defaultMessage="Bind" />
@@ -15,8 +16,8 @@ class BindingView extends Component {
       avatar: <Icon type="taobao" className="taobao" />,
     },
     {
-      title: formatMessage({ id: 'app.settings.binding.alipay' }, {}),
-      description: formatMessage({ id: 'app.settings.binding.alipay-description' }, {}),
+      title: intl.formatMessage({ id: 'app.settings.binding.alipay' }, {}),
+      description: intl.formatMessage({ id: 'app.settings.binding.alipay-description' }, {}),
       actions: [
         <a>
           <FormattedMessage id="app.settings.binding.bind" defaultMessage="Bind" />
@@ -25,8 +26,8 @@ class BindingView extends Component {
       avatar: <Icon type="alipay" className="alipay" />,
     },
     {
-      title: formatMessage({ id: 'app.settings.binding.dingding' }, {}),
-      description: formatMessage({ id: 'app.settings.binding.dingding-description' }, {}),
+      title: intl.formatMessage({ id: 'app.settings.binding.dingding' }, {}),
+      description: intl.formatMessage({ id: 'app.settings.binding.dingding-description' }, {}),
       actions: [
         <a>
           <FormattedMessage id="app.settings.binding.bind" defaultMessage="Bind" />

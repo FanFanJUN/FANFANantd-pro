@@ -3,11 +3,11 @@
 import React, { Suspense, createElement } from 'react';
 import { Layout, BackTop, Breadcrumb } from 'antd';
 import DocumentTitle from 'react-document-title';
-import { connect } from 'dva';
+import { connect, Link } from 'umi';
 import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
 import Media from 'react-media';
-import Link from 'umi/link';
+
 import pathToRegexp from 'path-to-regexp';
 import logo from '../assets/LOGO.svg';
 import Footer from './Footer';

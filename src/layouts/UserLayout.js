@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { formatMessage } from 'umi-plugin-react/locale';
-import { connect } from 'dva';
-import Link from 'umi/link';
+import { useIntl, connect, Link } from 'umi';
 import { Icon } from 'antd';
 import DocumentTitle from 'react-document-title';
 import GlobalFooter from '@/components/GlobalFooter';
@@ -10,10 +8,12 @@ import styles from './UserLayout.less';
 import logo from '../assets/LOGO.svg';
 import getPageTitle from '@/utils/getPageTitle';
 
+const intl = useIntl();
+
 const links = [
   {
     key: 'help',
-    title: formatMessage({ id: 'layout.user.link.help' }),
+    title: intl.formatMessage({ id: 'layout.user.link.help' }),
     href: '',
   },
   {

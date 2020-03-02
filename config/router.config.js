@@ -196,11 +196,11 @@ export default [
             name: 'map',
             component: './Charts/map',
           },
-          {
-            path: '/charts/G6',
-            name: 'G6',
-            component: './Charts/aliG6charts',
-          },
+          // {
+          //   path: '/charts/G6',
+          //   name: 'G6',
+          //   component: './Charts/aliG6charts',
+          // },
         ],
       },
       // 自定义

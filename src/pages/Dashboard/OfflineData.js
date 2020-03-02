@@ -1,9 +1,11 @@
 import React, { memo } from 'react';
 import { Card, Tabs, Row, Col } from 'antd';
-import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
+import { useIntl, FormattedMessage } from 'umi';
 import styles from './Analysis.less';
 import { TimelineChart, Pie } from '@/components/Charts';
 import NumberInfo from '@/components/NumberInfo';
+
+const intl = useIntl();
 
 const CustomTab = ({ data, currentTabKey: currentKey }) => (
   <Row gutter={8} style={{ width: 138, margin: '8px 0' }}>
@@ -50,8 +52,8 @@ const OfflineData = memo(
                 height={400}
                 data={offlineChartData}
                 titleMap={{
-                  y1: formatMessage({ id: 'app.analysis.traffic' }),
-                  y2: formatMessage({ id: 'app.analysis.payments' }),
+                  y1: intl.formatMessage({ id: 'app.analysis.traffic' }),
+                  y2: intl.formatMessage({ id: 'app.analysis.payments' }),
                 }}
               />
             </div>

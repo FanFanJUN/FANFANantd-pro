@@ -1,7 +1,6 @@
 import React from 'react';
 import { notification, Button, message } from 'antd';
-import { formatMessage } from 'umi-plugin-react/locale';
-import defaultSettings from './defaultSettings';
+import { useIntl } from 'umi'; import defaultSettings from './defaultSettings';
 
 const { pwa } = defaultSettings;
 // if pwa is true
