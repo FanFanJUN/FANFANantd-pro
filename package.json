@@ -5,7 +5,7 @@
   "description": "An out-of-box UI solution for enterprise applications",
   "scripts": {
     "analyze": "cross-env ANALYZE=1 umi build",
-    "clear": "rm -rf dist&& mkdir build",
+    "clear": "rm -rf dist",
     "start": "npm run clear&& npm run start:loc",
     "start:uit": "cross-env APP_TYPE=site PORT=6666 umi dev",
     "start:loc": "cross-env UMI_ENV=loc APP_TYPE=site PORT=9999 umi dev",
