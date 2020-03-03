@@ -89,7 +89,7 @@
     "react-particles-js": "^2.7.0",
     "react-qmap": "^0.1.5",
     "resize-observer-polyfill": "^1.5.1",
-    "umi": "^3.0.0",
+    "umi": "^3.0.2",
     "@umijs/preset-react": "^1.2.2",
     "umi-request": "^1.0.5",
     "xgplayer": "^2.1.13"
