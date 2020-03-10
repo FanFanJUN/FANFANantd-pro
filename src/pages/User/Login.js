@@ -4,8 +4,8 @@ import { formatMessage, FormattedMessage } from 'umi-plugin-react/locale';
 import Link from 'umi/link';
 import { Checkbox, Alert, Modal, Icon } from 'antd';
 import Login from '@/components/Login';
-import styles from './Login.less';
 import { getSessionStorage, clearAllSessionStorage } from '@/utils/storage';
+import styles from './Login.less';
 
 const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
 
@@ -90,7 +90,7 @@ class LoginPage extends Component {
         >
           <UserName
             name="userName"
-            // placeholder={`${formatMessage({ id: 'app.login.userName' })}: admin or user`}
+            placeholder="licai"
             rules={[
               {
                 required: true,
@@ -100,7 +100,7 @@ class LoginPage extends Component {
           />
           <Password
             name="password"
-            // placeholder={`${formatMessage({ id: 'app.login.password' })}: 123456`}
+            placeholder="ccss00665566"
             rules={[
               {
                 required: true,
