@@ -6,7 +6,7 @@ import QRCode from 'qrcode.react';
 import Player from 'xgplayer';
 // import Canvas from 'canvas';
 import { getDicOptions, getEllipsis } from '@/utils/utils';
-import { CcLoanSelect, CcAmtCpl, CcRegionCasCader } from '@/cc-comp/biz';
+import { CcLoanSelect, CcAmtCpl, CcRegionCasCader, CcTree } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
 import { CcInput } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
@@ -141,6 +141,14 @@ class Commoncomponent extends React.Component {
             // initialValue={['500000', '500100', '']} 省市区默认值
             // initialValue={['500000', '500100', '500122']}
             // initialValue={['500000']}
+          />
+          <CcTree
+            title="产品树"
+            columnLayout={3}
+            columnIndex={2}
+            field="proDuct"
+            label="产品"
+            form={form}
           />
         </Row>
       </Fragment>
