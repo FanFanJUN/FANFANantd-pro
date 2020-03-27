@@ -7,11 +7,11 @@ import PropTypes from 'prop-types';
 import { Link, withRouter } from 'dva/router';
 import { formatMessage } from 'umi-plugin-react/locale';
 // import { withRouter } from 'umi';
+import { isUrl, isEmptyArray, isEmptyObject } from '@/utils/utils';
+import IconFont from '@/components/IconFont';
 import { urlToList } from '../../../components/_utils/pathTools';
 // import { getMenuMatches } from './SiderMenuUtils';
-import { isUrl, isEmptyArray, isEmptyObject } from '@/utils/utils';
 import styles from './index.less';
-import IconFont from '@/components/IconFont';
 
 const { SubMenu, ItemGroup, Item } = Menu;
 
@@ -187,6 +187,19 @@ class DynamicMenu extends PureComponent {
     }
     return `/${path || ''}`.replace(/\/+/g, '/');
   };
+
+  isMainMenu=key => {
+    const dynamicMenuData = this.props.menusData;
+    return dynamicMenuData.some(item => key && (item.key === key || item.path === key));
+  }
+  // 三级菜单下四级菜单展开
+  handleOpenChange=(openKeys) => {
+    const lastOpenkey = openKeys[openKeys.length - 1];
+    const moreThanone = openKeys.filter((openKey) => this.isMainMenu(openKey)).length > 1;
+    this.setState({
+      openKeys: moreThanone ? [lastOpenkey] : [...openKeys],
+    });
+  }
 
   render() {
     const {
