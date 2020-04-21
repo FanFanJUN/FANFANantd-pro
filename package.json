@@ -38,7 +38,8 @@
     "test:all": "node ./tests/run-tests.js",
     "test:component": "umi test ./src/components",
     "tslint": "npm run tslint:fix",
-    "tslint:fix": "tslint --fix 'src/**/*.ts*'"
+    "tslint:fix": "tslint --fix 'src/**/*.ts*'",
+    "fix-memory-limit": "cross env LIMIT=2048 increase-memry-limit"
   },
   "browserslist": [
     "> 1%",

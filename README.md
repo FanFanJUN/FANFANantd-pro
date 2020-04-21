@@ -75,3 +75,39 @@ npm uninstall --save <package>
 安装最新版本的node.js
 
 ```
+#### 内存溢出
+```
+ npm install increase-memry-limit
+ npm run fix-memory-limit
+```
+#### react代码片段
+```
+{ 
+    "Print to console": {
+        "scope": "javascript,typescript",
+        "prefix": "react",
+        "body": [ 
+			"import React from 'react'",
+			"import { connect } from 'dva';",
+			"import { Form } from 'antd';",
+            "class Mudle extends React.Component {",
+                "constructor(props) {",
+                    "super(props);",
+                    "this.state = {}",
+                "}",
+                "render() {",
+                    "return <h1/>;",
+                "}",
+			"}",
+			"function mapStateToProps(state) {",
+				"return {",
+				  "tableData: state.namespace,",
+				  "tableLoading: state.loading.effects['sysdic/method']",
+				"};",
+			  "}", 
+            "export default connect(mapStateToProps)(Form.create()(Mudle));"
+        ],
+        "description": "React模板片段"
+    }
+}
+```
