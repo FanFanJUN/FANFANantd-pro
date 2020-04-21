@@ -1,0 +1,57 @@
+.dashboard :global(.ant-list-item) {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.dashboard :global(.ant-list-item-meta-title > a) {
+    color: #2e25bd;
+}
+.dashboard :global(.ant-list-item-content-single) {
+    color: #2e25bd;
+}
+.dashboard :global(.ant-divider-inner-tree) {
+    padding: 0px 12px;
+}
+.dashboard :global(.ant-card-head) {
+    padding: 0;
+}
+.dashboard :global(.ant-card-body) {
+    padding: 0;
+}
+.dashboard :global(.ant-tabs-bar) {
+    padding: 0;
+}
+.dashboard :global(.ant-card-nav) {
+    padding-left: 15px;
+}
+.dashboard :global(.ant-tabs-nav .ant-tabs-tab) {
+    padding: 6px 6px;
+}
+.dashboard :global(.ant-card-nav .ant-tabs-tab:hover) {
+    letter-spacing: 1px;
+}
+.dashboard :global(.ant-tabs-tab) {
+    z-index: 1;
+    height: auto;
+    width: 220px;
+    color: #fff;
+    background: url(../../../../assets/tagTitleNor.svg) no-repeat;
+    text-align: center;
+    margin: 0px 0px 0px -15px;
+}
+.dashboard :global(.ant-tabs-content) {
+    padding: 3% 0px;
+}
+.dashboard :global(.ant-tabs-tab-active) {
+    z-index: 999;
+    height: auto;
+    width: 220px;
+    color: #333;
+    background: url(../../../../assets/tagTitleSel.svg) no-repeat;
+    margin: 0px 0px 0px -15px;
+}
+.dashboard :global(.ant-tabs-ink-bar) {
+    background: #a5aabd;
+}
+.dashboard :global(h4) {
+    text-align: center;
+}

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Collapse, Form, Icon, Card, Divider, Row, Col } from 'antd';
+import { Collapse, Form, Icon, Card, Divider, Row, Col, Tabs } from 'antd';
 import JsBarcode from 'jsbarcode';
 import Barcode from 'react-barcode';
 import QRCode from 'qrcode.react';
@@ -8,8 +8,9 @@ import Player from 'xgplayer';
 import { getDicOptions, getEllipsis } from '@/utils/utils';
 import { CcLoanSelect, CcAmtCpl, CcRegionCasCader, CcTree } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
-import { CcInput } from '@/cc-comp/basic';
+import { CcInput, CcCard, CcButton } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
+import styles from './common/index.css';
 
 const { Panel } = Collapse;
 const { Description } = DescriptionList;
@@ -173,6 +174,16 @@ class Commoncomponent extends React.Component {
         >
           <Panel header="复用组件" key="1" style={customPanelStyle}>
             {this.renderForm()}
+            <Col className={styles.dashboard} xl={24} lg={24}>
+              <Tabs defaultActiveKey="test1">
+                <Tabs.TabPane tab="测试1" key="test1">
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="测试2" key="test2">
+                </Tabs.TabPane>
+                <Tabs.TabPane tab="测试3" key="test3">
+                </Tabs.TabPane>
+              </Tabs>
+            </Col>
           </Panel>
           <Panel header="详情页-底层样式修改" key="2" style={customPanelStyle}>
             {this.renderDetail()}
