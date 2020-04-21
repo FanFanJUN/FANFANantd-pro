@@ -3,7 +3,7 @@ import { RESOURCETP } from '@/constants/comm';
 
 /** 获取菜单数据 */
 export async function getTreeData(params) {
-  return request('/api/lc/RESOURCESELECTLIST', {
+  return request('/api/lc/RESOURCESTREEELECTLIST', {
     method: 'POST',
     data: { ...params, resourceTp: RESOURCETP.RESOURCETP_0 },
   });

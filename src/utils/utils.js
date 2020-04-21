@@ -697,7 +697,7 @@ export function translateDataToTree(data) {
 }
 
 /**
- * @description解析菜单数据
+ * @description解析菜单数据 是否叶子节点  0是1否
  * @author LC@1981824361
  * @date 2019-11-25
  * @export

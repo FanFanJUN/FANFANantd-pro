@@ -12,7 +12,7 @@
   white-space: nowrap;
   text-align: center;
   background-image: none;
-  background: linear-gradient(#fe9b47, #f5903e 70%, #fe9b47);
+  /* background: linear-gradient(#fe9b47, #f5903e 70%, #fe9b47); */
   border: 1px solid transparent;
   border-color: none;
   /* -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015); */

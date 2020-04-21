@@ -5,10 +5,10 @@ import { connect } from 'dva';
 import moment from 'moment';
 import { CcMessege, CcCard } from '@/cc-comp/basic';
 import { createRouteid, getDicOptions, isEmptyArray } from '@/utils/utils';
+import { getSessionStorage } from '@/utils/storage';
 import BasicInfo from './basicinfo';
 import ButtonInfoTable from './buttoninfo';
 import AddModal from './addmodal';
-import { getSessionStorage } from '@/utils/storage';
 
 const { TreeNode } = Tree;
 const { TabPane } = Tabs;
@@ -271,7 +271,7 @@ class ResourcePage extends React.Component {
 
     renderTreeNodes = data =>
       data.map(item => {
-        const isLeaf = item.isLeaf === '1'; // 叶子节点
+        const isLeaf = item.isLeaf === '0'; // 叶子节点
         if (item.children) {
           return (
             <TreeNode title={item.resourceNm} key={item.resourceId} dataRef={item} isLeaf={isLeaf}>
