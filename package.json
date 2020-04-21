@@ -12,7 +12,7 @@
     "start:sit": "cross-env UMI_ENV=sit APP_TYPE=site PORT=8888 umi dev",
     "start:dev": "cross-env UMI_ENV=dev APP_TYPE=site PORT=7777 umi dev",
     "build": "npm run build:loc",
-    "build:loc": "cross-env UMI_ENV=loc COMPRESS=none umi build",
+    "build:loc": "cross-env UMI_ENV=loc umi build",
     "build:sit": "cross-env UMI_ENV=sit COMPRESS=none umi build",
     "build:dev": "cross-env UMI_ENV=dev COMPRESS=none umi build",
     "docker-hub:build": "docker build  -f Dockerfile.hub -t  ant-design-pro ./",
