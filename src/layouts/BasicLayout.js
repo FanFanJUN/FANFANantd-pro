@@ -9,24 +9,25 @@ import classNames from 'classnames';
 import Media from 'react-media';
 import Link from 'umi/link';
 import pathToRegexp from 'path-to-regexp';
-import logo from '../assets/LOGO.svg';
-import Footer from './Footer';
-import Header from './Header';
-import Context from './MenuContext';
 import SiderMenu from '@/components/SiderMenu';
-import CcTopMenu from '../cc-comp/gen/DynamicTopMenu';
 import getPageTitle from '@/utils/getPageTitle';
-import styles from './BasicLayout.less';
 import SiderDemo from '@/components/SiderLayout';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 import { getSessionStorage } from '@/utils/storage';
 import Exception from '@/components/Exception';
 import { CcGlobalHeader } from '@/cc-comp/pro';
-import blStyles from './BasicLayout.css';
 import { parseMenuData, isEmptyArray } from '@/utils/utils';
-import ThirdMenuLayout from './ThirdMenuLayout';
 import { urlToList } from '@/components/_utils/pathTools';
 import { COMMONS, RESOURCETP } from '@/constants/comm';
+import ThirdMenuLayout from './ThirdMenuLayout';
+import blStyles from './BasicLayout.css';
+import styles from './BasicLayout.less';
+import CcTopMenu from '../cc-comp/gen/DynamicTopMenu';
+import Context from './MenuContext';
+import Header from './Header';
+import Footer from './Footer';
+import logo from '../assets/LOGO.svg';
+import Sidebar from './Sidebar';
 
 // lazy load SettingDrawer
 const SettingDrawer = React.lazy(() => import('@/components/SettingDrawer'));
@@ -326,6 +327,7 @@ class BasicLayout extends React.Component {
     const posses = getSessionStorage('Positions') && JSON.parse(getSessionStorage('Positions')) || [];
     const layout = (
       <Layout className={blStyles.bslayout}>
+        <Sidebar />
         <CcGlobalHeader posses={posses} />
         <CcTopMenu
           logo={logo}
