@@ -185,8 +185,10 @@ class BasicLayout extends React.Component {
    const { fixedHeader } = this.props;
    const { contentAreaMinHeight } = this.state;
    return {
-     maxHeight: '620px',
-     minHeight: '620px' || '428px',
+     //  maxHeight: '620px',
+     //  minHeight: '620px' || '428px',
+     maxHeight: contentAreaMinHeight,
+     minHeight: contentAreaMinHeight || '428px',
      //  margin: '0px 24px 0px',
      paddingTop: fixedHeader ? 64 : 0,
      margin: '0px 24px',

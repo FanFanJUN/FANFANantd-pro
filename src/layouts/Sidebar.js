@@ -29,8 +29,8 @@ class Mudle extends React.PureComponent {
     });
   }
 
-  showChildrenDrawer=() =>{
-    this.setState({ checked: true})
+  showChildrenDrawer=() => {
+    this.setState({ checked: true });
   }
 
   render() {
@@ -38,7 +38,7 @@ class Mudle extends React.PureComponent {
     const diffWidth = 506; // 区分IE
     return (
       <div>
-        <span className={styles.toolbar} onClick={this.showDrawer}>
+        <span className={styles.toolbar} onClick={this.showDrawer} onMouseEnter={this.showDrawer}>
           <span className={styles.right} />
           工具框
         </span>
@@ -53,16 +53,16 @@ class Mudle extends React.PureComponent {
           mask={false}
         >
           <ul style={checked ? { position: 'absolute', top: '20%', right: 0 } : { position: 'absolute', top: '20%' }}>
-          <li style={{ height: 36 }} onClick={this.showChildrenDrawer}>
+            <li style={{ height: 36 }} onClick={this.showChildrenDrawer}>
               <Tooltip placement="right" title="指导手册">
                 <img src={book} alt="" style={{ width: '36px' }} />
               </Tooltip>
             </li>
-            <li style={{ height: 36 }} onClick={this.changePosition}>
+            <li style={{ height: 36, width: '36px', position: 'fixed', bottom: 0 }} onClick={this.changePosition}>
               <Tooltip placement="right" title="返回上一级">
- {/*             
+                {/*
     -(document.body.clientHeight * 0.8 - 370 + 36 - 36 * 1)
- */}                <img src={left} alt="" style={{ width: '36px', position: 'absolute', bottom: 0 }} />
+ */}                <img src={left} alt="" style={{ width: '36px', position: 'fixed', bottom: 0 }} />
               </Tooltip>
             </li>
           </ul>
