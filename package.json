@@ -66,6 +66,7 @@
     "gg-editor": "^2.0.2",
     "html2canvas": "^1.0.0-rc.5",
     "jsbarcode": "^3.11.0",
+    "jspdf": "^1.5.3",
     "lodash": "^4.17.11",
     "lodash-decorators": "^6.0.1",
     "memoize-one": "^5.0.0",

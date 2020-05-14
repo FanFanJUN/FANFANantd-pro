@@ -401,6 +401,11 @@ export default [
             name: 'rolesys',
             component: './System/role',
           },
+          {
+            path: '/system/test',
+            name: 'test',
+            component: './Testview' 
+          }
           // {
           //   path: '/system/02',
           //   name: 'mind',
