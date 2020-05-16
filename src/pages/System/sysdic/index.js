@@ -233,7 +233,14 @@ class SysDicTable extends React.Component {
     this.handleUpdate(params);
   }
   onChange = (e) => {
-    this.setState({ radiovalue: e.target.value });
+    // setState里有两个参数  后面参数可以callback 得到刚setstate的值
+    console.log(this.state.radiovalue);
+    this.setState((prevState, props) => ({
+      radiovalue: e.target.value,
+    }), () => {
+      console.log(this.state.radiovalue);
+    });
+    console.log(this.state.radiovalue); // 这里还是打印的上一个state值
   }
 
   /* 选中一行 */
