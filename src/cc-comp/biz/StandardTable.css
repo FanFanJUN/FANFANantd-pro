@@ -1,0 +1,72 @@
+.ant-table-pagination {
+  margin-top: 24px;
+}
+
+.tableAlert {
+  margin-bottom: 16px;
+}
+
+.ant-table-body .ant-table-tbody > .tr-selected > td {
+  background: #e6f7ff;
+}
+
+.ant-table-body .ant-table-tbody > .tr-highlight > td {
+    background: #b0e0ff;
+}
+
+.ant-table-body .ant-table-tbody > .tr-highlight-selected > td {
+    background: #a0d7ff;
+}
+
+.tr-size > td{
+  padding: 8px 4px!important
+}
+
+.columns-size {
+  padding: 8px 4px!important;
+    table-layout: fixed;
+    word-break: break-all;
+  overflow:hidden;
+}
+
+.ant-table-thead > tr > th {
+  text-align: center;
+  font-weight: bold;
+}
+
+.ant-table-selection-column {
+  padding: 8px 4px!important
+}
+
+.ant-table-row-selected{
+  background: #DCF8A8;
+}
+
+.number-cell{
+  text-align: right;
+}
+
+.date-cell{
+  text-align: center;
+}
+
+.ant-table-thead > tr:first-child > th{
+  background: rgba(39,174,255,.2);
+}
+.ant-table-tbody > tr:hover > td{
+  background: rgba(52, 204, 251, 0);
+}
+
+.react-resizable {
+  position: relative;
+}
+
+.react-resizable-handle {
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  bottom: 0;
+  right: -5px;
+  cursor: col-resize;
+}
+

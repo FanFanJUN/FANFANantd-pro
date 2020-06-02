@@ -234,11 +234,11 @@ export default [
             name: 'map',
             component: './DIYcompoment/map',
           },
-          // {
-          //   path: '/DIYcompoment/particles',
-          //   name: 'particles',
-          //   component: './DIYcompoment/particles',
-          // }
+          {
+            path: '/DIYcompoment/formconfig',
+            name: 'formconfig',
+            component: './DIYcompoment/formconfig',
+          }
         ],
       },
       // {

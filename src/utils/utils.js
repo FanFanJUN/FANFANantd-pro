@@ -736,3 +736,15 @@ export function parseMenuData(data, parentNo) {
   });
   return arr;
 }
+
+/**
+ * @description 判空
+ * @author LC@1981824361
+ * @date 2020-06-02
+ * @export
+ * @param {*} val
+ * @returns {boolean}
+ */
+export function isEmpty(val) {
+  return val === undefined || val === null || val === '' || val === '' || (typeof val === 'string' && val.trim() === '');
+}

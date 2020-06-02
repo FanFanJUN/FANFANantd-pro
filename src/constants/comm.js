@@ -21,5 +21,9 @@ export const RESOURCETP = {
   RESOURCETP_1: '1',
 };
 
+export const defaultPageSize = 15;
+
+export const defaultPageSizeOptions = ['15', '50', '100'];
+
 freezeObj(COMMONS);
 freezeObj(RESOURCETP);

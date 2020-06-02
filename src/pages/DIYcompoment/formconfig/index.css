@@ -1,0 +1,16 @@
+/*列表页面外层*/
+.table-box{
+    height: 100vh;
+    padding: 4px 10px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+/*列表页面按钮行*/
+.table-box .table-btn{
+    display: flex;
+    justify-Content: space-between;
+    background: #F3F8FC;
+    padding: 5px;
+    border: 1px solid #e8e8e8;
+    border-bottom: none
+}

@@ -1,0 +1,19 @@
+div[class~="noPadingCard"]>div[class="ant-card-head"]>div[class~="ant-card-head-wrapper"]>div[class~="ant-card-extra"] {
+  float: right;
+  padding: 0px;
+  text-align: right;
+  margin-left: auto;
+}
+div[class~="noPadingCard"]>div[class~="ant-card-head"]{
+  padding: 0px;
+  min-height: 0px;
+}
+
+#searchTable .ant-input-suffix{
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.25);;
+}
+.ant-input-affix-wrapper .ant-input-suffix{
+  z-index: inherit;
+}
+
