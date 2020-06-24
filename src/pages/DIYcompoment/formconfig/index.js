@@ -153,14 +153,25 @@ class Mudle extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dataSource: {},
+      dataSource: [],
     };
   }
 
   componentDidMount() {
     getUserData({ pageSize: 10, pageNum: 1 }).then((res) => {
-      if (res.code === 200) {
-        this.setState({ dataSource: res.data });
+      if (res) {
+        const { dataSource, pagination } = res;
+        const secRes = {
+          // message: '操作成功！',
+          // status: 'SUCCESS',
+          // statusCode: 200,
+          // success: true,
+          page: pagination.current,
+          records: pagination.total,
+          total: 2,
+          rows: dataSource,
+        };
+        this.setState({ dataSource: secRes });
       }
     });
   }
@@ -172,11 +183,10 @@ class Mudle extends React.Component {
   render() {
     const { dataSource } = this.state;
     return (
-      <CcCard title="表单配置">
         <div className="table-box">
           <div style={{ display: 'flex', justifyContent: 'space-between', padding: 5, paddingBottom: 5 }}>
             <div style={{ width: 'calc(100% - 480px)' }}>
-              <Button style={{ marginRight: '5px' }}>测试</Button>
+              <Button style={{ marginRight: '5px' }} type="primary">测试</Button>
             </div>
             <div style={{ display: 'flex', width: '480px', justifyContent: 'flex-end', paddingRight: 20 }}>
               <Search placeholder="请输入SRM采购信息记录号" enterButton />
@@ -185,17 +195,15 @@ class Mudle extends React.Component {
           </div>
           <SimpleTable
             rowKey="id"
-            radio={false}
+            radio
         // rowsSelected={selectedRows}
         // onSelectRow={this.handleRowSelectChange}
         // pageChange={this.handlePageChange}
-          // data={dataSource}
+            data={dataSource}
         // loading={loading}
             columns={columns}
           />
         </div>
-
-      </CcCard>
     );
   }
 }
