@@ -416,6 +416,8 @@ export function filterEmptyFileds(filedsValue) {
     Object.keys(filedsValue).forEach(key => {
       if (key && filedsValue[key]) {
         serchObj[key] = filedsValue[key];
+      } else if (key && filedsValue[key] === false) {
+        serchObj[key] = false;
       }
     });
     return serchObj;
