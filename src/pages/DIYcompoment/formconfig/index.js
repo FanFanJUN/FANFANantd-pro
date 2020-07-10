@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, message } from 'antd';
 import AdvancedSearch from '@/cc-comp/biz/AdvancedSearch';
 import { treeCofig, userConfig } from '@/cc-comp/biz/selectwithserviceConfig';
-import { getUserData, filterEmptyFileds } from '@/utils/utils';
+import { getUserData, filterEmptyFileds, getDicNameByKey } from '@/utils/utils';
 import SimpleTable from '@/cc-comp/biz/SimpleTable';
 import './index.css';
 import { CcCard, CcMessege } from '@/cc-comp/basic';
+import { toExcel, formatJson } from '@/utils/commonutil/ToExcelUtils';
 
 const { Search } = Input;
 const advancedSearchConfig = [
@@ -156,6 +157,7 @@ class Mudle extends React.Component {
       advancedSearchValue: {},
       loading: false,
       selectedRows: [],
+      data: [],
     };
   }
 
@@ -182,7 +184,7 @@ class Mudle extends React.Component {
       if (res) {
         const { dataSource, pagination } = res;
         const secRes = this.dealData(pagination, dataSource);
-        this.setState({ dataSource: secRes });
+        this.setState({ dataSource: secRes, data: dataSource });
       }
       this.setState(() => ({
         loading: false,
@@ -327,6 +329,32 @@ ButtonPermissions = (rows) => {
 
     }
   }
+
+  // 导入数据导出 方便校验
+  handleExport =() => {
+    const { data } = this.state;
+    if (data.length === 0) {
+      message.warning('无数据可导出');
+      return;
+    }
+    const th = columns.map(item => {
+      return item.title;
+    });
+    const index = columns.map(item => {
+      return item.dataIndex;
+    });
+    data.forEach((item) => {
+      if (item.sex === '1') {
+        item.sex = '男';
+      } else {
+        item.sex = '女';
+      }
+    });
+
+    const chooseData = formatJson(index, data);
+    toExcel(th, chooseData, '前端导出数据', 'xlsx', 'sheet');
+  }
+
   render() {
     const { dataSource, selectedRows } = this.state;
     return (
@@ -334,6 +362,7 @@ ButtonPermissions = (rows) => {
         <div style={{ display: 'flex', justifyContent: 'space-between', padding: 5, paddingBottom: 5 }}>
           <div style={{ width: 'calc(100% - 480px)' }}>
             <Button style={{ marginRight: '5px' }} type="primary" onClick={this.handleDelete}>删除</Button>
+            <Button style={{ marginRight: '5px' }} type="primary" onClick={this.handleExport}>前端导出</Button>
           </div>
           <div style={{ display: 'flex', width: '480px', justifyContent: 'flex-end', paddingRight: 20 }}>
             <Search placeholder="请输入" enterButton onSearch={value => this.handleSearch(value)} />
