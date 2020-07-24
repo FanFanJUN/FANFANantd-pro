@@ -8,7 +8,7 @@ import Player from 'xgplayer';
 import { getDicOptions, getEllipsis } from '@/utils/utils';
 import { CcLoanSelect, CcAmtCpl, CcRegionCasCader, CcTree } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
-import { CcInput, CcCard, CcButton } from '@/cc-comp/basic';
+import { CcInput, CcCard, CcButton, CcRangeDate } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
 import styles from './common/index.css';
 
@@ -151,6 +151,12 @@ class Commoncomponent extends React.Component {
             label="产品"
             form={form}
           />
+        </Row>
+        <Row>
+          <CcRangeDate
+            form={form}
+            columnLayout={3}
+           />
         </Row>
       </Fragment>
     );

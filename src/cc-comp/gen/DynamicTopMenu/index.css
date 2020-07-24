@@ -23,6 +23,7 @@
 
 .CcTopMenu :global(.ant-menu-horizontal) {
     overflow: hidden;
+    /* 样式一 */
     height: 36px;
     /* 样式2新增 */
     /* height: 50px; */
