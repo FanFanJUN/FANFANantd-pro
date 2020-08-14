@@ -167,11 +167,11 @@ class SimpleTable extends PureComponent {
           },
         };
         withSequence = [sequence, ...columns,
-          // {
-          //   title: null,
-          //   key: 'blank',
-          //   className: 'blank-cell',
-          // },
+          {
+            title: null,
+            key: 'blank',
+            className: 'blank-cell',
+          },
         ];
       } else {
         withSequence = [...columns];

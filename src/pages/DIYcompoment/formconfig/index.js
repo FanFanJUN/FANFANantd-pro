@@ -8,6 +8,8 @@ import SimpleTable from '@/cc-comp/biz/SimpleTable';
 import './index.css';
 import { CcCard, CcMessege } from '@/cc-comp/basic';
 import { toExcel, formatJson } from '@/utils/commonutil/ToExcelUtils';
+import { ApproveHistory } from '@/cc-comp/biz';
+import { mock } from '@/constants/comm';
 
 const { Search } = Input;
 const advancedSearchConfig = [
@@ -146,6 +148,40 @@ const columns = [
   // }
 ];
 
+const columsor  = [
+  {
+      title: '状态', dataIndex: 'state', width: 60, align: 'center', render: ((text) => {
+          switch (text) {
+              case 'DRAFT':
+                  return '草稿';
+              case 'EFFECT':
+                  return '生效';
+              case 'CHANGING':
+                  return '变更中'
+          }
+      })
+  },
+  {title: '审批状态', dataIndex: 'flowStatusRemark', align: 'center', width: 100},
+  {
+      title: '生成状态',
+      dataIndex: 'calibrationResultStatus',
+      align: 'center',
+      width: 100,
+      render: (text) => (text === true ? '生成成功' : text === false ? '生成失败' : '')
+  },
+  {title: '是否作废', dataIndex: 'whetherDeleted', width: 80, align: 'center', render: (text) => (text ? '是' : '否')},
+  {title: '是否变更', dataIndex: 'whetherChanged', width: 80, align: 'center', render: (text) => (text ? '是' : '否')},
+  {title: '定价单号', dataIndex: 'calibrationCode', align: 'center',},
+  {title: '来源类型', dataIndex: 'srcDocTypeEnumRemark', align: 'center', width: 80},
+  {title: '来源单号', dataIndex: 'sourceCode'},
+  {title: '说明', dataIndex: 'calibrationExplain', width: 240},
+  {title: '采购公司', dataIndex: 'calibrationCorporationName', width: 200,},
+  {title: '采购组织代码', dataIndex: 'purchaseOrgCode', width: 120,align: 'center'},
+  {title: '采购组织', dataIndex: 'purchaseOrgName', width: 200,},
+  {title: '专业组', dataIndex: 'purchaseDepartmentName', width: 200,},
+  {title: '申请人', dataIndex: 'operatorName',},
+  {title: '申请日期', dataIndex: 'workDate', render: (text) => (text.slice(0, 10)), align: 'center',},
+]; 
 class Mudle extends React.Component {
   constructor(props) {
     super(props);
@@ -290,16 +326,17 @@ ButtonPermissions = (rows) => {
 }
 
   dealData =(pagination, dataSource) => {
-    return {
-      // message: '操作成功！',
-      // status: 'SUCCESS',
-      // statusCode: 200,
-      // success: true,
-      page: pagination.current,
-      records: pagination.total,
-      total: 2,
-      rows: dataSource,
-    };
+    // return {
+    //   // message: '操作成功！',
+    //   // status: 'SUCCESS',
+    //   // statusCode: 200,
+    //   // success: true,
+    //   page: pagination.current,
+    //   records: pagination.total,
+    //   total: 2,
+    //   rows: dataSource,
+    // };
+    return mock;
   }
 
   // 高级查询
@@ -371,14 +408,19 @@ ButtonPermissions = (rows) => {
         </div>
         <SimpleTable
           rowKey="id"
-          radio
+          // radio
           rowsSelected={selectedRows}
           onSelectRow={this.handleRowSelectChange}
           pageChange={this.handlePageChange}
           data={dataSource}
           loading={this.state.loading}
-          columns={columns}
+          columns={columsor}
         />
+        {/* <ApproveHistory
+          relatedId={selectedRows[0] ? selectedRows[0].id : ''}
+          // historyKey={this.state.historyKey}
+          // setHistoryKey={this.setHistoryKey}
+        /> */}
       </div>
     );
   }
