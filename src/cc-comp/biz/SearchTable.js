@@ -472,7 +472,8 @@ class SearchTable extends Component {
     dropDown = () => {
       const { columns } = this.props.config;
       const { filterData } = this.state;
-      return <div id="SearchTableChild" ref={(ref) => this.mainContent = ref} style={this.state.style}>
+      const style = {...this.state.style, border:"1px solid #40a9ff",boxShadow:"0 0 0 2px rgba(24,144,255,.2)"};
+      return <div id="SearchTableChild" ref={(ref) => this.mainContent = ref} style={style}>
         <Row style={{ background: '#F3F8FC', padding: 1 }}>
           <Col span={this.props.multiple ? 16 : 24} style={{ textAlign: 'right' }}>{this.search()}</Col>
           {this.props.multiple ? <Col span={4} style={{ textAlign: 'right' }}>
@@ -518,6 +519,11 @@ class SearchTable extends Component {
         this.props.value && <Icon key="emptyClick" type="close" onClick={this.emptyValue} />,
         <Icon key="selectClict" type="down" onClick={this.showDrop} />,
       ]);
+      let {style}=this.props;
+        if (this.state.show){
+            style={...style,border:"1px solid #40a9ff",boxShadow:"0 0 0 2px rgba(24,144,255,.2)"};
+        }
+
       return (
         <Dropdown
           overlay={this.dropDown()}
@@ -531,7 +537,7 @@ class SearchTable extends Component {
               disabled={this.props.disabled}
               onFocus={this.showDrop}
               readOnly
-              style={this.props.style}
+              style={style}
               value={this.state.textValue}
               ref={(ref) => this.searchInput = ref}
               suffix={suffix}
@@ -541,7 +547,7 @@ class SearchTable extends Component {
               disabled={this.props.disabled}
               onFocus={this.showDrop}
               readOnly
-              style={this.props.style}
+              style={style}
               title={this.state.textValue}
               value={this.state.textValue}
               ref={(ref) => this.searchInput = ref}

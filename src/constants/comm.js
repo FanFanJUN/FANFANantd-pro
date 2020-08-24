@@ -1,4 +1,5 @@
 import getEnvVariables from '@/utils/env';
+import styled from 'styled-components';
 
 // eslint-disable-next-line import/prefer-default-export
 // 根据运行时环境变量获取不同环境参数
@@ -25,6 +26,19 @@ export const defaultPageSize = 10;
 
 export const defaultPageSizeOptions = ['10', '50', '100'];
 
+export const CardWrapper = styled.div`
+    background-color: rgb(236, 236, 236);
+    padding: 15px 15px 0 15px;
+    &.last{
+      padding-bottom: 15px;
+    }
+    :hover .ant-card-body{
+       border-bottom: 1px solid deepskyblue; 
+       border-radius: 2px;
+       box-shadow: 0 5px 5px -3px #3A9BFF;
+       box-sizing: border-box;
+    }
+`;
 
 const mock1 = 
   {

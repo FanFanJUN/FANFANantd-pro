@@ -750,3 +750,6 @@ export function parseMenuData(data, parentNo) {
 export function isEmpty(val) {
   return val === undefined || val === null || val === '' || val === '' || (typeof val === 'string' && val.trim() === '');
 }
+// {export const isEmpty = (value) => {
+//   return (value === null || value === undefined || value === '' || value === 'null' || value === 'NULL' || value === 'NAN');
+// };}

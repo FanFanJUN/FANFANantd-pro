@@ -11,6 +11,7 @@ import DescriptionList from '@/components/DescriptionList';
 import { CcInput, CcCard, CcButton, CcRangeDate } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
 import styles from './common/index.css';
+import SliderTools from './SliderTools.js';
 
 const { Panel } = Collapse;
 const { Description } = DescriptionList;
@@ -156,7 +157,7 @@ class Commoncomponent extends React.Component {
           <CcRangeDate
             form={form}
             columnLayout={3}
-           />
+          />
         </Row>
       </Fragment>
     );
@@ -170,6 +171,12 @@ class Commoncomponent extends React.Component {
       border: 0,
       overflow: 'hidden',
     };
+    // const slider = new SliderTools({
+    //   el: document.querySelector('.slider'),
+    // });
+    // slider.on('complete', () => {
+    //   alert('验证完成');
+    // });
     return (
       <Card title="公用组件">
         <Collapse
@@ -178,6 +185,7 @@ class Commoncomponent extends React.Component {
           de
           expandIcon={({ isActive }) => <Icon type="caret-right" rotate={isActive ? 90 : 0} />}
         >
+        <div class="slider"></div>
           <Panel header="复用组件" key="1" style={customPanelStyle}>
             {this.renderForm()}
             <Col className={styles.dashboard} xl={24} lg={24}>

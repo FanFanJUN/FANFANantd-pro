@@ -238,6 +238,11 @@ export default [
             path: '/DIYcompoment/formconfig',
             name: 'formconfig',
             component: './DIYcompoment/formconfig',
+          },
+          {
+            path: '/DIYcompoment/pageHeader',
+            name: 'pageHeader',
+            component: './DIYcompoment/pageHeader',
           }
         ],
       },
