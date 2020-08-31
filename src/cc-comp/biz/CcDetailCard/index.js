@@ -43,7 +43,7 @@ class DetailCard extends React.Component {
             <Card
                 style={{ width: '100%',border:'none',...style,}}
                 title={title?[<div key="line" style={{'height':'80%','width':'5px',float:'left',
-                    'background':'rgb(30, 160, 222)',marginTop:'2px'}}>&nbsp;</div>
+                    marginTop:'2px'}}>&nbsp;</div>
                     ,<span key="title" style={{fontWeight:"bold"}}>{title}</span>]:null}
                 headStyle={{border:'none'}}
                 bodyStyle={{padding:"0 24px 24px 15px",...this.props.bodyStyle}}

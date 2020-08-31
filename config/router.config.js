@@ -410,6 +410,11 @@ export default [
             path: '/system/test',
             name: 'test',
             component: './Testview' 
+          },
+          {
+            path: '/system/article',
+            name: 'article',
+            component: './System/article' 
           }
           // {
           //   path: '/system/02',

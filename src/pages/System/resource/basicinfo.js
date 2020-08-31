@@ -39,7 +39,7 @@ class BasicInfo extends React.Component {
           <Description term="父节点资源编号">{data && data.parentNo}</Description>
         </DescriptionList>
         <DescriptionList>
-          <Description term="是否叶子节点">{data && getDicNameByKey(data.isLeaf, 'YES_OR_NO', optionsData)}</Description>
+          <Description term="是否叶子节点">{data && getDicNameByKey(data.isLeaf, 'IS_LEAF', optionsData)}</Description>
           <Description term="系统编号">{data && data.sysId}</Description>
           <Description term="资源类型">{data && getDicNameByKey(data.resourceTp, 'RESOURCE_TYPE', optionsData)}</Description>
           <Description>&nbsp;</Description>

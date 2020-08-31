@@ -39,7 +39,7 @@ class ResourcePage extends React.Component {
       routeid,
     });
     const dictionaryCategoryNos = [
-      { dictionaryCategoryNo: 'YES_OR_NO' },
+      { dictionaryCategoryNo: 'IS_LEAF' },
       { dictionaryCategoryNo: 'RESOURCE_TYPE' },
     ];
     getDicOptions(dictionaryCategoryNos).then(result => {

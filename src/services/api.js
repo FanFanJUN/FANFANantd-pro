@@ -161,3 +161,17 @@ export async function getMenuData(params) {
     data: params,
   });
 }
+/** ******************* 文章列表 */
+export async function getArticleTableData(params) {
+  return request('/api/lc/SELECTLISTARTICLE', {
+    method: 'POST',
+    data: params,
+  });
+}
+
+export async function addArticleData(params) {
+  return request('/api/lc/INSERTARTICLE', {
+    method: 'POST',
+    data: params,
+  });
+}
