@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Table, Card, Button, Radio, Form, Modal, Row, Col, DatePicker, InputNumber, Switch } from 'antd';
 import { connect } from 'dva';
-import { createRouteid, getTablepag, getDicOptions, isEmptyObject } from '@/utils/utils';
+import { createRouteid, getTablepag, getDicOptions, isEmptyObject, checkNull } from '@/utils/utils';
 import moment from 'moment';
 import { CcInput, CcSelect, CcMessege, CcCard, CcButton } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
@@ -120,10 +120,13 @@ class SysDicTable extends React.Component {
       dataSource: [],
       pagination: {},
       optionsData: {},
+      paginationForDic: {},
       radiovalue: {},
       page: {},
       visible: false,
       updateVisible: false,
+      dataSourceForDic: [],
+      leftRadiaValue: {},
     };
   }
 
@@ -164,7 +167,7 @@ class SysDicTable extends React.Component {
     dispatch({
       type: 'sysdic/getTableData',
       routeid,
-      payload: params,
+      payload: { ...params, flag: true },
     }).then(() => {
       const { tableData } = this.props;
       if (tableData[routeid] == null) {
@@ -246,11 +249,42 @@ class SysDicTable extends React.Component {
   /* 选中一行 */
   onRowClick = (record) => {
     this.setState({
-      radiovalue: record,
+      leftRadiaValue: record,
+    });
+    this.rightQuery(record);
+  }
+
+  rightQuery =(record) => {
+    const { dispatch } = this.props;
+    const { routeid } = this.state;
+    const params = { pageSize: 10, pageNum: 1 };
+    dispatch({
+      type: 'sysdic/getTableData',
+      routeid,
+      payload: { dictionaryCategoryNo: record && record.dictionaryCategoryNo, flag: false, ...params },
+    }).then(() => {
+      const { tableData } = this.props;
+      if (tableData[routeid] == null) {
+        return;
+      }
+      const { dataSource, pagination } = tableData[routeid];
+      this.setState({
+        dataSourceForDic: dataSource,
+        paginationForDic: pagination,
+      });
     });
   }
 
+  setRowClassName = (record) => {
+    const { leftRadiaValue } = this.state;
+    return record.dictionaryCategoryNo === leftRadiaValue.dictionaryCategoryNo ? 'clickRowStyl' : '';
+  }
+
   handleShowModal = () => {
+    if (isEmptyObject(this.state.leftRadiaValue)) {
+      CcMessege.info('请先选择字典分类');
+      return;
+    }
     this.setState({ visible: true });
   }
 
@@ -270,7 +304,7 @@ class SysDicTable extends React.Component {
   handleOk = (e) => {
     e.preventDefault();
     const { form, dispatch } = this.props;
-    const { routeid, radiovalue } = this.state;
+    const { routeid, radiovalue, leftRadiaValue } = this.state;
     form.validateFields((err, values) => {
       if (err) return;
       if (!err) {
@@ -290,7 +324,7 @@ class SysDicTable extends React.Component {
             if (radiovalue) {
               this.setState({ updateVisible: false, radiovalue: {} });
             }
-            this.initQuery();
+            this.rightQuery(leftRadiaValue);
           }
         });
       }
@@ -334,7 +368,7 @@ class SysDicTable extends React.Component {
 
   sureDelete(record) {
     const { dispatch } = this.props;
-    const { routeid } = this.state;
+    const { routeid, leftRadiaValue } = this.state;
     dispatch({
       type: 'sysdic/addleData',
       routeid,
@@ -347,7 +381,7 @@ class SysDicTable extends React.Component {
       const { message, code } = tableData[routeid];
       if (code === 200) {
         CcMessege.success(message);
-        this.positionQuery();
+        this.rightQuery(leftRadiaValue);
       }
     });
   }
@@ -361,7 +395,7 @@ class SysDicTable extends React.Component {
   }
 
   renderAddModal() {
-    const { visible, optionsData } = this.state;
+    const { visible, optionsData, leftRadiaValue } = this.state;
     const {
       form: { getFieldDecorator },
       form,
@@ -419,19 +453,21 @@ class SysDicTable extends React.Component {
             <Col {...colLayout}>
               <FormItem label="字典类别编号" {...formItemLayout}>
                 {getFieldDecorator('dictionaryCategoryNo', {
+                  initialValue: leftRadiaValue && leftRadiaValue.dictionaryCategoryNo,
                   rules: [
                     { required: true, message: '请输入字典类别编号' },
                   ],
-                })(<CcInput placeholder="请输入" />)}
+                })(<CcInput placeholder="请输入" disabled />)}
               </FormItem>
             </Col>
             <Col {...colLayout}>
               <FormItem label="字典类别名称" {...formItemLayout}>
                 {getFieldDecorator('dictionaryCategoryNm', {
+                  initialValue: leftRadiaValue && leftRadiaValue.dictionaryCategoryNm,
                   rules: [
                     { required: true, message: '请输入字典类别名称' },
                   ],
-                })(<CcInput placeholder="请输入" />)}
+                })(<CcInput placeholder="请输入" disabled />)}
               </FormItem>
             </Col>
           </Row>
@@ -461,7 +497,7 @@ class SysDicTable extends React.Component {
   }
 
   render() {
-    const { dataSource, pagination, optionsData, radiovalue, updateVisible } = this.state;
+    const { dataSource, pagination, optionsData, radiovalue, updateVisible, dataSourceForDic, paginationForDic, leftRadiaValue } = this.state;
     const { tableLoading } = this.props;
     const parentMethods = {
       handleUpdate: this.handleUpdate,
@@ -530,12 +566,25 @@ class SysDicTable extends React.Component {
         },
       },
     ];
+
+    const columnsForDic = [
+      {
+        dataIndex: 'dictionaryCategoryNo',
+        title: '字典类别编号',
+        align: 'center',
+      },
+      {
+        dataIndex: 'dictionaryCategoryNm',
+        title: '字典类别名字',
+        align: 'center',
+      },
+    ];
+
     return (
       <CcCard
         title="字典管理"
       >
         {/* <h1><span>{!isEmptyArray(data) ? data[0].userName : null}</span></h1> */}
-        {this.renderButton()}
         {this.renderAddModal()}
         {/* this.renderUpdateModal() */}
         <UpdateForm
@@ -544,20 +593,45 @@ class SysDicTable extends React.Component {
           optionsData={optionsData}
           radiovalue={radiovalue}
         />
-        <Table
-          dataSource={dataSource}
-          loading={tableLoading}
-          columns={columns}
-          pagination={getTablepag(pagination)}
-          onChange={this.handleTablepage}
-          onRow={(record) => {
-            return {
-              onClick: () => {
-                this.onRowClick(record);
-              },
-            };
-          }}
-        />
+        <Row gutter={20}>
+          <Col span={12}>
+            <CcButton type="primary" onClick={this.handleShowModal} style={{ marginBottom: '18px', marginRight: '10px' }}>新增</CcButton>
+            <Table
+              rowKey={record => record.dictionaryCategoryNo}
+              dataSource={dataSource}
+              // loading={tableLoading}
+              columns={columnsForDic}
+              pagination={getTablepag(pagination)}
+              onChange={this.handleTablepage}
+              onRow={(record) => {
+                return {
+                  onClick: () => {
+                    this.onRowClick(record);
+                  },
+                };
+              }}
+              rowClassName={this.setRowClassName}
+            />
+          </Col>
+          <Col span={12}>
+            {this.renderButton()}
+            <Table
+              dataSource={dataSourceForDic}
+              // loading={tableLoading}
+              columns={columns}
+              pagination={getTablepag(paginationForDic)}
+              onChange={this.handleTablepage}
+              onRow={(record) => {
+                return {
+                  onClick: () => {
+                    this.onRowClick(record);
+                  },
+                };
+              }}
+              rowKey={record => record.id}
+            />
+          </Col>
+        </Row>
       </CcCard>
     );
   }

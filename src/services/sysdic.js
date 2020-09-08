@@ -1,7 +1,11 @@
 import request from '@/utils/request';
 
 export async function getTableData(params) {
-  return request('/api/lc/SYSDICSELECTLIST', {
+  let api = '/api/lc/SYSDICSELECTLIST';
+  if (params.flag) {
+    api = '/api/lc/SYSDICSELECTCATEGORY';
+  }
+  return request(api, {
     method: 'POST',
     data: params,
   });
