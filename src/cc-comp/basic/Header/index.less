@@ -1,0 +1,50 @@
+.wrapper {
+  padding: 12px;
+  position: relative;
+  box-sizing: border-box;
+}
+.flexBetweenStart {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.modal {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  box-sizing: border-box;
+  box-shadow: 0 1px 3px #030303;
+  overflow: hidden;
+  background: #fff;
+}
+.show {
+  height: auto;
+  transition:height 800ms ease-in-out;
+}
+.hide {
+  height: 0;
+  transition:height 800ms ease-in-out;
+}
+.content {
+  padding: 36px 12px 12px;
+}
+.close {
+  position: absolute;
+  top: 12px;
+  left: 24px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.leftItem {
+  margin: 0 6px;
+}
+.headerLeftWrapper {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 70%;
+}

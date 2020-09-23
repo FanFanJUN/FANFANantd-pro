@@ -1,5 +1,5 @@
-import React, { Fragment } from 'react';
-import { Collapse, Form, Icon, Card, Divider, Row, Col, Tabs } from 'antd';
+import React, { Fragment, useRef } from 'react';
+import { Collapse, Form, Icon, Card, Divider, Row, Col, Tabs, Input, Button } from 'antd';
 import JsBarcode from 'jsbarcode';
 import Barcode from 'react-barcode';
 import QRCode from 'qrcode.react';
@@ -8,7 +8,7 @@ import Player from 'xgplayer';
 import { getDicOptions, getEllipsis } from '@/utils/utils';
 import { CcLoanSelect, CcAmtCpl, CcRegionCasCader, CcTree } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
-import { CcInput, CcCard, CcButton, CcRangeDate } from '@/cc-comp/basic';
+import { CcInput, CcCard, CcButton, CcRangeDate, Header, AdvancedForm } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
 import styles from './common/index.css';
 import SliderTools from './SliderTools.js';
@@ -18,6 +18,7 @@ const { Description } = DescriptionList;
 const columnLayout = getFormItemLayout(3);
 const formItemLayout = getFormItemLayout(1);
 const FormItem = Form.Item;
+const { Search } = Input;
 /**
  * @description 通用组件
  * @param 数据字典
@@ -58,7 +59,7 @@ class Commoncomponent extends React.Component {
   //     // width: window.innerWidth,
   //   });
   // }
-  getQRcode=() => {
+  getQRcode = () => {
     // const canvas = new Canvas();
     // JsBarcode(canvas, 'Hello');
     JsBarcode(this.barcode, 'QRcode', {
@@ -69,6 +70,25 @@ class Commoncomponent extends React.Component {
     });
   }
 
+  headerLeft = () => {
+    return [
+      <Button type="primary" style={{ marginRight: '18px' }}>新增</Button>,
+      <Button type="danger">删除</Button>,
+    ];
+  }
+  headerRight = () => {
+    return <Search
+      placeholder="请输入物料代码和物料组代码查询"
+      className={styles.btn}
+      // onSearch={handleQuickSearch}
+      allowClear
+    />;
+  };
+
+  handleSearch = (formData) => {
+    console.log(formData);
+    // console.log(headerRef);
+  }
   // eslint-disable-next-line class-methods-use-this
   renderDetail() {
     return (
@@ -138,11 +158,11 @@ class Commoncomponent extends React.Component {
             label="行政区划"
             placeholder="请选择行政区划"
             field="areaData"
-            // defaultInitiVal // 默认选中一级区域
-            // initialValue={['510000', '511000', '511024']}
-            // initialValue={['500000', '500100', '']} 省市区默认值
-            // initialValue={['500000', '500100', '500122']}
-            // initialValue={['500000']}
+          // defaultInitiVal // 默认选中一级区域
+          // initialValue={['510000', '511000', '511024']}
+          // initialValue={['500000', '500100', '']} 省市区默认值
+          // initialValue={['500000', '500100', '500122']}
+          // initialValue={['500000']}
           />
           <CcTree
             title="产品树"
@@ -177,24 +197,54 @@ class Commoncomponent extends React.Component {
     // slider.on('complete', () => {
     //   alert('验证完成');
     // });
+
+    // 高级查询配置
+    const formItems = [
+      // { title: '物料代码', key: 'materialCode', type: 'list', props: MaterialConfig },
+      // { title: '物料组', key: 'materialGroupCode', type: 'list', props: MaterialGroupConfig },
+      // { title: '战略采购', key: 'strategicPurchaseCode', type: 'list', props: StrategicPurchaseConfig },
+      // { title: '环保管理人员', key: 'environmentAdminName', props: { placeholder: '输入申请人查询' } },
+      // { title: '申请人', key: 'applyPersonName', props: { placeholder: '输入申请人查询' } },
+      // { title: '状态', key: 'effectiveStatus', type: 'list', props: statusProps },
+      // { title: '分配供应商状态', key: 'allotSupplierState', type: 'list', props: distributionProps },
+      // { title: '物料标记状态', key: 'assignSupplierStatus', type: 'list', props: materialStatus },
+      // { title: '同步PDM状态', key: 'syncStatus', type: 'list', props: PDMStatus },
+      { title: '书剑', key: 'time', type: 'rangePicker' },
+      { title: '输入框', key: 'test' },
+    ];
+
     return (
       <Card title="公用组件">
+        {/* 页面组件 按钮  查询 */}
+        <Header
+          left={this.headerLeft()}
+          right={this.headerRight()}
+          // ref={headerRef}
+          // onRef={(ref) => this.LinedetailsRef = ref }
+          content={<AdvancedForm formItems={formItems} onOk={this.handleSearch} />}
+          advanced
+        />
         <Collapse
           bordered={false}
           defaultActiveKey={['1', '2', '4']}
           de
           expandIcon={({ isActive }) => <Icon type="caret-right" rotate={isActive ? 90 : 0} />}
         >
-        <div class="slider"></div>
+          {/* <div class="slider"></div> */}
           <Panel header="复用组件" key="1" style={customPanelStyle}>
+            {/* form表单 */}
             {this.renderForm()}
+            {/* 页签组件 */}
             <Col className={styles.dashboard} xl={24} lg={24}>
               <Tabs defaultActiveKey="test1">
                 <Tabs.TabPane tab="测试1" key="test1">
+                  <span>内容区域1</span>
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="测试2" key="test2">
+                  <span>内容区域2</span>
                 </Tabs.TabPane>
                 <Tabs.TabPane tab="测试3" key="test3">
+                  <span>内容区域3</span>
                 </Tabs.TabPane>
               </Tabs>
             </Col>

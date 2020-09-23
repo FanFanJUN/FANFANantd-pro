@@ -246,6 +246,18 @@ export default [
           }
         ],
       },
+      {
+        path: '/test',
+        name: 'test', // 生成菜单项的文本
+        icon: 'area-chart', // 生成菜单项的图标
+        routes: [
+          {
+            path: '/test/01/01/01',
+            name: 'test01',
+            component: './ProCom/HolePage',
+          },
+        ],
+      },
       // {
       //   path: '/SpringBoot',
       //   name: 'SpringBoot',
