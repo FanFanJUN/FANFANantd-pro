@@ -1,0 +1,423 @@
+/*
+ * @Author: Li Cai
+ * @LastEditors: Li Cai
+ * @Connect: 1981824361@qq.com
+ * @Date: 2020-09-23 10:00:30
+ * @LastEditTime: 2020-09-23 11:58:26
+ * @Description: 可编辑行类组件
+ * @FilePath: /srm-sm-web/src/pages/SupplierRecommendDemand/RecommendData/DataFillIn/CommonUtil/EditableFormTable.js
+ */
+import React, { Fragment } from 'react';
+import 'antd/dist/antd.css';
+import './index.css';
+import { Input, InputNumber, Popconfirm, Form, Divider, Button, DatePicker, Select, message, Alert, Row, Col } from 'antd';
+import { ExtTable, ComboList, ComboGrid } from 'suid';
+import PropTypes, { any } from 'prop-types';
+import AutoSizeLayout from '../../../../supplierRegister/SupplierAutoLayout';
+import { guid, isEmptyArray, checkNull, hideFormItem, getDocId } from './utils';
+import UploadFile from './UploadFile';
+import { currencyTableProps } from '../../../../../utils/commonProps';
+import moment from 'moment';
+
+const EditableContext = React.createContext();
+const { Option } = Select;
+
+class EditableCell extends React.Component {
+
+    afterSelect = (val) => {
+        this.props.form.setFieldsValue({ currencyCode: val.code });
+    }
+    // 编辑样式
+    getInput = () => {
+        const {
+            editing,
+            dataIndex,
+            title,
+            inputType,
+            record,
+            form,
+            required,
+            inputDisabled,
+            inputDefaultValue,
+            selectOptions,
+        } = this.props;
+        const a = record[dataIndex];
+        switch (inputType) {
+            case 'InputNumber':
+                return <InputNumber disabled={inputDisabled} min={0} />
+            case 'DatePicker':
+                return <DatePicker />
+            case 'Select':
+                if (selectOptions) {
+                    return <Select
+                        style={{ width: 150 }}
+                        placeholder="请选择"
+                        disabled={inputDisabled}
+                    >
+                        {selectOptions.map(item => {
+                            return <Option value={item.value}>{item.name}</Option>
+                        })}
+                    </Select>
+                }
+                return <Select
+                    style={{ width: 150 }}
+                    placeholder="请选择"
+                >
+                    <Option value={true}>是</Option>
+                    <Option value={false}>否</Option>
+                </Select>
+            case 'UploadFile':
+                return <UploadFile entityId={a} />
+            case 'TextArea':
+                return <Input.TextArea disabled={inputDisabled} />
+            case 'hideForm':
+                return <Input type={"hidden"} />
+            case 'selectwithService':
+                return <ComboGrid {...currencyTableProps} form={form} afterSelect={this.afterSelect} />
+            case 'percentInput':
+                return <InputNumber min={0}
+                    max={100}
+                    formatter={value => `${value}%`}
+                    parser={value => value.replace('%', '')} />
+            default:
+                return <Input disabled={inputDisabled} />;
+        }
+    };
+
+    /* 表单验证 */
+    validateRules = (item) => {
+        const returnRule = [];
+        item.rules.forEach(v => {
+            let rule = {};
+            if (typeof v === 'string') {
+                if (v === "validator") {
+                    rule = { validator: item.validate };
+                } else if (v === "required") {
+                    if (item.editor === "datePicker" || item.editor === "select" || item.editor === "node-select" || item.editor === "tree-select") {
+                        rule = { required: true, message: "请选择" + item.title };
+                    } else if (item.editor === "attachments") {
+                        rule = { required: true, message: "请上传" + item.title };
+                    } else {
+                        rule = { required: true, message: "请输入" + item.title };
+                    }
+                } else {
+                    // rule = FormValidate[v];
+                }
+            } else {
+                rule = v;
+            }
+            returnRule.push(rule);
+        });
+        return returnRule;
+    };
+
+    getInit = () => {
+        const { record, dataIndex, inputType, inputDefaultValue } = this.props;
+        const a = record[dataIndex];
+        if (inputDefaultValue) {
+            return inputDefaultValue;
+        } else {
+            if (inputType === 'DatePicker') {
+                return moment(a);
+            }
+            //  else if (inputType === 'UploadFile') {
+            //     return getDocId(a);
+            // }
+            return record[dataIndex];
+        }
+    }
+
+    // 有编辑状态  不处于编辑中 col 显示值
+    getRecordData = () => {
+        const { record, dataIndex, selectOptions, inputType } = this.props;
+        const a = record[dataIndex];
+        if (a !== null && a !== undefined) {
+            if (inputType === 'Select') {
+                // a有boolean 类型  判断有无值  不用&&符号
+                if (!isEmptyArray(selectOptions) && a !== undefined && a !== '' && a !== null) {
+                    // col 传递参数
+                    const selectObj = selectOptions.filter(item => {
+                        return item.value === a;
+                    });
+                    return selectObj[0].name;
+                } else {
+                    // 默认 参数
+                    if (a === true) {
+                        return '是';
+                    }
+                    return '否';
+                }
+            } else if (inputType === 'DatePicker') {
+                return a && moment(a).format('YYYY-MM-DD');
+            } else if (inputType === 'percentInput') {
+                return `${a}%`;
+            } else if (inputType === 'UploadFile') {
+                return <UploadFile type='show' entityId={a} />
+            } else {
+                return a;
+            }
+        }
+    }
+
+    renderCell = ({ getFieldDecorator }) => {
+        const {
+            form,
+            item,
+            editing,
+            dataIndex,
+            title,
+            inputType,
+            record,
+            index,
+            children,
+            required,
+            selectOptions,
+            ...restProps
+        } = this.props;
+
+        const rules = item ? item.rules ? this.validateRules(item) : [] : [];
+        // const { getFieldDecorator } = form;
+        const HideFormItem = hideFormItem(getFieldDecorator);
+
+        return (
+            <td {...restProps}>
+                {editing ? (
+                    <Form.Item style={{ margin: 0 }}>
+                        <span style={{ color: 'red', display: required ? '' : 'none', float: inputType === 'UploadFile' ? 'left' : null }}>*</span>
+                        {getFieldDecorator(dataIndex, {
+                            rules: [
+                                {
+                                    required,
+                                    message: `请输入${title}!`,
+                                },
+                            ],
+                            // initialValue有false
+                            initialValue: this.getInit(),
+                        })(this.getInput())}
+                        {dataIndex === 'currencyName' ? HideFormItem('currencyCode', record.currencyCode) : null}
+                    </Form.Item>
+                ) : (
+                        children
+                    )}
+            </td>
+        );
+    };
+
+    render() {
+        return <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer>;
+    }
+}
+
+class EditableTable extends React.Component {
+
+    constructor(props) {
+        super(props);
+        const { isEditTable = false } = props;
+        this.state = {
+            data: props.data ? props.data : [],
+            selectedRowKeys: props.selectedRowKeys,
+            editingKey: '',
+            buttonDisabled: false,
+        };
+        this.columns = [
+            ...props.columns,
+        ];
+        if (isEditTable) {
+            this.columns = [{
+                title: '操作',
+                editable: false,
+                dataIndex: 'operation',
+                render: (text, record) => {
+                    const { rowKey = 'id' } = props;
+                    const { editingKey } = this.state;
+                    const editable = this.isEditing(record);
+                    return editable ? (
+                        <span>
+                            <EditableContext.Consumer>
+                                {form => (
+                                    <a
+                                        onClick={() => this.save(form, record[rowKey])}
+                                        style={{ marginRight: 8 }}
+                                    >
+                                        保存
+                                    </a>
+                                )}
+                            </EditableContext.Consumer>
+                            {this.state.buttonDisabled ?
+                                <a style={{ color: 'red' }} key='deteteKey' onClick={() => this.deleteRow(record[rowKey], 'editDelete')}>删除</a>
+                                :
+                                <Popconfirm title="确定取消？" onConfirm={() => this.cancel(record[rowKey])}>
+                                    <a key='cancel'>取消</a>
+                                </Popconfirm>}
+                        </span>
+                    ) : (
+                            <Fragment>
+                                <a disabled={editingKey !== ''} onClick={() => this.edit(record[rowKey])} key='edit'>
+                                    编辑
+                               </a>
+                                <Divider type="vertical" />
+                                <Popconfirm title="确定删除？" onConfirm={() => this.deleteRow(record[rowKey], 'delete')}>
+                                    <a disabled={editingKey !== ''} key='delete' style={editingKey !== '' ? { color: 'rgba(0, 0, 0, 0.25)' } : { color: 'red' }}>
+                                        删除
+                                    </a>
+                                </Popconfirm>
+                            </Fragment>
+                        );
+                },
+            }, ...props.columns].map(item => ({ ...item, align: 'center' }));
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (Array.isArray(nextProps.selectedRowKeys) && nextProps.selectedRowKeys.length > 0) {
+            this.setState({ selectedRowKeys: nextProps.selectedRowKeys })
+        }
+    }
+
+    /**判断是编辑 */
+    isEditing=(record)=> {
+        return record[this.props.rowKey || 'id'] === this.state.editingKey;
+    };
+
+    /**取消编辑 */
+    cancel = (key) => {
+        this.setState({ editingKey: '' });
+    };
+
+    /**保存编辑 */
+    save(form, key) {
+        const { dataSource, rowKey, tableType, setNewData } = this.props;
+        form.validateFields((error, row) => {
+            if (error) {
+                return;
+            }
+            console.log(row);
+            const newData = [...dataSource];
+            const index = newData.findIndex(item => key === item[rowKey]);
+            console.log(index);
+            if (index > -1) {
+                const item = newData[index];
+                newData.splice(index, 1, {
+                    ...item,
+                    ...row,
+                });
+                this.setState({ editingKey: '' });
+                this.setState({ buttonDisabled: false });
+                setNewData(newData, tableType);
+            } else {
+                newData.push(row);
+                this.setState({ editingKey: '' });
+                this.setState({ buttonDisabled: false });
+                setNewData(newData, tableType);
+            }
+        });
+
+    }
+
+    /**点击修改 */
+    edit(key) {
+        this.setState({ editingKey: key });
+    }
+
+    handleAdd = () => {
+        // 注意 一定要实现深拷贝 不然父组件状态不会更新
+        // const newArray = JSON.parse(JSON.stringify(dataSource));
+        const { dataSource, recommendDemandId = '676800B6-F19D-11EA-9F88-0242C0A8442E', setNewData, tableType } = this.props;
+        const newArray = dataSource.map(item => {
+            return item;
+        });
+        // newArray.push({ id: guid() });
+        const id = guid();
+        const newData = isEmptyArray(newArray) ?
+            [{ id, guid: guid(), recommendDemandId }] : [{ id, guid: guid(), recommendDemandId }, ...newArray];
+        setNewData(newData, tableType); // 新增数据 + 所属哪个Table
+        this.setState({ editingKey: id });// 新增处于编辑行
+        this.setState({ buttonDisabled: true });// 未保存无法操作
+    }
+
+    deleteRow = (key, type) => {
+        const { dataSource, tableType, rowKey, setNewData } = this.props;
+        const newArray = dataSource.filter(item => {
+            return item[rowKey] !== key;
+        });
+        setNewData(newArray, tableType);
+        this.setState({ buttonDisabled: false });
+        this.setState({ editingKey: '' });
+    }
+
+    render() {
+        const { form, dataSource, rowKey, isToolBar = false } = this.props;
+
+        const { selectedRowKeys, buttonDisabled } = this.state;
+
+        const components = {
+            body: {
+                cell: EditableCell,
+            },
+        };
+
+        const mergeColumns = this.columns.map(col => {
+            const editable = col.editable === undefined ? true : col.editable; // 默认可编辑
+            if (!editable) {
+                return col;
+            }
+            return {
+                ...col,
+                onCell: record => ({
+                    record,
+                    item: col,
+                    inputType: col.inputType, // 默认Input
+                    dataIndex: col.dataIndex,
+                    title: col.title,
+                    editing: this.isEditing(record),
+                    form,
+                    required: !(col.required === false), // 默认必输
+                    inputDisabled: col.inputDisabled,
+                    inputDefaultValue: col.inputDefaultValue,
+                    selectOptions: col.selectOptions, // 下拉选类型
+                }),
+            };
+        });
+
+        // const rowSelection = {
+        //     selectedRowKeys: selectedRowKeys,
+        //     onChange: (selectedRowKeys, selectedRows) => {
+        //         this.props.rowSelection(selectedRowKeys, selectedRows);
+        //     },
+        //     type: type
+        // };
+
+        return (
+            <EditableContext.Provider value={this.props.form}>
+                <AutoSizeLayout>
+                    {(h) => <ExtTable
+                        bordered
+                        size='small'
+                        height={400}
+                        dataSource={dataSource || []}
+                        columns={mergeColumns}
+                        components={components}
+                        // ref={tableRef}
+                        showSearch={false}
+                        rowKey={rowKey}
+                        remotePaging={true}
+                        // pagination={{
+                        //     pageSizeOptions: ['5', '10', '15'],
+                        //     defaultPageSize: 5,
+                        // }}
+                        toolBar={isToolBar ? {
+                            left: (
+                                <Button type="primary" onClick={this.handleAdd} disabled={buttonDisabled}>
+                                    新增
+                                </Button>
+                            ),
+                        } : null}
+                    />}
+                </AutoSizeLayout>
+            </EditableContext.Provider>
+        );
+    }
+}
+
+export default Form.create()(EditableTable);
+
