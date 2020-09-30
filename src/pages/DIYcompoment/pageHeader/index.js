@@ -91,6 +91,7 @@ handleLeftClick = (rightRowsSelected) => {
           <DetailCard
             collapse
             title="基本信息"
+            showKeyWord
             content={this.renderDetail()}
           />
         </CardWrapper>

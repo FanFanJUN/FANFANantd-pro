@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Icon} from 'antd';
+import {Card, Icon, Tooltip, Button} from 'antd';
 import PropTypes from 'prop-types';
 import { isEmpty } from '@/utils/utils';
 
@@ -16,7 +16,9 @@ class DetailCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-           showContent: isEmpty(this.props.showContentState)? true : this.props.showContentState
+           showContent: isEmpty(this.props.showContentState)? true : this.props.showContentState,
+           showKeyWords: false, // 是否查看关键字段
+           noKeyWordsContent: this.props.noKeyWordsContent, // 无关键信息
         };
     }
 
@@ -34,9 +36,40 @@ class DetailCard extends React.Component {
         }
     };
 
+    setShow = (type) => {
+        if(type==='show'){
+            this.setState({showContent:false});
+        }else {
+            this.setState({showContent:true});
+        }
+    }
+
+    handleShow = (type) => {
+        this.setState(()=>({
+                showKeyWords: !this.state.showKeyWords
+         }))
+         if(this.props.noKeyWordsContent) {
+            this.props.setShowStatus(true);
+            return;
+        } 
+        this.props.setShowStatus(type); // false 显示关键字段  true 查看详细字段
+    }
+
+    showSimple =() => {
+       return <Tooltip title='查看关键信息'>
+                    <Button key="keyWord" style={{marginRight: '20px', cursor: 'pointer', fontSize: '16px'}} onClick={()=>this.handleShow(false)}>更多</Button>
+        </Tooltip>
+    }
+
+    showDetail = () => {
+        return <Tooltip title='查看详细信息'>
+        <Button key="detail" style={{marginRight: '20px'}} onClick={()=>this.handleShow(true)}>更多</Button>
+    </Tooltip>
+    }
 
     render() {
-        const {showContent} = this.state;
+        const {collapse} = this.props;
+        const {showContent, showKeyWords, noKeyWordsContent} = this.state;
         const title = this.props.title;
         const style = this.props.style;
         return (
@@ -48,11 +81,32 @@ class DetailCard extends React.Component {
                 headStyle={{border:'none'}}
                 bodyStyle={{padding:"0 24px 24px 15px",...this.props.bodyStyle}}
                 bordered={false}
-                extra={this.props.collapse===false ? null :
-                    showContent?[this.props.extra,<Icon type="down" key='downIcon' onClick={() => this.showOrHidden('hidden')}/>]
-                :<Icon type="right" key='downIcon' onClick={() => this.showOrHidden('show')}/>}
+                extra={collapse===false ? null :
+                showContent?
+                [this.props.extra,
+                    this.props.showKeyWord && (showKeyWords ?
+                        this.showSimple()
+                        :
+                        this.showDetail()),    
+                noKeyWordsContent? 
+                <Icon type="right" key='downIcon' onClick={() => this.setShow('show')} style={{fontSize: '16px'}}/> 
+                :   
+                <Icon type="down" key='downIcon' onClick={() => this.showOrHidden('hidden')} style={{fontSize: '16px'}}/>,
+                ]
+                :
+                [
+                    noKeyWordsContent? 
+                    [
+                        this.showDetail(),
+                        <Icon type="down" key='downIcon' onClick={() => this.setShow('hidden')} style={{fontSize: '16px'}}/>,
+                    ]
+                    :
+                    <Icon type="right" key='downIcon' onClick={() => this.showOrHidden('show')} style={{fontSize: '16px'}}/>
+
+                ]
+               }
             >
-                <div hidden={!showContent}>
+                <div hidden={noKeyWordsContent ? showContent: !showContent}>
 
                     {
                         this.props.content?this.props.content:

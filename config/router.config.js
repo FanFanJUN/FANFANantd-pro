@@ -254,7 +254,7 @@ export default [
           {
             path: '/test/01/01/01',
             name: 'test01',
-            component: './ProCom/HolePage',
+            component: './System/article',
           },
         ],
       },

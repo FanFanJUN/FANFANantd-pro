@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
-import { Table, Card, Button, Radio, Form, Modal, Row, Col, DatePicker, InputNumber } from 'antd';
+import { Table, Card, Button, Radio, Form, Modal, Row, Col, DatePicker, InputNumber, Input } from 'antd';
 import { connect } from 'dva';
 import moment from 'moment';
 import { createRouteid, getTablepag, getDicOptions, checkNull, getDicNameByKey, getHelloWord, isEmptyArray, isEmptyObject } from '@/utils/utils';
-import { CcInput, CcSelect, CcMessege, CcButton, CcCard } from '@/cc-comp/basic';
+import { CcInput, CcSelect, CcMessege, CcButton, CcCard, Header, AdvancedForm } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
 import { CcLoanSelect } from '@/cc-comp/biz';
 
@@ -12,6 +12,7 @@ const FormItem = Form.Item;
 const { Option } = CcSelect;
 const formItemLayout = getFormItemLayout(1);
 const colLayout = getFormItemLayout(1);
+const { Search } = Input;
 
 const UpdateForm = Form.create()(props => {
   const { modalVisible, form, form: { getFieldDecorator }, optionsData,
@@ -185,7 +186,7 @@ class ArticleTable extends React.Component {
     });
   }
 
-  positionQuery=() => {
+  positionQuery = () => {
     const { dispatch } = this.props;
     const { routeid, page } = this.state;
     const params = { pageSize: page.pageSize, pageNum: page.current };
@@ -325,6 +326,25 @@ class ArticleTable extends React.Component {
         console.log('Cancel');
       },
     });
+  }
+
+  headerLeft = () => {
+    return [
+      <Button type="primary" onClick={this.handleShowModal} style={{ marginBottom: '10px', marginRight: '10px' }}>新增</Button>
+    ];
+  }
+  headerRight = () => {
+    return <Search
+      placeholder="请输入物料代码和物料组代码查询"
+      // className={styles.btn}
+      // onSearch={handleQuickSearch}
+      allowClear
+    />;
+  };
+
+  handleSearch = (formData) => {
+    console.log(formData);
+    // console.log(headerRef);
   }
 
   sureDelete(record) {
@@ -507,12 +527,34 @@ class ArticleTable extends React.Component {
       //   },
       // },
     ];
+    // 高级查询配置
+    const formItems = [
+      // { title: '物料代码', key: 'materialCode', type: 'list', props: MaterialConfig },
+      // { title: '物料组', key: 'materialGroupCode', type: 'list', props: MaterialGroupConfig },
+      // { title: '战略采购', key: 'strategicPurchaseCode', type: 'list', props: StrategicPurchaseConfig },
+      // { title: '环保管理人员', key: 'environmentAdminName', props: { placeholder: '输入申请人查询' } },
+      // { title: '申请人', key: 'applyPersonName', props: { placeholder: '输入申请人查询' } },
+      // { title: '状态', key: 'effectiveStatus', type: 'list', props: statusProps },
+      // { title: '分配供应商状态', key: 'allotSupplierState', type: 'list', props: distributionProps },
+      // { title: '物料标记状态', key: 'assignSupplierStatus', type: 'list', props: materialStatus },
+      // { title: '同步PDM状态', key: 'syncStatus', type: 'list', props: PDMStatus },
+      { title: '书剑', key: 'time', type: 'rangePicker' },
+      { title: '输入框', key: 'test' },
+    ];
     return (
       <CcCard
         title="文章系列管理"
       >
         {/* <h1><span>{!isEmptyArray(data) ? data[0].userName : null}</span></h1> */}
-        {this.renderButton()}
+        {/* this.renderButton() */}
+        <Header
+          left={this.headerLeft()}
+          right={this.headerRight()}
+          // ref={headerRef}
+          // onRef={(ref) => this.LinedetailsRef = ref }
+          content={<AdvancedForm formItems={formItems} onOk={this.handleSearch} />}
+          advanced
+        />
         {this.renderAddModal()}
         {/* this.renderUpdateModal() */}
         <UpdateForm

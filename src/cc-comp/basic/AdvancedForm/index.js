@@ -3,7 +3,7 @@
  * @LastEditors: Li Cai
  * @Connect: 1981824361@qq.com
  * @Date: 2020-09-18 17:58:57
- * @LastEditTime: 2020-09-23 15:56:23
+ * @LastEditTime: 2020-09-24 17:20:58
  * @Description:  高级查询表单组件 可拓展其他表单元素组件
  * @FilePath: /FANFANantd/src/cc-comp/basic/AdvancedForm/index.js
  */
@@ -16,6 +16,7 @@ import { Button, Row, Col, Form, Input, DatePicker } from 'antd';
 //   ComboTree
 // } from 'suid'
 import styles from './index.less';
+import CcInput from '../CcInput';
 
 const { RangePicker } = DatePicker;
 const FormItem = Form.Item;
@@ -64,7 +65,7 @@ function AdvancedForm({
       <Row>
         {
           formItems.map((item, index) => {
-            const Item = Combos[item.type] || Input;
+            const Item = Combos[item.type] || CcInput;
             if (!!item.type && item.type !== 'rangePicker') {
               return (
                 <Col
