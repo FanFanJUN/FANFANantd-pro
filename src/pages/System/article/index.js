@@ -42,7 +42,7 @@ const UpdateForm = Form.create()(props => {
     >
       <Form>
         <Row>
-          <Col >
+          <Col>
             <FormItem label="编号" {...formItemLayout}>
               {getFieldDecorator('id', {
                 initialValue: radiovalue && radiovalue.id,
@@ -52,7 +52,7 @@ const UpdateForm = Form.create()(props => {
               })(<CcInput hidden />)}
             </FormItem>
           </Col>
-          <Col >
+          <Col>
             <FormItem label="描述" {...formItemLayout}>
               {getFieldDecorator('description', {
                 initialValue: radiovalue && radiovalue.description,
@@ -61,14 +61,14 @@ const UpdateForm = Form.create()(props => {
           </Col>
         </Row>
         <Row>
-          <Col >
+          <Col>
             <FormItem label="姓名" {...formItemLayout}>
               {getFieldDecorator('name', {
                 initialValue: radiovalue && radiovalue.name,
               })(<CcInput placeholder="请输入" />)}
             </FormItem>
           </Col>
-          <Col >
+          <Col>
             <FormItem label="号码" {...formItemLayout}>
               {getFieldDecorator('idnumber', {
                 initialValue: radiovalue && radiovalue.idnumber,
@@ -82,7 +82,7 @@ const UpdateForm = Form.create()(props => {
           </Col>
         </Row>
         <Row>
-          <Col >
+          <Col>
             <FormItem label="生日" {...formItemLayout}>
               {getFieldDecorator('birthdate', {
                 initialValue: radiovalue && moment(radiovalue.birthdate),
@@ -426,7 +426,7 @@ class ArticleTable extends React.Component {
       >
         <Form {...formItemLayout}>
           <Row>
-            <Col >
+            <Col>
               <FormItem label="文章标题">
                 {getFieldDecorator('articleTitle', {
                   rules: [{ required: true, message: '请输入文章标题' }],
@@ -435,7 +435,7 @@ class ArticleTable extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col >
+            <Col>
               <FormItem label="文章链接">
                 {getFieldDecorator('articleHref', {
                   rules: [{ required: true, message: '请输入文章链接' }],
@@ -445,8 +445,20 @@ class ArticleTable extends React.Component {
           </Row>
           <Row>
             <CcLoanSelect
-              // columnLayout={1}
-              // columnIndex={1}
+              formItemLayout={
+                {
+                  labelCol: {
+                    xs: { span: 24 },
+                    sm: { span: 7 },
+                    md: { span: 8 },
+                  },
+                  wrapperCol: {
+                    xs: { span: 24 },
+                    sm: { span: 17 },
+                    md: { span: 16 },
+                  },
+                }
+              }
               form={form}
               label="文章分类"
               placeholder="请输入文章分类"
