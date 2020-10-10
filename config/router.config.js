@@ -256,6 +256,11 @@ export default [
             name: 'test01',
             component: './System/article',
           },
+          {
+            path: '/test/01/01/2',
+            name: 'test02',
+            component: './ExamplePage/rigister',
+          },
         ],
       },
       // {

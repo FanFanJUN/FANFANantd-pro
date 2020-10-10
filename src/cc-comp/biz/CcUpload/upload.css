@@ -1,0 +1,126 @@
+/* .ace-thumbnails {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+.ace-thumbnails>li {
+    float: left;
+    overflow: hidden;
+    margin: 2px;
+    border: 2px solid #333;
+}
+
+.ace-thumbnails>li, .ace-thumbnails>li>:first-child {
+    display: block;
+    position: relative;
+}
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+img {
+    vertical-align: middle;
+}
+
+.ace-thumbnails>li>:first-child>.text {
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    color: #FFF;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+.ace-thumbnails>li>:first-child>.text {
+    position: absolute;
+    text-align: center;
+    background-color: rgba(0,0,0,.55);
+}
+
+.ace-thumbnails>li>:first-child>.text>.inner {
+    padding: 4px 0;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 90%;
+}
+
+.ace-thumbnails>li>:first-child .inner a {
+    display: inline-block;
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 400;
+    padding: 0 4px;
+}
+
+.ace-thumbnails>li>:first-child>.text {
+    position: absolute;
+    text-align: center;
+    background-color: rgba(0,0,0,.55);
+}
+
+.ace-thumbnails>li:hover>:first-child>.text {
+    opacity: 1;
+    filter: alpha(opacity=100);
+}
+
+.ace-icon {
+    text-align: center;
+}
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.upload-div {
+    width: 128px;
+    height: 128px;
+  }
+
+.ace-thumbnails>li>:first-child>.text {
+    right: 0;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    color: #FFF;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-transition: all .2s ease;
+    -o-transition: all .2s ease;
+    transition: all .2s ease;
+}
+
+.ace-thumbnails>li>:first-child>.text:before {
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: 0;
+  }
+
+  .upload-div:before{
+    content: '';
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: 0;
+  } */

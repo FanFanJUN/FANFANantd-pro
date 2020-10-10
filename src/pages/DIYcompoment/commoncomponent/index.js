@@ -6,7 +6,7 @@ import QRCode from 'qrcode.react';
 import Player from 'xgplayer';
 // import Canvas from 'canvas';
 import { getDicOptions, getEllipsis } from '@/utils/utils';
-import { CcLoanSelect, CcAmtCpl, CcRegionCasCader, CcTree } from '@/cc-comp/biz';
+import { CcLoanSelect, CcAmtCpl, CcRegionCasCader, CcTree, CcUpload } from '@/cc-comp/biz';
 import DescriptionList from '@/components/DescriptionList';
 import { CcInput, CcCard, CcButton, CcRangeDate, Header, AdvancedForm } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
@@ -172,6 +172,16 @@ class Commoncomponent extends React.Component {
             label="产品"
             form={form}
           />
+          <Col {...columnLayout}>
+            <FormItem label="附件上传" {...formItemLayout}>
+              {getFieldDecorator('name', {
+              })(<CcUpload
+                showColor={false}
+                // type="show"
+                entityId="1"
+              />)}
+            </FormItem>
+          </Col>
         </Row>
         <Row>
           <CcRangeDate

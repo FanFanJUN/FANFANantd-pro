@@ -5,7 +5,7 @@ import moment from 'moment';
 import { createRouteid, getTablepag, getDicOptions, checkNull, getDicNameByKey, getHelloWord, isEmptyArray, isEmptyObject } from '@/utils/utils';
 import { CcInput, CcSelect, CcMessege, CcButton, CcCard, Header, AdvancedForm } from '@/cc-comp/basic';
 import { getFormItemLayout } from '@/utils/layout';
-import { CcLoanSelect } from '@/cc-comp/biz';
+import { CcLoanSelect, CcUpload } from '@/cc-comp/biz';
 
 const RadioGroup = Radio.Group;
 const FormItem = Form.Item;
@@ -330,12 +330,12 @@ class ArticleTable extends React.Component {
 
   headerLeft = () => {
     return [
-      <Button type="primary" onClick={this.handleShowModal} style={{ marginBottom: '10px', marginRight: '10px' }}>新增</Button>
+      <Button type="primary" onClick={this.handleShowModal} style={{ marginBottom: '10px', marginRight: '10px' }}>新增</Button>,
     ];
   }
   headerRight = () => {
     return <Search
-      placeholder="请输入物料代码和物料组代码查询"
+      placeholder="请输入查询关键字"
       // className={styles.btn}
       // onSearch={handleQuickSearch}
       allowClear
@@ -497,7 +497,7 @@ class ArticleTable extends React.Component {
       {
         title: '选择',
         dataIndex: 'action',
-        // align: 'center',
+        align: 'center',
         // width: '5%',
         render: (text, record) => {
           return (

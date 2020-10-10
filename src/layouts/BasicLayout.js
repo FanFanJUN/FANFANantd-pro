@@ -254,9 +254,9 @@ class BasicLayout extends React.Component {
  getPageTitle=(pathname) => {
    const currRouterData = this.matchParamsPath(pathname);
    if (!currRouterData) {
-     return 'FANFAN';
+     return 'LC';
    }
-   return `${currRouterData.name || ''} - FANFAN`;
+   return `${currRouterData.name || ''} - LC`;
  }
 
   countTimer = () => {
