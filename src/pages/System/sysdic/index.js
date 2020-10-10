@@ -333,7 +333,7 @@ class SysDicTable extends React.Component {
 
   handleUpdate = (fieldsValue) => {
     const { dispatch } = this.props;
-    const { routeid, radiovalue } = this.state;
+    const { routeid, radiovalue, leftRadiaValue } = this.state;
     const maintenanceDate = moment(new Date()).format('YYYYMMDD');
     dispatch({
       type: 'sysdic/addleData',
@@ -349,7 +349,7 @@ class SysDicTable extends React.Component {
         CcMessege.success(message);
         this.setState({ visible: false });
         this.setState({ updateVisible: false, radiovalue: {} });
-        this.positionQuery();
+        this.rightQuery(leftRadiaValue);
       }
     });
   }

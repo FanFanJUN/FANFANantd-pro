@@ -400,11 +400,11 @@ class ArticleTable extends React.Component {
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 8 },
+        sm: { span: 6 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 16 },
+        sm: { span: 18 },
       },
     };
     return (
@@ -450,12 +450,12 @@ class ArticleTable extends React.Component {
                   labelCol: {
                     xs: { span: 24 },
                     sm: { span: 7 },
-                    md: { span: 8 },
+                    md: { span: 6 },
                   },
                   wrapperCol: {
                     xs: { span: 24 },
                     sm: { span: 17 },
-                    md: { span: 16 },
+                    md: { span: 18 },
                   },
                 }
               }

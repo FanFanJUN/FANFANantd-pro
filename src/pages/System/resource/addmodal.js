@@ -140,7 +140,7 @@ class AddModal extends React.Component {
             valueProp="dictionaryNo"
             titleProp="dictionaryNm"
             field="isLeaf"
-            options={optionsData.YES_OR_NO}
+            options={optionsData.IS_LEAF}
             required
           />
         </Row>
