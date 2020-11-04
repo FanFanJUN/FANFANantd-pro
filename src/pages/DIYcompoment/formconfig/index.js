@@ -95,7 +95,8 @@ const advancedSearchConfig = [
     }],
   },
   { name: '采购物料类别', code: 'materialCategoryCode', type: 'treeSelect', children: treeCofig },
-  { name: '用户', code: 'id', type: 'searchTable', children: userConfig },
+  { name: '用户', code: 'id', type: 'searchTable', children: userConfig }, // 单选
+  { name: '用户', code: 'id', type: 'SearchTableForMultiple', children: userConfig }, // 多选
   { name: '创建人', code: 'creatorName' },
   {
     name: '创建时间',
@@ -341,6 +342,7 @@ ButtonPermissions = (rows) => {
 
   // 高级查询
   handleAdvancedSearch = (params) => {
+    console.log(params);
     // 创建时间
     // if(params.createdDate){
     //     params.createdStartDate = params.createdDate[0].format('YYYY-MM-DD 00:00:01');

@@ -93,6 +93,7 @@
     "react-fittext": "^1.0.0",
     "react-media": "^1.9.2",
     "react-particles-js": "^2.7.0",
+    "react-perfect-scrollbar": "^1.5.8",
     "react-qmap": "^0.1.5",
     "react-resizable": "^1.7.5",
     "resize-observer-polyfill": "^1.5.1",

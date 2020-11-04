@@ -7,6 +7,7 @@ import TreeSelectWithService from './TreeSelectWithService';
 // import UploadFile from './UploadFile'
 import 'moment/locale/zh-cn';
 import SearchTable from './SearchTable';
+import SearchTableForMultiple from './SearchTableForMultiple';
 // import SearchTableNoRequest from "../components/SearchTableNoRequest";
 
 moment.locale('zh-cn');
@@ -73,6 +74,13 @@ class StandardForm extends React.Component {
             multiple={item.multiple}
             radio={item.radio}
           />;
+        case 'SearchTableForMultiple':
+          return <SearchTableForMultiple
+          multiple={true}
+          radio={false}
+          applicationScenarios='DEMAND_COMPANY'
+          config={item.children}
+      />  
           // case 'searchTableLink':
           //     return <SearchTable
           //         placeholder={item.placeholder?item.placeholder:'请选择'}
