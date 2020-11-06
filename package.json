@@ -56,6 +56,7 @@
     "@babel/runtime": "^7.11.2",
     "@progress/kendo-file-saver": "^1.1.0",
     "antd": "^3.26.6",
+    "axios": "^0.21.0",
     "bizcharts": "^3.5.3-beta.0",
     "bizcharts-plugin-slider": "^2.1.1-beta.1",
     "canvas": "^2.5.0",

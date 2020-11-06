@@ -24,6 +24,8 @@ export const RESOURCETP = {
 
 export const defaultPageSize = 10;
 
+export const host = window._srmHost;
+
 export const defaultPageSizeOptions = ['10', '50', '100'];
 
 export const CardWrapper = styled.div`

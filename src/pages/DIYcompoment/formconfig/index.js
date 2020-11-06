@@ -96,7 +96,7 @@ const advancedSearchConfig = [
   },
   { name: '采购物料类别', code: 'materialCategoryCode', type: 'treeSelect', children: treeCofig },
   { name: '用户', code: 'id', type: 'searchTable', children: userConfig }, // 单选
-  { name: '用户', code: 'id', type: 'SearchTableForMultiple', children: userConfig }, // 多选
+  { name: '用户', code: 'ids', type: 'SearchTableForMultiple', children: userConfig }, // 多选
   { name: '创建人', code: 'creatorName' },
   {
     name: '创建时间',

@@ -753,3 +753,48 @@ export function isEmpty(val) {
 // {export const isEmpty = (value) => {
 //   return (value === null || value === undefined || value === '' || value === 'null' || value === 'NULL' || value === 'NAN');
 // };}
+
+export const isLocalhost = Boolean(
+  window.location.hostname === 'localhost' ||
+    // [::1] is the IPv6 localhost address.
+    window.location.hostname === '[::1]' ||
+    // 127.0.0.1/8 is considered localhost for IPv4.
+    window.location.hostname.match(
+      /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
+    )
+);
+
+// 数据存储
+export const cache = {
+  set(key, data) {
+    localStorage.setItem(key, JSON.stringify(data));
+  },
+  get(key) {
+    const rights = localStorage.getItem(key);
+    // 判断权限为空特殊情况
+    if (rights !== 'undefined') {
+      return JSON.parse(localStorage.getItem(key));
+    }
+    return '';
+  },
+  clear(key) {
+    localStorage.removeItem(key);
+  },
+};
+// 数据存储sessionstorage
+export const cacheSession = {
+  set(key, data) {
+    sessionStorage.setItem(key, JSON.stringify(data));
+  },
+  get(key) {
+    const rights = sessionStorage.getItem(key);
+    // 判断权限为空特殊情况
+    if (rights !== 'undefined') {
+      return JSON.parse(sessionStorage.getItem(key));
+    }
+    return '';
+  },
+  clear(key) {
+    sessionStorage.removeItem(key);
+  },
+};
