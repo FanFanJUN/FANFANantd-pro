@@ -146,7 +146,7 @@ export default {
     "/api/lc": {
       // "target": "http://129.28.167.200:20080",
       // "target": "http://120.55.81.129:20080",
-      "target": "http://localhost:20080", 
+      "target": "http://39.99.234.52:9999", 
       "changeOrigin": true,
       // "pathRewrite": { "^/api" : "" }
     }

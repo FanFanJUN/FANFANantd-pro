@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 import { isEmpty } from '@/utils/utils';
 import SimpleTable from './SimpleTable';
 
-
 class SearchTable extends Component {
     params = null;
     value = '';
@@ -517,7 +516,7 @@ class SearchTable extends Component {
     render() {
       const suffix = !this.props.disabled && ([
         this.props.value && <Icon key="emptyClick" type="close" onClick={this.emptyValue} />,
-        <Icon key="selectClict" type="down" onClick={this.showDrop} />,
+        <Icon key="selectClict" type={this.state.show ? 'up' : 'down'} onClick={this.showDrop} />,
       ]);
       let {style}=this.props;
         if (this.state.show){
